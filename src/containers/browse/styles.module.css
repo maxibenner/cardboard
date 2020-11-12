@@ -1,0 +1,24 @@
+.container {
+    max-width: 1400px;
+    margin: 10px 10px 15px 10px;
+    padding: 15px 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+    height: fit-content;
+}
+@media (max-width: 1100px){
+    .container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media (max-width: 850px){
+    .container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 500px){
+    .container {
+        grid-template-columns: 1fr;
+    }
+}

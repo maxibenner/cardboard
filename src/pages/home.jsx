@@ -9,5 +9,13 @@ export default function Home() {
     const { clips } = useContent("clips");
     const groups = getGroups(clips)
 
-    return <BrowseContainer clips={clips} groups={groups}/>
+    return (
+        <>
+            <h1>Home</h1>
+            <BrowseContainer clips={clips} groups={groups}/>
+        </>
+    );
+    
+    
+    
 };

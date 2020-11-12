@@ -1,0 +1,44 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.164);
+}
+.imageContainer {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+.image {
+    position: relative;
+    top: -5%;
+    background-size: cover;
+    height: 110%;
+    background-image: url("../../placeholder.jpg");
+}
+.body {
+    display: flex;
+    padding: 15px 10px 15px 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+.main {
+    display: flex;
+}
+.title {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+.icon {
+    max-height: 18px;
+    margin-right: 10px;
+}
+
+
