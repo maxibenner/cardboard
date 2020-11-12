@@ -1,0 +1,39 @@
+
+.element {
+    cursor: pointer;
+    transition:.15s;
+}
+.element:hover {
+    margin-right:-2px;
+}
+.element:hover > .right {
+    margin-left:2px;
+    opacity:1;
+}
+.arrowLight {
+    border: solid var(--light);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.arrowDark {
+    border: solid var(--dark);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+.right {
+    opacity:0;
+    transition:.15s;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.bold {
+    font-weight:bold;
+}
+.textLight {
+    color:var(--light);
+}
+.textDark {
+    color:var(--dark);
+}

@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Landing from './pages/landing';
+import Home from './pages/home';
+import Signin from './pages/signin.jsx';
+import Signup from './pages/signup';
+import * as ROUTES from './constants/routes';
+import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
+import { useAuthListener } from './hooks/use-auth-listener.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App() {
+
+	const { user } = useAuthListener();
+
+	return (
+		<Router>
+
+			<Route path={ROUTES.LANDING} exact>
+				<Landing />
+			</Route>
+			
+			<IsUserRedirect user={user} path={ROUTES.SIGN_UP} loggedInPath={ROUTES.HOME} exact>
+				<Signup />
+			</IsUserRedirect>
+
+			<IsUserRedirect user={user} path={ROUTES.SIGN_IN} loggedInPath={ROUTES.HOME} exact>
+				<Signin />
+			</IsUserRedirect>
+
+			<ProtectedRoute user={user} path={ROUTES.HOME} exact>
+				<Home />
+			</ProtectedRoute>
+			
+		</Router>
+	);
 }
-
-export default App;

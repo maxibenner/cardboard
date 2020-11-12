@@ -1,0 +1,28 @@
+
+.nav {
+    background: var(--main);
+    color: var(--dark);
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    top: 0;
+    z-index: 999;
+}
+
+.logo {
+    max-height: 21px;
+    max-width: 140px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 25px;
+    max-width: 1400px;
+    width: 100%;
+}

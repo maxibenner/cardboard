@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    padding: 70px;
+    margin: auto;
+    max-width: 1000px;
+    flex-direction: column;
+}
+
+@media (max-width: 600px){
+    .container {
+        padding: 70px 30px;
+    }
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+}
+
+@media (max-width:600px){
+    .row {
+        flex-direction:column;
+    }   
+}
+
+.link {
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.text {
+    font-size: 16px;
+    color: var(--dark);
+}
