@@ -1,0 +1,22 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+  
+    // Data
+    match /users/{userId}/{allPaths=**} {
+    allow read, delete: if request.auth.uid == userId;
+    }
+    
+    // Thumbnail write
+    match /users/{userId}/thumbnails/{doc} {
+    allow write: if request.auth.uid == userId;
+    }
+    
+    
+    // Public Read
+    match /publicRead/{allPaths=**} {
+    allow read: if true;
+    }
+  }
+}
+

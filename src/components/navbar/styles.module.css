@@ -1,6 +1,6 @@
 
 .nav {
-    background: var(--main);
+    background: var(--light);
     color: var(--dark);
     height: 70px;
     display: flex;
@@ -9,11 +9,21 @@
     top: 0;
     z-index: 999;
 }
+.nav_yellow {
+    background: var(--main);
+}
 
 .logo {
     max-height: 21px;
     max-width: 140px;
     width: 100%;
+}
+.link {
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
 }
 
 .container {

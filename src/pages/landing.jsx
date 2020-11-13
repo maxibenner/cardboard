@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 export default function Landing() {
     return (
         <div className="landing--base">
-            <Navbar to={ROUTES.LANDING}/>
+            <Navbar yellow to={ROUTES.LANDING}/>
             <div className='index--wrapper-landing'>
                 <div className='index--container'>
                     <div>
@@ -20,11 +20,11 @@ export default function Landing() {
                     </h2>
                         <div className='index--hero-button-container'>
                             <Link to={ROUTES.SIGN_UP}>
-                                <Button text="Sign Up"/>
+                                <Button large red text="Sign Up"/>
                             </Link>
                         </div>
                     </div>
-                    <div>
+                    <div className='index--hero-img-container'>
                         <img className='index--hero-img' src="/images/landing--hero.jpg" alt="" />
                         <img src="/images/landing-graphics.svg" alt="" className='index--hero-illustrations' />
                     </div>
@@ -133,7 +133,7 @@ export default function Landing() {
                             <h2 className='index--sub index--sub_centered'>And get 3GB of storage for free</h2>
                             <div className='index--CTA-button-container'>
                                 <Link to={ROUTES.SIGN_UP}>
-                                    <Button text="Sign Up"/>
+                                    <Button large red text="Sign Up"/>
                                 </Link>
                             </div>
                         </div>

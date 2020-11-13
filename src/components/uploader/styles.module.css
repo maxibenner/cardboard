@@ -1,0 +1,10 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background: var(--dark);
+    color: var(--light);
+    padding: 15px;
+}
+.header > p {
+    margin: 0;
+}

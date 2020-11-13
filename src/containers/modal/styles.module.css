@@ -1,0 +1,8 @@
+.modal {
+    position: absolute;
+    background: var(--blue);
+    top: 0;
+    width: 100%;
+    min-height: 100vh;
+    z-index:999;
+}

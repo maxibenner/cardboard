@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { FirebaseContext } from '../context/firebase';
 
-export default function useContent(target) {
+export default function useContent(target, uid) {
     const [content, setContent] = useState([]);
     const { firebase } = useContext(FirebaseContext);
 
@@ -9,7 +9,7 @@ export default function useContent(target) {
         firebase
             .firestore()
             .collection("users")
-            .doc("zGdHyxA4pcd453KFU7U0jexBiYz2")
+            .doc(uid)
             .collection(target)
             .get()
             .then((snapshot) => {

@@ -33,7 +33,7 @@ export default function Signin() {
 
     return (
         <div className={styles.base}>
-            <Navbar to={ROUTES.LANDING} noMenu />
+            <Navbar yellow to={ROUTES.LANDING} noMenu />
             <div className={styles.wrapper}>
                 <form onSubmit={handleSignin} className={styles.form}>
                     <h1 className={styles.title}>Login</h1>
@@ -48,7 +48,7 @@ export default function Signin() {
                         type="password"
                         label="Password*" value={password}
                         onChange={value => setPassword(value)} />
-                    <Button type="submit" text="Sign In" />
+                    <Button large red type="submit" text="Sign In" />
                     <p>Don't have an account, yet? <Link to={ROUTES.SIGN_UP}>Sign up</Link></p>
                 </form>
             </div>

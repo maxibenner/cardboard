@@ -1,0 +1,7 @@
+.hiddenInput {
+    display: none;
+}
+
+.horizontalContainer {
+    display: flex;
+}

@@ -3,22 +3,15 @@
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    min-width: 250px;
-    max-width: 350px;
-    height: 67px;
+    min-width: 100px;
+    max-width: 140px;
+    height: 46px;
     background: none;
     border: none;
     padding: 0;
 }
-
-.container:disabled {
-    opacity: .1;
-    cursor: default;
-}
-
-
-.top {
-    background: var(--red);
+.container > div:first-child {
+    background: var(--light);
     box-sizing: border-box;
     position: absolute;
     display: flex;
@@ -26,28 +19,79 @@
     align-items: center;
     width: 350px;
     max-width: 100%;
-    height: 60px;
+    height: 40px;
     border: 3px solid black;
     border-radius: 33px;
     z-index: 1;
     top:0;
-}
-
-.bottom {
-    background: var(--redDark);
+} 
+.container > div:first-child > p {
+    color: var(--dark);
+    font-size: 16px;
+    margin: 0;
+}  
+.container > div:nth-child(2) {
+    background: var(--light);
     box-sizing: border-box;
     position: absolute;
-    top: 7px;
+    top: 6px;
     border: 3px solid black;
     width: 350px;
     max-width: 100%;
+    height: 40px;
+    border-radius: 33px;
+}   
+
+
+
+/*__________ Large __________*/
+.container_large {
+    min-width: 250px;
+    max-width: 350px;
+    height: 67px;
+}
+.container_large > div:first-child {
     height: 60px;
     border-radius: 33px;
-}
-
-.text {
-    color: white;
+} 
+.container_large > div:first-child > p {
+    /*font-weight: bold;*/
     font-size: 22px;
-    margin: 0;
-}
+}  
+.container_large > div:nth-child(2) {
+    top: 7px;
+    max-width: 100%;
+    height: 60px;
+    border-radius: 33px;
+} 
 
+
+
+/*__________ Red __________*/
+.container_red > div:first-child {
+    background: var(--red);
+} 
+.container_red > div:first-child > p {
+    color: white;
+}  
+.container_red > div:nth-child(2) {
+    background: var(--redDark);
+}  
+
+/*__________ Blue __________*/
+.container_blue > div:first-child {
+    background: var(--blue);
+} 
+.container_blue > div:first-child > p {
+    color: white;
+}  
+.container_blue > div:nth-child(2) {
+    background: var(--blue);
+}  
+
+
+/*__________ Modifiers __________*/
+.container:disabled {
+    opacity: .1;
+    cursor: default;
+}

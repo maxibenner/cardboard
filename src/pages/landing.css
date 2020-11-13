@@ -58,6 +58,9 @@
     margin: 15px auto 30px 0;
     max-width: 400px;
 }
+.index--hero-img-container {
+    width: 50vw;
+}
 .index--hero-img {
     max-width: 800px;
     width: 100%;
@@ -73,6 +76,9 @@
 @media(max-width:900px){
     .index--hero-illustrations {
         z-index:-1;
+    }
+    .index--hero-img-container {
+        width: unset;
     }
 }
 .index--button {

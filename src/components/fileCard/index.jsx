@@ -9,14 +9,15 @@ export default function FileCard(props) {
             <div className={styles.imageContainer}>
                 <div className={styles.image}></div>
             </div>
-            <div className={styles.body}>
-                <div className={styles.main}>
-                    {props.isGroup && <img className={styles.icon} src={folderIcon} />}
-                    <p className={styles.title}>{props.title}</p>
-                </div>
-                <ContextMenu />
-            </div>
 
+                <div className={styles.body}>
+                    <div className={styles.main}>
+                        {props.isGroup && <img className={styles.icon} src={folderIcon} />}
+                        <p className={styles.title}>{props.title}</p>
+                    </div>
+                    <ContextMenu />
+                </div>
+       
         </div>
     );
 }
