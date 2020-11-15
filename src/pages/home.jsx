@@ -25,8 +25,7 @@ export default function Home() {
     const [uploadModalActive, setUploadModalActive] = useState(false)
     const [uploadStyle, setUploadStyle] = useState(null)
     const [filesForUpload, setFilesForUpload] = useState([])
-    const [uploadProgress, setUploadProgress] = useState({})
-    console.log(filesForUpload)
+
     //FUNCTIONS
     const handleClick = () => {
         inputRef.current.click()
@@ -44,10 +43,11 @@ export default function Home() {
             xhr.uuid = uuid;
             xhr.upload.onprogress = (e) => {
                 const percentage = (e.loaded / e.total) * 100
-                setUploadProgress(prevState => ({
-                    ...prevState,
-                    [uuid]: percentage
-                }))
+                setFilesForUpload(prev => {
+                    const index = prev.findIndex((element) => element.uuid === xhr.uuid);
+                    prev[index].progress = percentage;
+                    return prev
+                })
             };
             xhr.onerror = () => { xhr.abort() };
             xhr.onabort = () => {
@@ -57,18 +57,6 @@ export default function Home() {
                     console.log(newArr)
                     return newArr?newArr:[]
                 })
-                /*const arrayWithoutAbortedElement = filesForUpload.filter(
-                    (obj) => {
-                        return obj.uuid !== xhr.uuid;
-                    }
-                );
-                console.log(arrayWithoutAbortedElement)
-                arrayWithoutAbortedElement ?
-                    setFilesForUpload(arrayWithoutAbortedElement)
-                    :
-                    setFilesForUpload([]);*/
-                setUploadProgress(prevState => { delete prevState[uuid] })
-
             };
             xhr.open('PUT', url.data[0], true);
             xhr.setRequestHeader('Content-Type', inputRef.current.files[0].type);
@@ -78,6 +66,7 @@ export default function Home() {
                 ...prev,
                 {
                     uuid: uuid,
+                    progress: 0,
                     file: inputRef.current.files[0],
                     xhr: xhr
                 }
@@ -86,6 +75,7 @@ export default function Home() {
         setUploadModalActive(false);
         setUploadStyle(null);
     }
+    console.log(filesForUpload)
 
     //COMPONENT
     return (
@@ -109,7 +99,7 @@ export default function Home() {
                 clips={clips}
             />
             {filesForUpload.length > 0 &&
-                <Uploader files={filesForUpload} progressObject={uploadProgress} />
+                <Uploader files={filesForUpload} />
             }
             <Modal
                 show={uploadModalActive}

@@ -4,6 +4,7 @@ import UploadElement from '../uploadElement';
 import ShowMoreButton from '../showMoreButton';
 
 export default function Uploader(props) {
+
     return (
         <div className={styles.uploader}>
             <div className={styles.header}>
@@ -15,7 +16,7 @@ export default function Uploader(props) {
                     {props.files.map(item => (
                         <UploadElement
                             key={item.uuid}
-                            progress={props.progressObject[item.uuid]}
+                            progress={item.progress}
                             file={item.file}
                             xhr={item.xhr} />
                     ))}

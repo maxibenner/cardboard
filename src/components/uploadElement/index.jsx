@@ -4,7 +4,6 @@ import CancelButton from '../cancelButton';
 import ProgressBar from '../progressBar';
 
 export default function UploadElement(props) {
-
     return (
         <div className={styles.uploadElement}>
             <p className={styles.fileName}>{props.file.name}</p>
