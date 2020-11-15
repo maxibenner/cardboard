@@ -26,7 +26,7 @@ export default function Home() {
     const [uploadStyle, setUploadStyle] = useState(null)
     const [filesForUpload, setFilesForUpload] = useState([])
     const [uploadProgress, setUploadProgress] = useState({})
-
+    console.log(filesForUpload)
     //FUNCTIONS
     const handleClick = () => {
         inputRef.current.click()
