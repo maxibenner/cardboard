@@ -1,0 +1,13 @@
+.container {
+    width: 90%;
+    height: 10px;
+    background: var(--middleGrey);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.bar {
+    height: 100%;
+    width: 0%;
+    background: var(--blue);
+    transition: .5s;
+}

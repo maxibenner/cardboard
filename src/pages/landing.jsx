@@ -41,14 +41,14 @@ export default function Landing() {
                             <div className='home--container-features-elements'>
                                 <div>
                                     <div>
-                                        <img src="./images/landing--smartsearch.svg" alt="" />
+                                        <img src="./images/illustration--smartsearch.svg" alt="" />
                                     </div>
                                     <h3>Smart Search</h3>
                                     <p>Our smart search helps you rediscover memories and even suggests search terms.</p>
                                 </div>
                                 <div>
                                     <div>
-                                        <img src="./images/landing--scissors.svg" alt="" />
+                                        <img src="./images/illustration--scissors.svg" alt="" />
                                     </div>
                                     <h3>Auto-Cut Tapes<span className='global--textflag'>Beta</span></h3>
                                     <p>We automatically cut long tapes so you can find special moments faster and share them
@@ -57,7 +57,7 @@ export default function Landing() {
                                 </div>
                                 <div>
                                     <div>
-                                        <img src="./images/landing--server.svg" alt="" />
+                                        <img src="./images/illustration--server.svg" alt="" />
                                     </div>
                                     <h3>Safe Storage</h3>
                                     <p>We store your data in multiple secure locations in North America so you never have to
@@ -66,7 +66,7 @@ export default function Landing() {
                                 </div>
                                 <div>
                                     <div>
-                                        <img src="./images/landing--privacy.svg" alt="" />
+                                        <img src="./images/illustration--privacy.svg" alt="" />
                                     </div>
                                     <h3>Made for privacy</h3>
                                     <p>We never track you. We never analyze your data. Stay in control of your privacy.
@@ -74,7 +74,7 @@ export default function Landing() {
                                 </div>
                                 <div>
                                     <div>
-                                        <img src="./images/landing--video.svg" alt="" />
+                                        <img src="./images/illustration--video.svg" alt="" />
                                     </div>
                                     <h3>Video Optimisation</h3>
                                     <p>We transcode all videos to give you the best viewing experience. (We also store the
@@ -127,7 +127,7 @@ export default function Landing() {
 
                 <div className='index--container-CTA-wrapper'>
                     <div className='index--container-CTA'>
-                        <img src="./images/icon--swivels.svg" alt="" />
+                        <img src="./images/illustration--swivels.svg" alt="" />
                         <div>
                             <h1 className='index--title-full'><span>Join today</span></h1>
                             <h2 className='index--sub index--sub_centered'>And get 3GB of storage for free</h2>

@@ -1,6 +1,3 @@
-import { FirebaseContext } from '../context/firebase';
-import useContent from '../hooks/use-content';
-
 
 //Removes any "." from the fileName without affecting the extension
 export function removeDotsKeepExtension(string) {

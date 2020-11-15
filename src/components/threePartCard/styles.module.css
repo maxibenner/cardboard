@@ -1,0 +1,37 @@
+.card {
+    cursor: pointer;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 50px 25px 25px 25px;
+    margin: 25px;
+    width: 100%;
+    min-width: 270px;
+    max-width: 350px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+}
+.img {
+    max-width:100px;
+    max-height: 100px;
+}
+.title {
+    font-family: Recoleta;
+    font-size: 2.3em;
+    margin: 0;
+    margin-top: 25px;  
+    font-weight: bold; 
+}
+.sub {
+    font-size: 1em;
+    font-weight: normal;
+    margin: 25px 0 0 0;
+    height: 90px;
+}
+
+
+/*__________ Modifiers __________*/
+.card_yellow {
+    background: var(--main);
+}

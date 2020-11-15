@@ -1,0 +1,46 @@
+.x{
+    width:34px;
+    height:34px;
+    position:relative;
+    border-radius:6px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0);
+    transition: .2s;
+    margin: 0 0 0 auto;
+}
+.x:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transition: .2s;
+}
+.x:before,.x:after{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 4px;
+    background-color: black;
+    top: 15px;
+}
+.x:before{
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    transform:rotate(45deg);
+    left:2px;
+}
+.x:after{
+    -webkit-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+    right:2px;
+}
+
+/*__________ Modifiers __________*/
+.x_small {
+    width:20px;
+    height:20px;
+}
+.x_small:before,.x_small:after{
+    width: 16px;
+    height: 2px;
+    background-color: black;
+    top: 9px;
+}

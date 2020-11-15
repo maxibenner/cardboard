@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './styles.module.css';
+import UploadElement from '../uploadElement';
+import ShowMoreButton from '../showMoreButton';
 
-export default function Uploader(){
-
-    const [files, setFiles] = useState([])
-    const [uploading, setUploading] = useState(false)
-    const [progress, setProgress] = useState({})
-    const [uploadSuccess, setUploadSuccess] = useState(false)
-
+export default function Uploader(props) {
     return (
-        <>
+        <div className={styles.uploader}>
             <div className={styles.header}>
                 <p>Uploads</p>
-                <div>minimize</div>
+                <ShowMoreButton light/>
             </div>
-            <div className={styles.filesContainer}></div>
-        </>
+            {props.files.length > 0 &&
+                <div className={styles.filesContainer}>
+                    {props.files.map(item => (
+                        <UploadElement key={item.uuid} progress={props.progressObject[item.uuid]} file={item.file} xhr={item.xhr} />
+                    ))}
+                </div>
+            }
+        </div>
     );
 }

@@ -1,0 +1,59 @@
+.button{
+    width:25px;
+    height:25px;
+    position:relative;
+    border-radius:6px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0);
+    margin: 0 0 0 auto;
+}
+.button:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+.button:before,.button:after{
+    content: '';
+    position: absolute;
+    width: 13px;
+    height: 3px;
+    background-color: black;
+    top: 15px;
+}
+.button:before{
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    transform:rotate(45deg);
+    left:2px;
+}
+.button:after{
+    -webkit-transform:rotate(-45deg);
+    -moz-transform:rotate(-45deg);
+    transform:rotate(-45deg);
+    right:2px;
+}
+
+/*__________ Modifiers __________*/
+.button_small {
+    width:20px;
+    height:20px;
+}
+.button_small:before,.button_small:after{
+    width: 16px;
+    height: 2px;
+    background-color: black;
+    top: 9px;
+}
+
+.button_light {
+    background: rgba(255, 255, 255, 0);
+}
+.button_light:before,.button_light:after{
+    background-color: white;
+    top: 12px;
+}
+.button_light:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.button_up {
+    transform: rotate(180deg);
+}

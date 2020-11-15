@@ -3,5 +3,9 @@
 }
 
 .horizontalContainer {
+    padding-top: 50px;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -25px;
 }

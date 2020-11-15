@@ -1,0 +1,8 @@
+.fileName {
+    margin: 5px 0;
+}
+.interactiveContainer {
+    display: flex;
+    align-items: center;
+    padding-bottom: 15px;
+}
