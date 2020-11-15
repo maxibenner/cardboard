@@ -1,6 +1,5 @@
 # Cardboard
 
-Cloud Storage for the Digitization Industry
 
 
 TEST CREDENTIALS<br>
