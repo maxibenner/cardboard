@@ -8,12 +8,16 @@ export default function Uploader(props) {
         <div className={styles.uploader}>
             <div className={styles.header}>
                 <p>Uploads</p>
-                <ShowMoreButton light/>
+                <ShowMoreButton light />
             </div>
             {props.files.length > 0 &&
                 <div className={styles.filesContainer}>
                     {props.files.map(item => (
-                        <UploadElement key={item.uuid} progress={props.progressObject[item.uuid]} file={item.file} xhr={item.xhr} />
+                        <UploadElement
+                            key={item.uuid}
+                            progress={props.progressObject[item.uuid]}
+                            file={item.file}
+                            xhr={item.xhr} />
                     ))}
                 </div>
             }
