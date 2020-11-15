@@ -12,7 +12,7 @@ export default function FileCard(props) {
 
                 <div className={styles.body}>
                     <div className={styles.main}>
-                        {props.isGroup && <img className={styles.icon} src={folderIcon} />}
+                        {props.isGroup && <img className={styles.icon} src={folderIcon} alt='FolderIcon' />}
                         <p className={styles.title}>{props.title}</p>
                     </div>
                     <ContextMenu />
