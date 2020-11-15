@@ -20,5 +20,6 @@ export function useAuthListener() {
 
         return () => listener();
     }, [firebase]);
+
     return { user };
 }
