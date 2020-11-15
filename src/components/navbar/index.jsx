@@ -26,7 +26,7 @@ export default function Navbar(props) {
         <div className={classes}>
             <div className={styles.container}>
                 <Link to={props.to}>
-                    <img className={styles.logo} to="/" src={Logo} />
+                    <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
                 </Link>
                 {!props.noMenu &&
                     <div className={styles.menu}>
