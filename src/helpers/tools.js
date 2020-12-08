@@ -1,24 +1,31 @@
-import { removeDotsKeepExtension } from './convenience';
-import { v4 as uuidv4 } from 'uuid';
-import { firebase } from '../lib/firebase.dev';
+import { firebase } from '../lib/firebase';
 
 
-//Get signed upload url
+//Get signed upload url and create file doc
 export async function getSignedUploadUrl(file) {
 
-    const uuid = uuidv4()
-    const sanitizedFileName = removeDotsKeepExtension(file.name)
+    // Extract information from filename (with dot safety)
+    const partsArray = file.name.split('.')
+    const extension = partsArray.pop()
+    const fileName = partsArray.join('.')
 
-    const url = await firebase.functions().httpsCallable('signUploadUrl')({
-        id: uuid,
-        originalName: sanitizedFileName,
+    const res = await firebase.functions().httpsCallable('signUploadUrl')({
         contentType: file.type,
-        extension: sanitizedFileName.split('.')[1]
+        name: file.name
     })
 
     return {
-        url: url,
-        uuid: uuid
+        url: res.data.url,
+        uuid: res.data.uuid,
+        key: res.data.key,
+        name: fileName
     }
 }
+
+//Check if file exists on Wasabi
+export async function checkWasabiFile(key) {
+    return await firebase.functions().httpsCallable('checkWasabiFile')(key)
+}
+
+
 

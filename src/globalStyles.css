@@ -19,17 +19,27 @@
     --main: #FFE390;
     --yellow: #F9C463;
     --blue: #358FDD;
+    --blueDark: #205584;
     --red: #FF6760;
     --redDark: #C04A3F;
     --ph: #bdbdbd;
     --middleGrey: #ebebeb;
     --bg: #fafafa;
+    --transparentBg: rgba(0, 0, 0, 0.8);
 }
 
 html {
     font-family: Inter;
 }
 
+body {
+    font-size: 16px;
+}
+
 a {
     text-decoration: none;
+    cursor: default;
+}
+a:active, a:visited {
+    color: inherit;
 }

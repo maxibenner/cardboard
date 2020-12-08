@@ -385,6 +385,10 @@
     width: fit-content;
     margin: 0 auto;
 }
+.index--CTA-img {
+    max-width: 50px;
+    margin: 25px auto;
+}
 
 /*__________Footer__________*/
 .index--footer {

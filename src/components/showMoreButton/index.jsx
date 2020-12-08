@@ -9,8 +9,13 @@ export default function ShowMoreButton(props) {
     
     const toggleButtonStatus = () => setDown(bool => !bool);
 
+    const handleClick = () => {
+        toggleButtonStatus()
+        props.onClick()
+    }
+
     return (
-        <div onClick={toggleButtonStatus} className={classes}>
+        <div onClick={handleClick} className={classes}>
             <span></span>
         </div>
     );

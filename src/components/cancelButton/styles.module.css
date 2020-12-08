@@ -3,7 +3,6 @@
     height:34px;
     position:relative;
     border-radius:6px;
-    cursor: pointer;
     background: rgba(0, 0, 0, 0);
     transition: .2s;
     margin: 0 0 0 auto;
@@ -17,7 +16,7 @@
     position: absolute;
     width: 30px;
     height: 4px;
-    background-color: black;
+    background-color: var(--dark);
     top: 15px;
 }
 .x:before{
@@ -41,6 +40,16 @@
 .x_small:before,.x_small:after{
     width: 16px;
     height: 2px;
-    background-color: black;
     top: 9px;
+}
+
+/* Light */
+.x_light{
+    background: rgba(255, 255, 255, 0);
+}
+.x_light:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+.x_light:before,.x_light:after{
+    background-color: var(--light);
 }

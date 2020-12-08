@@ -1,0 +1,13 @@
+.element {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 25px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.horizontal {
+    flex-direction: column;
+    align-items: center;
+}

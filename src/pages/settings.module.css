@@ -1,0 +1,14 @@
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 25px;
+    box-sizing: border-box;
+    height: fit-content;
+}
+
+/*__________ Modifiers __________*/
+
+.hidden {
+    display: none;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../globalStyles.css';
 import './landing.css';
-import Navbar from '../components/navbar';
+import NavbarLanding from '../components/navbarLanding';
 import Button from "../components/button/"
 import Footer from '../components/footer';
 import * as ROUTES from '../constants/routes';
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 export default function Landing() {
     return (
         <div className="landing--base">
-            <Navbar yellow to={ROUTES.LANDING}/>
+            <NavbarLanding yellow to={ROUTES.LANDING}/>
             <div className='index--wrapper-landing'>
                 <div className='index--container'>
                     <div>
@@ -127,7 +127,7 @@ export default function Landing() {
 
                 <div className='index--container-CTA-wrapper'>
                     <div className='index--container-CTA'>
-                        <img src="./images/illustration--swivels.svg" alt="" />
+                        <img className='index--CTA-img' src="./images/illustration--swivels.svg" alt="" />
                         <div>
                             <h1 className='index--title-full'><span>Join today</span></h1>
                             <h2 className='index--sub index--sub_centered'>And get 3GB of storage for free</h2>

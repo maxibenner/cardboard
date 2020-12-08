@@ -1,0 +1,28 @@
+
+
+.container {
+    position: absolute;
+    overflow: hidden;
+    right: 0px;
+    top: calc(100% + 5px);
+    border-radius: 7px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.158);
+    padding: 5px;
+    z-index: 999;
+}
+
+
+
+/*__________ Modifieres __________*/
+.closed {
+    height:0;
+    padding: 0;
+}
+.top {
+    top: unset;
+    bottom: calc(100% + 5px);
+}
+.small {
+    font-size: .9rem;
+}

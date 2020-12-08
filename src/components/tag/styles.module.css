@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    margin: 5px;
+    height: fit-content;
+    padding: 7px 15px 7px 10px;
+    background: var(--dark);
+    color: var(--light);
+    border-radius: 20px;
+    align-items: center;
+}
+
+.container>p {
+    margin: 0;
+    margin-left: 5px;
+    font-size: .9em;
+}

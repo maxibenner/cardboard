@@ -6,8 +6,12 @@ export default function Button(props) {
     const classes = `
                     ${styles.container} 
                     ${props.large ? styles.container_large : styles.container_normal}
+                    ${props.fitText && styles.container_fitText}
+                    ${props.wide ? styles.container_wide : styles.container_normal}
                     ${props.red && styles.container_red}
                     ${props.blue && styles.container_blue}
+                    ${props.yellow && styles.container_yellow}
+                    ${props.dark && styles.container_dark}
                     `
 
     return (
@@ -15,7 +19,6 @@ export default function Button(props) {
             <div>
                 <p className={styles.text}>{props.text}</p>
             </div>
-            <div></div>
         </button>
     );
 }

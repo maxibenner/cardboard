@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from "../../media/logo-dark.svg"
-import ArrowText from "../arrow-text"
 import * as ROUTES from '../../constants/routes';
 import styles from './styles.module.css';
 import { FirebaseContext } from '../../context/firebase';
+import { MdSettings } from 'react-icons/md';
+import { HiOutlineLogout } from 'react-icons/hi';
+import { BiBookHeart } from 'react-icons/bi';
+
+import Dropdown from '../dropdown';
+import MenuToggle from '../menuToggle';
+import ButtonLight from '../buttonLight';
 
 
 
@@ -12,33 +18,32 @@ import { FirebaseContext } from '../../context/firebase';
 export default function Navbar(props) {
 
     const { firebase } = useContext(FirebaseContext);
-
-    const classes = `
-        ${styles.nav}
-        ${props.yellow && styles.nav_yellow}
-    `
+    const [menuActive, setMenuActive] = useState(false)
 
     const logout = () => {
         firebase.auth().signOut()
     }
 
     return (
-        <div className={classes}>
-            <div className={styles.container}>
-                <Link to={props.to}>
-                    <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
-                </Link>
-                {!props.noMenu &&
-                    <div className={styles.menu}>
-                        {props.loggedIn ?
-                            <p className={styles.link} onClick={logout}>Logout</p>
-                            :
-                            <Link to={ROUTES.SIGN_IN}>
-                                <ArrowText text="Login" />
-                            </Link>
-                        }
-                    </div>
-                }
+        <div className={styles.nav}>
+            <div className={`${styles.container} ${menuActive && styles.topLayer}`}>
+
+                <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
+
+                <MenuToggle active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                    {
+                        menuActive && <div className={styles.menuBackground} />
+                    }
+                    <Dropdown active={menuActive}>
+                        <Link to={ROUTES.LIBRARY}>
+                            <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                        </Link>
+                        <Link to={ROUTES.SETTINGS}>
+                            <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                        </Link>
+                        <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
+                    </Dropdown>
+                </MenuToggle>
             </div>
         </div>
     );

@@ -9,6 +9,7 @@
     border-top-right-radius: 5px;
     overflow: hidden;
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.171);
+    background: var(--light);
 }
 .header {
     display: flex;

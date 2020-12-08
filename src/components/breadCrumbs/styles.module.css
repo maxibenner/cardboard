@@ -1,0 +1,16 @@
+.breadCrumbContainer {
+    display: flex;
+    cursor: default;
+    align-items: center;
+    height: 70px;
+}
+.breadCrumb {
+    padding: 10px 15px;
+    border-radius: 7px;
+}
+.breadCrumb:hover {
+    /*color: var(--blue);*/
+    background: var(--middleGrey);
+    padding: 10px 15px;
+    transition: .2s;
+}

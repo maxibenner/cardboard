@@ -3,8 +3,11 @@ import styles from './styles.module.css';
 
 export default function CancelButton(props) {
 
-    const classes = `${styles.x} ${props.small&&styles.x_small}`
-    
+    const classes = `${styles.x
+        } ${props.small && styles.x_small
+        } ${props.light && styles.x_light
+        }`
+
     return (
         <div onClick={props.onClick} className={classes}>
             <span></span>

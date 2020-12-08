@@ -1,96 +1,136 @@
 .container {
-    cursor: pointer;
     position: relative;
     box-sizing: border-box;
     width: 100%;
     min-width: 100px;
     max-width: 140px;
-    height: 46px;
+    height: 42px;
     background: none;
     border: none;
     padding: 0;
 }
-.container > div:first-child {
-    background: var(--light);
+
+.container>div {
+    background: var(--bg);
     box-sizing: border-box;
-    position: absolute;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 350px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 350px;
     height: 40px;
-    border: 3px solid black;
-    border-radius: 33px;
-    z-index: 1;
-    top:0;
-} 
-.container > div:first-child > p {
+    box-shadow: 0 3px 0 var(--ph);
+    border-radius: 7px;
+    transition: .1s;
+}
+
+.container>div:hover {
+    box-shadow: 0 2px 0 var(--ph);
+    transform: translateY(1px);
+}
+
+.container>div>p {
     color: var(--dark);
     font-size: 16px;
     margin: 0;
-}  
-.container > div:nth-child(2) {
-    background: var(--light);
-    box-sizing: border-box;
-    position: absolute;
-    top: 6px;
-    border: 3px solid black;
-    width: 350px;
-    max-width: 100%;
-    height: 40px;
-    border-radius: 33px;
-}   
-
-
+}
 
 /*__________ Large __________*/
+
 .container_large {
-    min-width: 250px;
     max-width: 350px;
+    min-width: 270px;
     height: 67px;
 }
-.container_large > div:first-child {
+
+.container_large>div {
     height: 60px;
-    border-radius: 33px;
-} 
-.container_large > div:first-child > p {
+    border-radius: 15px;
+}
+
+.container_large>div>p {
     /*font-weight: bold;*/
     font-size: 22px;
-}  
-.container_large > div:nth-child(2) {
-    top: 7px;
-    max-width: 100%;
-    height: 60px;
-    border-radius: 33px;
-} 
+}
 
+/*__________ fitText __________*/
+
+.container_fitText {
+    width: unset
+}
+
+
+/*__________ Wide __________*/
+
+.container_wide {
+    max-width: 350px;
+    width: 100%;
+}
 
 
 /*__________ Red __________*/
-.container_red > div:first-child {
+
+.container_red>div {
     background: var(--red);
-} 
-.container_red > div:first-child > p {
+    box-shadow: 0 3px 0 var(--redDark);
+}
+
+.container_red>div>p {
     color: white;
-}  
-.container_red > div:nth-child(2) {
-    background: var(--redDark);
-}  
+}
+
+.container_red>div:hover {
+    box-shadow: 0 2px 0 var(--redDark);
+}
 
 /*__________ Blue __________*/
-.container_blue > div:first-child {
-    background: var(--blue);
-} 
-.container_blue > div:first-child > p {
-    color: white;
-}  
-.container_blue > div:nth-child(2) {
-    background: var(--blue);
-}  
 
+.container_blue>div {
+    background: var(--blue);
+    box-shadow: 0 3px 0 var(--blueDark);
+}
+
+.container_blue>div>p {
+    color: white;
+}
+
+.container_blue>div:hover {
+    box-shadow: 0 2px 0 var(--blueDark);
+}
+
+/*__________ Yellow __________*/
+
+.container_yellow>div {
+    background: var(--main);
+    box-shadow: 0 3px 0 var(--yellow);
+}
+
+.container_yellow>div>p {
+    color: var(--dark);
+}
+
+.container_yellow>div:hover {
+    box-shadow: 0 2px 0 var(--yellow);
+}
+
+/*__________ Dark __________*/
+
+.container_dark>div {
+    background: var(--dark);
+    box-shadow: 0 3px 0 var(--dark);
+}
+
+.container_dark>div>p {
+    color: var(--light);
+}
+
+.container_dark>div:hover {
+    box-shadow: 0 2px 0 var(--dark);
+}
 
 /*__________ Modifiers __________*/
+
 .container:disabled {
     opacity: .1;
     cursor: default;

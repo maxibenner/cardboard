@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    cursor: default;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+.title {
+    margin: 0;
+    margin-left: 5px;
+}
+
+.container:hover {
+    background: var(--middleGrey);
+    transition: .2s;
+}
+
+/*__________ MODIFIERS __________*/
+
+.danger {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: .9rem;
+    color: var(--red);
+    border-radius: 5px;
+    cursor: default;
+    padding: 10px 15px;
+    margin: 0;
+    transition: .2s;
+}
+
+.danger:hover {
+    background: #ff68602c;
+}

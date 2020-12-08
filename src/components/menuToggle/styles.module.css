@@ -1,0 +1,31 @@
+.container {
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+    padding: 7px;
+    border-radius: 7px;
+    transition: .2s;
+    z-index:1;
+}
+
+.container:hover {
+    background-color: var(--middleGrey);
+}
+
+.container>span {
+    display: block;
+    position: relative;
+    height: 3px;
+    width: 23px;
+    background-color: black;
+    border-radius: 2px;
+    margin-bottom: 4px;
+}
+
+.container>span:last-child {
+    margin-bottom: 0px;
+}
+
+.container_active {
+    background-color: var(--middleGrey);
+}

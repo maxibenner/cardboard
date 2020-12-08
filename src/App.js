@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Landing from './pages/landing';
-import Home from './pages/home';
+import Library from './pages/library';
+import Settings from './pages/settings.jsx';
 import Signin from './pages/signin.jsx';
 import Signup from './pages/signup';
 import * as ROUTES from './constants/routes';
@@ -20,16 +21,20 @@ export default function App() {
 				<Landing />
 			</Route>
 			
-			<IsUserRedirect user={user} path={ROUTES.SIGN_UP} loggedInPath={ROUTES.HOME} exact>
+			<IsUserRedirect user={user} path={ROUTES.SIGN_UP} loggedInPath={ROUTES.LIBRARY} exact>
 				<Signup />
 			</IsUserRedirect>
 
-			<IsUserRedirect user={user} path={ROUTES.SIGN_IN} loggedInPath={ROUTES.HOME} exact>
+			<IsUserRedirect user={user} path={ROUTES.SIGN_IN} loggedInPath={ROUTES.LIBRARY} exact>
 				<Signin />
 			</IsUserRedirect>
 
-			<ProtectedRoute user={user} path={ROUTES.HOME} exact>
-				<Home />
+			<ProtectedRoute user={user} path={ROUTES.LIBRARY} exact>
+				<Library />
+			</ProtectedRoute>
+
+			<ProtectedRoute user={user} path={ROUTES.SETTINGS} exact>
+				<Settings />
 			</ProtectedRoute>
 			
 		</Router>
