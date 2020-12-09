@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 import UploadElement from '../uploadElement';
-import ShowMoreButton from '../showMoreButton';
+import ButtonExpand from '../buttonExpand';
 
 export default function Uploader(props) {
 
@@ -15,7 +15,7 @@ export default function Uploader(props) {
         <div className={styles.uploader}>
             <div className={styles.header}>
                 <p>Uploads</p>
-                <ShowMoreButton light onClick={minimize}/>
+                <ButtonExpand light onClick={minimize}/>
             </div>
             {props.files.length > 0 && open &&
                 <div className={styles.filesContainer}>

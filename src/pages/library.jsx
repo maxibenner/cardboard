@@ -31,7 +31,6 @@ export default function Library() {
     const [filesForUpload, setFilesForUpload] = useState([]);
     const [activeMedia, setActiveMedia] = useState(null);
     const [visibleElements, setVisibleElements] = useState(null);
-    const [activeTags, setActiveTags] = useState(null)
 
     //__________ FUNCTIONS __________//
 

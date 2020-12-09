@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from './styles.module.css';
-import FileCard from '../../components/fileCard';
-import FolderCard from '../../components/folderCard';
+import CardFile from '../../components/cardFile';
+import CardFolder from '../../components/cardFolder';
 import BreadCrumbs from '../../components/breadCrumbs';
-import Button from '../../components/button';
 
-import { useSpring, animated } from 'react-spring';
-import Padding from "../padding";
 
 
 //______________________________ READ ME ______________________________//
@@ -230,7 +227,7 @@ export default function BrowseContainer(props) {
                     // Only render files in the current path
                     if (file.display_type !== 'folder') {
 
-                        return <FileCard
+                        return <CardFile
                             onDragStart={trackDragSource}
                             onDrop={setNewFilePath}
                             key={file.id}
@@ -241,7 +238,7 @@ export default function BrowseContainer(props) {
                     } else {
 
                         // Render folder once
-                        return <FolderCard
+                        return <CardFolder
                             key={file.id}
                             id={file.id}
                             path={file.path}

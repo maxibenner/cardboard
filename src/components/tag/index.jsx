@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './styles.module.css';
-import CancelButton from '../cancelButton';
+import ButtonCancel from '../buttonCancel';
 
 export default function Tag(props) {
     return (
         <div className={styles.container}>
-            <CancelButton light small onClick={()=>props.onCancel(props.title)} />
+            <ButtonCancel light small onClick={()=>props.onCancel(props.title)} />
             <p>{props.title}</p>
         </div>
     )

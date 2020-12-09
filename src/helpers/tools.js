@@ -6,7 +6,6 @@ export async function getSignedUploadUrl(file) {
 
     // Extract information from filename (with dot safety)
     const partsArray = file.name.split('.')
-    const extension = partsArray.pop()
     const fileName = partsArray.join('.')
 
     const res = await firebase.functions().httpsCallable('signUploadUrl')({

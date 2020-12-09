@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import * as ROUTES from '../constants/routes';
-import Navbar from '../components/navbar';
+import NavbarLanding from '../components/navbarLanding';
 import Button from '../components/button';
 import Input from '../components/input';
 import styles from "./signin.module.css";
@@ -33,7 +33,7 @@ export default function Signin() {
 
     return (
         <div className={styles.base}>
-            <Navbar yellow to={ROUTES.LANDING} noMenu />
+            <NavbarLanding yellow to={ROUTES.LANDING}/>
             <div className={styles.wrapper}>
                 <form onSubmit={handleSignin} className={styles.form}>
                     <h1 className={styles.title}>Login</h1>

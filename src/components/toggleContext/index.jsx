@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-export default function ContextToggle(props) {
+export default function ToggleContext(props) {
 
     const classes = `${styles.container} ${props.active && styles.closed}`
 

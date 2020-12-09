@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.css';
 
-export default function ShowMoreButton(props) {
+export default function ButtonExpand(props) {
 
     const [ down, setDown ] = useState(true)
 

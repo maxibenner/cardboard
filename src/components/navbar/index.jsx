@@ -9,8 +9,9 @@ import { HiOutlineLogout } from 'react-icons/hi';
 import { BiBookHeart } from 'react-icons/bi';
 
 import Dropdown from '../dropdown';
-import MenuToggle from '../menuToggle';
+import ToggleMenu from '../toggleMenu';
 import ButtonLight from '../buttonLight';
+import ToggleNotifications from '../toggleNotifications';
 
 
 
@@ -30,20 +31,25 @@ export default function Navbar(props) {
 
                 <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
 
-                <MenuToggle active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
-                    {
-                        menuActive && <div className={styles.menuBackground} />
-                    }
-                    <Dropdown active={menuActive}>
-                        <Link to={ROUTES.LIBRARY}>
-                            <ButtonLight title={'Library'} icon={<BiBookHeart />} />
-                        </Link>
-                        <Link to={ROUTES.SETTINGS}>
-                            <ButtonLight title={'Settings'} icon={<MdSettings />} />
-                        </Link>
-                        <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
-                    </Dropdown>
-                </MenuToggle>
+                <div className={styles.menuContainer}>
+                    <ToggleNotifications />
+
+                    <ToggleMenu active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                        {
+                            menuActive && <div className={styles.menuBackground} />
+                        }
+                        <Dropdown active={menuActive}>
+                            <Link to={ROUTES.LIBRARY}>
+                                <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                            </Link>
+                            <Link to={ROUTES.SETTINGS}>
+                                <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                            </Link>
+                            <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
+                        </Dropdown>
+                    </ToggleMenu>
+                </div>
+
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-export default function MenuToggle(props) {
+export default function ToggleMenu(props) {
 
     const classes = `${styles.container} ${props.active && styles.container_active}`
 

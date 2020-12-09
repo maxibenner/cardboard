@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, PureComponent } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from './styles.module.css';
 
 import { HiSearch } from 'react-icons/hi';

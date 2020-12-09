@@ -37,14 +37,11 @@
     z-index: 1;
 }
 
-.menuContainer > p {
-    margin: 0 15px;
+.menuContainer {
     display: flex;
     align-items: center;
 }
-.menuContainer > p:last-child {
-    margin-right: 0;
-}
+
 .menuBackground {
     position: fixed;
     top: 0;

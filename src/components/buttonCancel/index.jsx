@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-export default function CancelButton(props) {
+export default function ButtonCancel(props) {
 
     const classes = `${styles.x
         } ${props.small && styles.x_small

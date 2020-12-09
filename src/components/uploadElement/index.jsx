@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import CancelButton from '../cancelButton';
+import ButtonCancel from '../buttonCancel';
 import ProgressBar from '../progressBar';
 
 export default function UploadElement(props) {
@@ -9,7 +9,7 @@ export default function UploadElement(props) {
             <p className={styles.fileName}>{props.file.name}</p>
             <div className={styles.interactiveContainer}>
                 <ProgressBar progress={props.progress}/>
-                <CancelButton small onClick={()=>props.xhr.abort()}/>
+                <ButtonCancel small onClick={()=>props.xhr.abort()}/>
             </div>
         </div>
     );

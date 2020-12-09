@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import * as ROUTES from '../constants/routes';
-import Navbar from '../components/navbar';
+import NavbarLanding from '../components/navbarLanding';
 import Button from '../components/button';
 import Input from '../components/input';
 import styles from "./signup.module.css";
@@ -17,8 +17,10 @@ export default function Signup() {
 
     const handleSignup = (event) => {
         event.preventDefault();
+
+        window.alert('We currently do not accept new sign ups. Come back soon!')
         
-        firebase
+        /*firebase
             .auth()
             .createUserWithEmailAndPassword(emailAddress, password)
             .then(() => {
@@ -29,11 +31,12 @@ export default function Signup() {
                 setPassword('');
                 setError(error.message);
             })
+            */
     }
 
     return (
         <div className={styles.base}>
-            <Navbar yellow to={ROUTES.LANDING} noMenu />
+            <NavbarLanding yellow to={ROUTES.LANDING}/>
             <div className={styles.wrapper}>
                 <form onSubmit={handleSignup} className={styles.form}>
                     <h1 className={styles.title}>Sign Up</h1>

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import Button from '../button';
 
-export default function PlanCard(props) {
+export default function CardPlan(props) {
 
     const classes = `${styles.card} ${props.yellow ? styles.card_yellow : ''}`
 

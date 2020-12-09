@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
-import ContextToggle from '../contextToggle';
+import ToggleContext from '../toggleContext';
 import Dropdown from '../dropdown';
 import ButtonLight from '../buttonLight';
 import { firebase } from '../../lib/firebase';
@@ -8,7 +8,7 @@ import { FaVideo } from 'react-icons/fa';
 import { RiScissorsFill } from 'react-icons/ri';
 import { MdImage, MdAudiotrack, MdLabel, MdTitle, MdDelete } from 'react-icons/md';
 
-export default function FileCard(props) {
+export default function CardFile(props) {
 
     // Input field
     const input = useRef(null)
@@ -167,7 +167,7 @@ export default function FileCard(props) {
                     }
                 </div>
 
-                <ContextToggle onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
                     {
                         menuActive && <div className={styles.menuBackground} />
                     }
@@ -177,7 +177,7 @@ export default function FileCard(props) {
                         {props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />}
                         <ButtonLight danger title={'Delete'} icon={<MdDelete />} onClick={handleDelete} />
                     </Dropdown>
-                </ContextToggle>
+                </ToggleContext>
 
             </div>
         </div>

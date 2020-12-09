@@ -1,8 +1,7 @@
 import React from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import styles from './styles.module.css';
 
-import PlanCard from '../../components/planCard';
+import CardPlan from '../../components/cardPlan';
 import Padding from '../../containers/padding';
 import { IoMdCut } from 'react-icons/io';
 import { MdSave, MdSearch } from 'react-icons/md';
@@ -20,7 +19,7 @@ export default function Plan(props) {
         <div className={styles.wrapper}>
             <div className={styles.background} onClick={() => props.onClick(null)} />
             <Padding horizontal>
-                <PlanCard
+                <CardPlan
                     name={'Cardboard+'}
                     title={'$2.99'}
                     sub={'per month'}

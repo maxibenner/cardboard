@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
-import ContextToggle from '../contextToggle';
+import ToggleContext from '../toggleContext';
 import Dropdown from '../dropdown';
 import ButtonLight from '../buttonLight';
 import { firebase } from '../../lib/firebase';
 import { FaFolderMinus } from 'react-icons/fa';
-import { MdTitle, MdFolder } from 'react-icons/md';
+import { MdFolder } from 'react-icons/md';
 import folderIllustration from '../../media/illustrations/folder.svg';
 
-export default function FolderCard(props) {
+export default function CardFolder(props) {
 
     // Input field
     const input = useRef(null)
@@ -21,18 +21,6 @@ export default function FolderCard(props) {
     const [menuActive, setMenuActive] = useState(false)
 
 
-
-    // Handle file delete TODO: Adapt for folder
-    const handleDelete = () => {
-        /*firebase.firestore().collection('users').doc(props.owner).collection('files').doc(props.id).delete().then(() => {
-            console.info('Deleted')
-        }).catch((err) => console.err(err))*/
-    }
-    // Handle rename TODO: Adapt for folder
-    const handleRename = (e) => {
-        e.stopPropagation()
-        //setInputActive(true)
-    }
     // Handle change
     const handleChange = () => {
         setTitle(input.current.value)
@@ -153,14 +141,14 @@ export default function FolderCard(props) {
                         />
                     }
                 </div>
-                <ContextToggle onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
                     {
                         menuActive && <div className={styles.menuBackground} />
                     }
                     <Dropdown top small active={menuActive}>
                         <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={()=>props.handleUngroup(props.id)} />
                     </Dropdown>
-                </ContextToggle>
+                </ToggleContext>
             </div>
         </div>
     );
