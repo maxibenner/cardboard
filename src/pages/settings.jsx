@@ -3,7 +3,7 @@ import * as ROUTES from '../constants/routes';
 import styles from './settings.module.css';
 import { useAuthListener } from '../hooks/use-auth-listener';
 import { firebase } from '../lib/firebase';
-import SettingsCard from '../components/settingCard';
+import CardSettings from '../components/cardSettings';
 import Navbar from '../components/navbar';
 import Plan from '../modals/plan';
 
@@ -56,11 +56,11 @@ export default function Settings(props) {
                 <>
                     <div className={styles.container}>
                         <h2>Personal Info</h2>
-                        <SettingsCard title={"Email"} info={user.email} />
-                        <SettingsCard title={"Password"} info={"•••••••••"} />
+                        <CardSettings title={"Email"} info={user.email} />
+                        <CardSettings title={"Password"} info={"•••••••••"} />
                         <h2>Subscription</h2>
-                        <SettingsCard title={"Plan"} info={"Free"} onClick={() => changeModal('plan')} />
-                        <SettingsCard title={"Storage"} info={`${userInfo.capacity_used}GB / ${userInfo.storage_capacity}GB used`} />
+                        <CardSettings title={"Plan"} info={"Free"} onClick={() => changeModal('plan')} />
+                        <CardSettings title={"Storage"} info={`${userInfo.capacity_used}GB / ${userInfo.storage_capacity}GB used`} />
                     </div>
                 </>
                 :

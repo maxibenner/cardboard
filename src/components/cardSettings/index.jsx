@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.css';
 import { MdEdit } from 'react-icons/md';
 
-export default function SettingsCard(props) {
+export default function CardSettings(props) {
 
     return (
         <div className={styles.container}>

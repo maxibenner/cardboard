@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.css';
 
-export default function ThreePartCard(props) {
+export default function CardSimple(props) {
 
     const classes = `${styles.card} ${props.yellow ? styles.card_yellow:''}`
 
