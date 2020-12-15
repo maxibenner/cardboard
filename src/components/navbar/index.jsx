@@ -13,13 +13,14 @@ import ToggleMenu from '../toggleMenu';
 import ButtonLight from '../buttonLight';
 import ToggleNotifications from '../toggleNotifications';
 
-
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 
 export default function Navbar(props) {
 
     const { firebase } = useContext(FirebaseContext);
     const [menuActive, setMenuActive] = useState(false)
+    const { height, width } = useWindowDimensions();
 
     const logout = () => {
         firebase.auth().signOut()
@@ -34,20 +35,23 @@ export default function Navbar(props) {
                 <div className={styles.menuContainer}>
                     <ToggleNotifications />
 
-                    <ToggleMenu active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
-                        {
-                            menuActive && <div className={styles.menuBackground} />
-                        }
-                        <Dropdown active={menuActive}>
-                            <Link to={ROUTES.LIBRARY}>
-                                <ButtonLight title={'Library'} icon={<BiBookHeart />} />
-                            </Link>
-                            <Link to={ROUTES.SETTINGS}>
-                                <ButtonLight title={'Settings'} icon={<MdSettings />} />
-                            </Link>
-                            <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
-                        </Dropdown>
-                    </ToggleMenu>
+                    {width >= 600 &&
+                        <ToggleMenu active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                            {
+                                menuActive && <div className={styles.menuBackground} />
+                            }
+                            <Dropdown active={menuActive}>
+                                <Link to={ROUTES.LIBRARY}>
+                                    <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                                </Link>
+                                <Link to={ROUTES.SETTINGS}>
+                                    <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                                </Link>
+                                <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
+                            </Dropdown>
+                        </ToggleMenu>
+                    }
+
                 </div>
 
             </div>

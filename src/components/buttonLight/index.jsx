@@ -9,6 +9,8 @@ export default function ButtonLight(props) {
         props.danger && styles.danger
     } ${
         props.attention && styles.attention
+    } ${
+        props.stacked && styles.stacked
     }`
 
     return (

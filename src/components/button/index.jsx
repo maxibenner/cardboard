@@ -12,6 +12,7 @@ export default function Button(props) {
                     ${props.blue && styles.container_blue}
                     ${props.yellow && styles.container_yellow}
                     ${props.dark && styles.container_dark}
+                    ${props.input && styles.container_input}
                     `
 
     return (

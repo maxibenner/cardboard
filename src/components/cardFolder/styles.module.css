@@ -6,7 +6,8 @@
     height: 200px;
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.164);
+    /*box-shadow: 0 0 4px rgba(0, 0, 0, 0.164);*/
+    /*border: 2px solid var(--bg);*/
     transition: .1s;
 }
 
@@ -28,7 +29,7 @@
     top: -5%;
     background-size: cover;
     height: 110%;
-    background: var(--bg);
+    /*background: var(--bg);*/
 }
 .thumbnailIllustration {
     width: 100%;
@@ -45,7 +46,8 @@
     padding: 15px 10px 15px 15px;
     justify-content: space-between;
     align-items: center;
-    background: var(--light);
+    border-radius: 16px;
+    border: 2px solid var(--bg);
 }
 
 .body_image {
@@ -63,6 +65,7 @@
 }
 
 .title {
+    height: 19px;
     margin: 0;
     font-size: 1rem;
     font-weight: bold;
@@ -108,7 +111,7 @@
 /*__________ Modifiers __________*/
 
 .is_hovered {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.164), 0 0 0 6px rgb(255, 255, 255), 0 0 0 9px var(--blue);
+    box-shadow: 0 0 0 6px rgb(255, 255, 255), 0 0 0 9px var(--blue);
 }
 
 .is_dragged {

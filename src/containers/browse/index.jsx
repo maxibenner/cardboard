@@ -36,8 +36,8 @@ export default function BrowseContainer(props) {
     const [dragSource, setDragSource] = useState(null)
     // Holds the current path
     const [currentPath, setCurrentPath] = useState('/')
-    // Holds visible element
-    const [visibleElements, setVisibleElements] = useState([])
+    // Sorted Elements
+    const [sortedElements, setSortedElements] = useState([])
 
 
 
@@ -83,7 +83,7 @@ export default function BrowseContainer(props) {
     const handleUngroup = (id) => {
 
         // Get folder to be unfoldered
-        const folder = visibleElements.filter((folder) => { return folder.id === id })[0]
+        const folder = sortedElements.filter((folder) => { return folder.id === id })[0]
 
         // Create array from current path sections
         const currentPathLength = currentPath.split('/').filter((path) => { return path.length !== 0 }).length
@@ -119,11 +119,6 @@ export default function BrowseContainer(props) {
         // Add type to elements
         const elementsWithType = props.files.map((file) => {
 
-            // Return if file is raw
-            if (file.isRaw) {
-                return null
-            }
-
             // Check if element exists at current path -> file
             if (file.path === currentPath) {
 
@@ -154,6 +149,7 @@ export default function BrowseContainer(props) {
                         owner: file.owner,
                         path: newFolderPath,
                         display_type: 'folder',
+                        name: newFolderPath.split('/')[1],
                         children: [{
                             id: file.id,
                             path: file.path
@@ -198,19 +194,12 @@ export default function BrowseContainer(props) {
         })
 
         // Set visible files
-        setVisibleElements(filteredElements)
+        //setVisibleElements(filteredElements)
 
         // Send visible files back to home page
         props.handleVisibleElements(filteredElements)
 
     }, [props.files, currentPath])
-
-
-    //_________________ ANIMATION _________________//
-
-
-
-
 
 
     //_________________ RENDER _________________//
@@ -222,7 +211,7 @@ export default function BrowseContainer(props) {
 
             <div className={styles.container}>
 
-                {visibleElements.map(file => {
+                {props.sortedFiles.map(file => {
 
                     // Only render files in the current path
                     if (file.display_type !== 'folder') {
@@ -233,6 +222,7 @@ export default function BrowseContainer(props) {
                             key={file.id}
                             file={file}
                             handleActiveMedia={props.handleActiveMedia}
+                            handleModal={props.handleModal}
                         />
 
                     } else {
@@ -254,4 +244,4 @@ export default function BrowseContainer(props) {
             </div>
         </>
     );
-}
+} 

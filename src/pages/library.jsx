@@ -12,6 +12,8 @@ import Button from '../components/button';
 import Navbar from '../components/navbar';
 
 import { getSignedUploadUrl, checkWasabiFile } from '../helpers/tools';
+import LabelFile from '../containers/labelFile';
+import NavbarBottom from '../components/navbarBottom';
 
 
 export default function Library() {
@@ -31,6 +33,8 @@ export default function Library() {
     const [filesForUpload, setFilesForUpload] = useState([]);
     const [activeMedia, setActiveMedia] = useState(null);
     const [visibleElements, setVisibleElements] = useState(null);
+    const [sortedElements, setSortedElements] = useState([])
+    const [activeModal, setActiveModal] = useState(null)
 
     //__________ FUNCTIONS __________//
 
@@ -43,6 +47,11 @@ export default function Library() {
     const onFileChange = (e) => {
         uploadFile(e.target.files)
     };
+
+    // Handle modal
+    const handleModal = (modal) => {
+        setActiveModal(modal)
+    }
 
     // Upload file to Wasabi
     const uploadFile = (filesList) => {
@@ -92,7 +101,7 @@ export default function Library() {
                             firebase.firestore().collection("users").doc(user.uid).collection("files").doc(uuid).set({
                                 isRaw: isRaw,
                                 storage_key: key,
-                                name: name,
+                                name: name.split('.')[0],
                                 owner: user.uid,
                                 path: '/',
                                 suffix: key.split('.')[1],
@@ -124,19 +133,36 @@ export default function Library() {
     }
 
     // Set active file
-    const handleActiveMedia = async (fileObject) => {
+    const handleActiveMedia = async (fileObject, action) => {// Available actions are: "show" and "label"
 
-        if (fileObject === null) {
-            return setActiveMedia(fileObject)
+        // Remove active media if null
+        !fileObject && setActiveMedia(null)
 
-        } else if (fileObject.url) {
-            // Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
-            return setActiveMedia(fileObject)
-        } else {
-            const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject.storage_key)
-            fileObject.url = url.data
+        if (action === "show") {// Display file
+
+            //Set action
+            fileObject.action = "show"
+
+            if (fileObject === null) {
+                return setActiveMedia(fileObject)
+
+            } else if (fileObject.url) {
+                // Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
+                return setActiveMedia(fileObject)
+            } else {
+                const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject.storage_key)
+                fileObject.url = url.data
+                setActiveMedia(fileObject)
+            }
+
+
+        } else if (action === "label") {// Label file
+
+            // Set action
+            fileObject.action = 'label'
+
+            // Set active media
             setActiveMedia(fileObject)
-
         }
     }
 
@@ -145,7 +171,7 @@ export default function Library() {
     const handleWatchNavigatin = (pressedKey) => {
 
         // Get new visible index of only files
-        const visibleFiles = visibleElements.filter((element) => { return element.display_type === 'file' })
+        const visibleFiles = sortedElements.filter((element) => { return element.display_type === 'file' })
 
         // Get index of currently active element in visibleFiles array
         const indexOfActiveFile = visibleFiles.findIndex((file) => file.id === activeMedia.id)
@@ -157,13 +183,12 @@ export default function Library() {
             if (indexOfActiveFile + 1 === visibleFiles.length) {
 
                 // Back to start
-                handleActiveMedia(visibleFiles[0])
-
+                handleActiveMedia(visibleFiles[0], "show")
 
             } else {
 
                 // Next
-                handleActiveMedia(visibleFiles[indexOfActiveFile + 1])
+                handleActiveMedia(visibleFiles[indexOfActiveFile + 1], "show")
             }
 
         } else if (pressedKey === "ArrowLeft") {
@@ -172,12 +197,12 @@ export default function Library() {
             if (indexOfActiveFile === 0) {
 
                 // Back to end
-                handleActiveMedia(visibleFiles[visibleFiles.length - 1])
+                handleActiveMedia(visibleFiles[visibleFiles.length - 1], "show")
 
             } else {
 
                 // Previous
-                handleActiveMedia(visibleFiles[indexOfActiveFile - 1])
+                handleActiveMedia(visibleFiles[indexOfActiveFile - 1], "show")
             }
 
 
@@ -217,8 +242,6 @@ export default function Library() {
 
     }, [user.uid]);
 
-
-
     // Get thumbnail urls
     useEffect(() => {
 
@@ -242,13 +265,32 @@ export default function Library() {
 
     }, [files, user.uid])
 
+    // Sort files
+    useEffect(() => {
+
+        if (visibleElements) {
+
+            // Initialize new array
+            const sortedVisibleElements = [...visibleElements]
+
+            // Sort new array in descending order
+            sortedVisibleElements.sort((a, b) => (a.name > b.name ? 1 : -1))
+
+            // Update sorted elements
+            setSortedElements(sortedVisibleElements)
+        }
+
+
+    }, [visibleElements])
+
 
     return (
-        <>
+        <div className={styles.wrapper}>
             <Navbar
                 loggedIn
                 to={ROUTES.LIBRARY}
             />
+            <NavbarBottom />
             <div className={styles.searchBarContainer}>
                 <TagSearch />
             </div>
@@ -260,22 +302,29 @@ export default function Library() {
                     text="Upload"
                 />
             </div>
-
             {files &&
                 <BrowseContainer
                     files={files}
+                    sortedFiles={sortedElements}
                     user={user}
                     firebase={firebase}
                     handleActiveMedia={handleActiveMedia}
                     handleVisibleElements={handleVisibleElements}
+                    handleModal={handleModal}
                 />
             }
-            {activeMedia &&
+            {activeMedia && activeMedia.action === 'show' &&
                 <WatchContainer
                     activeMedia={activeMedia}
                     handleActiveMedia={handleActiveMedia}
                     handleWatchKeydown={handleWatchNavigatin}
                     thumbnail={'#'} />
+            }
+            {activeMedia && activeMedia.action === 'label' &&
+                <LabelFile
+                    handleModal={handleActiveMedia}
+                    file={activeMedia}
+                />
             }
             {filesForUpload.length > 0 &&
                 <Uploader files={filesForUpload} />
@@ -288,6 +337,6 @@ export default function Library() {
                 ref={inputRef}
                 onChange={onFileChange}
             />
-        </>
+        </div>
     );
 };

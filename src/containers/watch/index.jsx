@@ -7,12 +7,12 @@ export default function WatchContainer(props) {
     useEffect(() => {
 
         // Handle key
-        const handleMediaNavigatin = (e) => props.handleWatchKeydown(e.code)
+        const handleMediaNavigation = (e) => props.handleWatchKeydown(e.code)
 
         // Add keydown event listener
-        document.addEventListener('keydown', handleMediaNavigatin)
+        document.addEventListener('keydown', handleMediaNavigation)
 
-        return () => { document.removeEventListener('keydown', handleMediaNavigatin); };
+        return () => { document.removeEventListener('keydown', handleMediaNavigation); };
 
     }, [props])
 

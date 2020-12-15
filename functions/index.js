@@ -102,7 +102,7 @@ exports.new_file_setup = functions.firestore.document('users/{userId}/files/{doc
             owner: snap.data().owner,
             type: snap.data().type,
             suffix: snap.data().suffix,
-            action: "transcode"
+            action: "thumbnail"
         })
     }
 

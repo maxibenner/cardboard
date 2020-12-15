@@ -1,14 +1,31 @@
 .container {
-    display: flex;
+    position: relative;
     cursor: default;
-    align-items: center;
-    padding: 10px 15px;
     border-radius: 5px;
-    color: var(--dark);
+    user-select: none;
 }
 
-.container>svg {
-    color: var(--dark);
+.contentContainer {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.contentContainer>svg {
+    flex-shrink: 0;
+}
+
+.contentContainerTop {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: var(--red);
+    border-radius: 5px;
+    color: var(--light);
+}
+
+.contentContainerTop>svg {
+    flex-shrink: 0;
 }
 
 .title {
@@ -21,6 +38,17 @@
     transition: .2s;
 }
 
+.hider {
+    position: absolute;
+    overflow: hidden;
+    width: 0%;
+    border-radius: 5px;
+    transition: linear 1.5s;
+}
+.hider_active {
+    width: 100%;
+}
+
 /*__________ MODIFIERS __________*/
 
 .danger {
@@ -31,24 +59,10 @@
     color: var(--red);
     border-radius: 5px;
     cursor: default;
-    padding: 10px 15px;
     margin: 0;
     transition: .2s;
 }
 
 .danger:hover {
     background: #ff68602c;
-}
-
-.stacked {
-    flex-direction: column;
-}
-
-.stacked>svg {
-    margin-bottom: 5px;
-    font-size:1.1em;
-}
-.stacked>p {
-    margin:0;
-    font-size:.9em;
 }

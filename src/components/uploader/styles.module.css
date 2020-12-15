@@ -1,5 +1,6 @@
 .uploader {
-    position: absolute;
+    position: fixed;
+    z-index: 1;
     bottom: 0;
     left: 25px;
     width: 50%;
@@ -11,6 +12,7 @@
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.171);
     background: var(--light);
 }
+
 .header {
     display: flex;
     align-items: center;
@@ -19,9 +21,11 @@
     color: var(--light);
     padding: 15px;
 }
-.header > p {
+
+.header>p {
     margin: 0;
 }
+
 .filesContainer {
     max-height: 400px;
     overflow-y: scroll;
@@ -30,7 +34,8 @@
     flex-direction: column;
     height: fit-content;
 }
-.filesContainer > div {
+
+.filesContainer>div {
     border-bottom: 1px solid var(--ph);
     margin-bottom: 15px;
 }

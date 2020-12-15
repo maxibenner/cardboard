@@ -3,10 +3,11 @@ import styles from "./styles.module.css";
 import ToggleContext from '../toggleContext';
 import Dropdown from '../dropdown';
 import ButtonLight from '../buttonLight';
+import ButtonLightConfirm from '../buttonLightConfirm';
 import { firebase } from '../../lib/firebase';
 import { FaVideo } from 'react-icons/fa';
 import { RiScissorsFill } from 'react-icons/ri';
-import { MdImage, MdAudiotrack, MdLabel, MdTitle, MdDelete } from 'react-icons/md';
+import { MdImage, MdAudiotrack, MdLabel, MdTitle, MdDelete, MdPlayCircleFilled } from 'react-icons/md';
 
 export default function CardFile(props) {
 
@@ -20,16 +21,24 @@ export default function CardFile(props) {
     const [isDragged, setIsDragged] = useState(false)
     const [dragCounter, setDragCounter] = useState(0)
     const [menuActive, setMenuActive] = useState(false)
+    const [draggable, setDraggable] = useState(true)
 
 
 
     //_________________ FUNCTIONS _________________//
 
     // Handle file delete
-    const handleDelete = () => {
+    const handleDelete = (e) => {
+        console.log('deleted')
         firebase.firestore().collection('users').doc(props.file.owner).collection('files').doc(props.file.id).delete().then(() => {
             console.info('Deleted')
         }).catch((err) => console.err(err))
+    }
+
+    // Prevent default if necessary
+    const preventDefault = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
     }
 
     // Handle rename
@@ -68,7 +77,7 @@ export default function CardFile(props) {
         }
     }
 
-    // Set inout focus
+    // Set input focus
     useEffect(() => {
         if (inputActive) {
             input.current.focus()
@@ -130,8 +139,9 @@ export default function CardFile(props) {
 
 
     return (
-        <div className={`${styles.card} ${isHovered && styles.is_hovered} ${isDragged && styles.is_dragged}`}
-            draggable
+        <div
+            className={`${styles.card} ${isHovered && styles.is_hovered} ${isDragged && styles.is_dragged}`}
+            draggable={draggable}
             onDragStart={onDragStartFunctions}
             onDragEnter={handleDragEnter}
             onDragOver={handleDragOver}
@@ -139,9 +149,11 @@ export default function CardFile(props) {
             onDragLeave={handleDragLeave}
             onDrop={onDragDropFunctions}
         >
-            <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file)}>
+            <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file, 'show')}>
+                {props.file.type === 'video' && 
+                    <MdPlayCircleFilled className={styles.playButton} />
+                }
                 <div className={styles.image} style={props.file.thumbnail_url && { backgroundImage: `url(${props.file.thumbnail_url})` }}></div>
-
             </div>
             <div className={styles.body}>
                 <div className={styles.main}>
@@ -173,9 +185,17 @@ export default function CardFile(props) {
                     }
                     <Dropdown top small active={menuActive}>
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
-                        <ButtonLight title={'Label'} icon={<MdLabel />} />
-                        {props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />}
-                        <ButtonLight danger title={'Delete'} icon={<MdDelete />} onClick={handleDelete} />
+                        <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => props.handleActiveMedia(props.file, 'label')} />
+                        {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
+                        <ButtonLightConfirm
+                            danger
+                            title={'Delete'}
+                            icon={<MdDelete />}
+                            onClick={(e) => preventDefault(e)}
+                            confirmAction={handleDelete}
+                            preventDrag={() => setDraggable(false)}
+                            enableDrag={() => setDraggable(true)}
+                        />
                     </Dropdown>
                 </ToggleContext>
 

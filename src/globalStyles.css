@@ -1,25 +1,75 @@
 /*_______ Fonts __________*/
-/* Recoleta Regular */
-@font-face { font-family: 'Recoleta'; src: url('./fonts/RecoletaRegular.ttf'); font-weight: normal; font-style: normal;}
-/* Recoleta Bold */
-@font-face { font-family: 'Recoleta'; src: url('./fonts/RecoletaBold.ttf'); font-weight: bold; font-style: normal;}
-/* Inter Lighter */ 
-@font-face { font-family: 'Inter'; src: url('./fonts/InterLighter.ttf'); font-weight: 200; font-style: normal;}
-/* Inter Regular */
-@font-face { font-family: 'Inter'; src: url('./fonts/InterRegular.ttf'); font-weight: normal; font-style: normal;}
-/* Inter Medium */
-@font-face { font-family: 'Inter'; src: url('./fonts/InterMedium.ttf'); font-weight: 500; font-style: normal;}
-/* Inter Bold */
-@font-face { font-family: 'Inter'; src: url('./fonts/InterBold.ttf'); font-weight: bold; font-style: normal;}
 
+/* Recoleta Regular */
+
+@font-face {
+    font-family: 'Recoleta';
+    src: url('./fonts/RecoletaRegular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Recoleta Bold */
+
+@font-face {
+    font-family: 'Recoleta';
+    src: url('./fonts/RecoletaBold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Inter Lighter */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/InterLighter.ttf');
+    font-weight: 200;
+    font-style: normal;
+}
+
+/* Inter Regular */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/InterRegular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Inter Medium */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/InterMedium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Inter Bold */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/InterBold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+*:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--blue);
+}
 
 :root {
     --dark: black;
     --light: white;
     --main: #FFE390;
     --yellow: #F9C463;
+    --blue: #1685FC;
+    --blueDark: #0f61b9;
+    /*
     --blue: #358FDD;
     --blueDark: #205584;
+    */
     --red: #FF6760;
     --redDark: #C04A3F;
     --ph: #bdbdbd;
@@ -40,6 +90,7 @@ a {
     text-decoration: none;
     cursor: default;
 }
+
 a:active, a:visited {
     color: inherit;
 }
