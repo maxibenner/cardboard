@@ -159,9 +159,9 @@ export default function CardFile(props) {
                 <div className={styles.main}>
 
                     {/*__________Media Icons__________*/}
-                    {props.file.type === 'video' && <FaVideo className={styles.title_icon} />}
-                    {props.file.type === 'image' && <MdImage className={styles.title_icon} />}
-                    {props.file.type === 'audio' && <MdAudiotrack className={styles.title_icon} />}
+                    {/*props.file.type === 'video' && <FaVideo className={styles.title_icon} />*/}
+                    {/*props.file.type === 'image' && <MdImage className={styles.title_icon} />*/}
+                    {/*props.file.type === 'audio' && <MdAudiotrack className={styles.title_icon} />*/}
                     {/*_______________________________*/}
 
                     {!inputActive ?

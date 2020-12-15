@@ -125,7 +125,7 @@ export default function CardFolder(props) {
             <div className={styles.body}>
                 <div className={styles.main}>
 
-                    <MdFolder className={styles.title_icon} />
+                    {/*<MdFolder className={styles.title_icon} />*/}
 
                     {!inputActive ?
                         <p className={styles.title}>{title}</p>
