@@ -2,10 +2,14 @@
     color: var(--dark);
     height: 70px;
     display: flex;
+    position: fixed;
+    width:100%;
+    background: var(--light);
     justify-content: center;
     font-size: 1rem;
     top: 0;
-    z-index: 999;
+    z-index: 99;
+    box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.2);
 }
 
 .nav_yellow {
@@ -58,3 +62,18 @@
     z-index: 999;
 }
 
+/*__________ CONTAINERS __________*/
+.navMenuWide {
+    display: flex;
+}
+.navMenuNarrow {
+    display: none;
+}
+@media(max-width:800px){
+    .navMenuWide {
+        display: none;
+    }
+    .navMenuNarrow {
+        display: flex;
+    }
+}

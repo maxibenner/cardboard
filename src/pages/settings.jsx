@@ -6,7 +6,6 @@ import { firebase } from '../lib/firebase';
 import CardSettings from '../components/cardSettings';
 import Navbar from '../components/navbar';
 import Plan from '../modals/plan';
-import NavbarBottom from '../components/navbarBottom';
 
 
 export default function Settings(props) {
@@ -48,7 +47,6 @@ export default function Settings(props) {
                 loggedIn
                 to={ROUTES.LIBRARY}
             />
-            <NavbarBottom />
             {activeModal === 'plan' && <Plan
                 onClick={changeModal}
                 firebase={firebase}

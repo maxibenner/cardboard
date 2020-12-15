@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    width: 90%;
+    width: 100%;
     max-width: 450px;
     height: 50px;
     background: var(--bg);
@@ -10,6 +10,7 @@
     border-radius: 35px;
     overflow: hidden;
     cursor: text;
+    margin: 0 25px;
     transition: .2s;
 }
 

@@ -2,6 +2,11 @@
     margin-bottom: 70px;
 }
 
+.spacer70 {
+    height: 70px;
+    width: 100%;
+}
+
 .searchBarContainer {
     margin: 75px auto 0 auto;
     padding: 0 25px;
@@ -11,15 +16,15 @@
     display: flex;
     box-sizing: border-box;
     padding: 0 25px;
-    max-width: 1400px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     justify-content: flex-end;
 }
 
 .hiddenInput {
-    position:fixed;
-    top:-1000px;
+    position: fixed;
+    top: -1000px;
 }
 
 .horizontalContainer {

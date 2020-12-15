@@ -13,7 +13,6 @@ import Navbar from '../components/navbar';
 
 import { getSignedUploadUrl, checkWasabiFile } from '../helpers/tools';
 import LabelFile from '../containers/labelFile';
-import NavbarBottom from '../components/navbarBottom';
 
 
 export default function Library() {
@@ -290,7 +289,7 @@ export default function Library() {
                 loggedIn
                 to={ROUTES.LIBRARY}
             />
-            <NavbarBottom />
+            <div className={styles.spacer70}></div>
             <div className={styles.searchBarContainer}>
                 <TagSearch />
             </div>
@@ -305,7 +304,7 @@ export default function Library() {
             {files &&
                 <BrowseContainer
                     files={files}
-                    sortedFiles={sortedElements}
+                    sortedElements={sortedElements}
                     user={user}
                     firebase={firebase}
                     handleActiveMedia={handleActiveMedia}

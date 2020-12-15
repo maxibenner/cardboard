@@ -13,14 +13,11 @@ import ToggleMenu from '../toggleMenu';
 import ButtonLight from '../buttonLight';
 import ToggleNotifications from '../toggleNotifications';
 
-import useWindowDimensions from '../../hooks/useWindowDimensions';
-
 
 export default function Navbar(props) {
 
     const { firebase } = useContext(FirebaseContext);
     const [menuActive, setMenuActive] = useState(false)
-    const { height, width } = useWindowDimensions();
 
     const logout = () => {
         firebase.auth().signOut()
@@ -28,14 +25,26 @@ export default function Navbar(props) {
 
     return (
         <div className={styles.nav}>
+
             <div className={`${styles.container} ${menuActive && styles.topLayer}`}>
 
                 <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
 
                 <div className={styles.menuContainer}>
+
                     <ToggleNotifications />
 
-                    {width >= 600 &&
+                    <div className={styles.navMenuWide}>
+                        <Link to={ROUTES.LIBRARY}>
+                            <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                        </Link>
+                        <Link to={ROUTES.SETTINGS}>
+                            <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                        </Link>
+                        <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
+                    </div>
+
+                    <div className={styles.navMenuNarrow}>
                         <ToggleMenu active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
                             {
                                 menuActive && <div className={styles.menuBackground} />
@@ -50,10 +59,9 @@ export default function Navbar(props) {
                                 <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
                             </Dropdown>
                         </ToggleMenu>
-                    }
+                    </div>
 
                 </div>
-
             </div>
         </div>
     );

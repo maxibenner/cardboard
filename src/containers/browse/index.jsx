@@ -36,8 +36,6 @@ export default function BrowseContainer(props) {
     const [dragSource, setDragSource] = useState(null)
     // Holds the current path
     const [currentPath, setCurrentPath] = useState('/')
-    // Sorted Elements
-    const [sortedElements, setSortedElements] = useState([])
 
 
 
@@ -83,7 +81,7 @@ export default function BrowseContainer(props) {
     const handleUngroup = (id) => {
 
         // Get folder to be unfoldered
-        const folder = sortedElements.filter((folder) => { return folder.id === id })[0]
+        const folder = props.sortedElements.filter((element) => { return element.id === id })[0]
 
         // Create array from current path sections
         const currentPathLength = currentPath.split('/').filter((path) => { return path.length !== 0 }).length
@@ -211,7 +209,7 @@ export default function BrowseContainer(props) {
 
             <div className={styles.container}>
 
-                {props.sortedFiles.map(file => {
+                {props.sortedElements.map(file => {
 
                     // Only render files in the current path
                     if (file.display_type !== 'folder') {

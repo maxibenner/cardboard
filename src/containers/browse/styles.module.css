@@ -1,5 +1,5 @@
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     padding: 5px 25px 25px 25px;
@@ -19,23 +19,25 @@
 @media (max-width: 1000px) {
     .container {
         grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 25px;
     }
 }
 
 @media (max-width: 650px) {
     .container {
         grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 374px) {
     .container {
         grid-template-columns: 1fr;
     }
 }
 
 .breadcrumbContainer {
-    max-width: 1400px;
+    max-width: 1200px;
     box-sizing: border-box;
     display: flex;
     align-items:center;
