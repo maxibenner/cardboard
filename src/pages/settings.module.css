@@ -7,6 +7,11 @@
     height: fit-content;
 }
 
+.spacer70 {
+    height: 70px;
+    width: 100%;
+}
+
 /*__________ Modifiers __________*/
 
 .hidden {

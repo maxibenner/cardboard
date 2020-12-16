@@ -47,6 +47,7 @@ export default function Settings(props) {
                 loggedIn
                 to={ROUTES.LIBRARY}
             />
+            <div className={styles.spacer70}></div>
             {activeModal === 'plan' && <Plan
                 onClick={changeModal}
                 firebase={firebase}

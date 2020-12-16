@@ -1,6 +1,5 @@
 .nav {
     color: var(--dark);
-    height: 70px;
     display: flex;
     position: fixed;
     width:100%;
@@ -9,7 +8,8 @@
     font-size: 1rem;
     top: 0;
     z-index: 99;
-    box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.2);
+    /*border-bottom: 1px solid var(--middleGrey);*/
+    /*box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.2);*/
 }
 
 .nav_yellow {
@@ -35,7 +35,7 @@
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 60px;
     padding: 0 25px;
     max-width: 1400px;
     width: 100%;

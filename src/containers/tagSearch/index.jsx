@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SearchBar from '../../components/searchBar'
 import Tag from '../../components/tag'
 import styles from './styles.module.css'
 
 
-export default function TagSearch() {
+export default function TagSearch(props) {
 
     const [activeTags, setActiveTags] = useState([])
 
@@ -35,6 +35,13 @@ export default function TagSearch() {
         }
         
     }
+
+    // Send active tags to parents
+    useEffect(()=>{
+
+        props.setActiveTags(activeTags)
+
+    },[activeTags])
 
     return (
         <div className={styles.wrapper}>

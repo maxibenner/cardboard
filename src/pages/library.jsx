@@ -34,6 +34,9 @@ export default function Library() {
     const [visibleElements, setVisibleElements] = useState(null);
     const [sortedElements, setSortedElements] = useState([])
     const [activeModal, setActiveModal] = useState(null)
+    const [tags, setTags] = useState([])
+    const [activeTags, setActiveTags] = useState([])
+    const [elementsWithActiveTags, setElementsWithActiveTags] = useState([])
 
     //__________ FUNCTIONS __________//
 
@@ -211,6 +214,8 @@ export default function Library() {
 
     // Handle visible files in current path
     const handleVisibleElements = (visibleElements) => {
+
+        // TODO: Only activate by tag criterion
         setVisibleElements(visibleElements)
     }
 
@@ -267,7 +272,7 @@ export default function Library() {
     // Sort files
     useEffect(() => {
 
-        if (visibleElements) {
+        if (visibleElements && elementsWithActiveTags.length === 0) {
 
             // Initialize new array
             const sortedVisibleElements = [...visibleElements]
@@ -277,11 +282,63 @@ export default function Library() {
 
             // Update sorted elements
             setSortedElements(sortedVisibleElements)
+
+        } else { // filtered by tags
+
+            // Initialize new array
+            const sortedVisibleElements = [...elementsWithActiveTags]
+
+            // Sort new array in descending order
+            sortedVisibleElements.sort((a, b) => (a.name > b.name ? 1 : -1))
+
+            // Update sorted elements
+            setSortedElements(sortedVisibleElements)
         }
 
 
-    }, [visibleElements])
+    }, [visibleElements, elementsWithActiveTags])
 
+    // Set tags
+    useEffect(() => {
+
+        var newTagArray = []
+
+        // Put all tags into one array
+        files && files.forEach(file => {
+
+            // Push tag if unique
+            file.tags && file.tags.forEach(tag => {
+                !newTagArray.includes(tag) && newTagArray.push(tag)
+            })
+
+        })
+
+    }, [files])
+
+    // Get elements with active tags
+    useEffect(() => {
+
+        var results = []
+
+        // Make sure files exist
+        if (files) {
+
+            if (activeTags.length === 0) {
+                results = []
+            } else {
+                // Filter for tags
+                results = files.filter(file =>
+                    activeTags.every(constraint =>
+                        file.tags && file.tags.some(obj => obj === constraint)
+                    )
+                );
+            }
+
+        }
+
+        setElementsWithActiveTags(results)
+
+    }, [activeTags])
 
     return (
         <div className={styles.wrapper}>
@@ -291,7 +348,7 @@ export default function Library() {
             />
             <div className={styles.spacer70}></div>
             <div className={styles.searchBarContainer}>
-                <TagSearch />
+                <TagSearch tags={tags} setActiveTags={setActiveTags} />
             </div>
             <div className={styles.actionContainer}>
                 <Button
@@ -323,6 +380,8 @@ export default function Library() {
                 <LabelFile
                     handleModal={handleActiveMedia}
                     file={activeMedia}
+                    user={user}
+                    firebase={firebase}
                 />
             }
             {filesForUpload.length > 0 &&

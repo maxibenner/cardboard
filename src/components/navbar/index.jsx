@@ -32,7 +32,7 @@ export default function Navbar(props) {
 
                 <div className={styles.menuContainer}>
 
-                    <ToggleNotifications />
+                    {/*<ToggleNotifications />*/}
 
                     <div className={styles.navMenuWide}>
                         <Link to={ROUTES.LIBRARY}>
