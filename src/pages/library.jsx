@@ -168,7 +168,6 @@ export default function Library() {
         }
     }
 
-
     // Handle file navigation
     const handleWatchNavigatin = (pressedKey) => {
 
@@ -272,7 +271,7 @@ export default function Library() {
     // Sort files
     useEffect(() => {
 
-        if (visibleElements && elementsWithActiveTags.length === 0) {
+        if (visibleElements && activeTags.length === 0) {//not filtered by tags
 
             // Initialize new array
             const sortedVisibleElements = [...visibleElements]
@@ -323,22 +322,22 @@ export default function Library() {
         // Make sure files exist
         if (files) {
 
+            // Filter for tags
             if (activeTags.length === 0) {
                 results = []
             } else {
-                // Filter for tags
                 results = files.filter(file =>
-                    activeTags.every(constraint =>
-                        file.tags && file.tags.some(obj => obj === constraint)
+                    activeTags.every(tag =>
+                        file.tags && file.tags.some(obj => obj === tag)
                     )
                 );
             }
-
         }
+
 
         setElementsWithActiveTags(results)
 
-    }, [activeTags])
+    }, [activeTags, files])
 
     return (
         <div className={styles.wrapper}>
