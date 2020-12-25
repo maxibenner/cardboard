@@ -3,7 +3,6 @@ import { useAuthListener } from '../hooks/use-auth-listener';
 import { firebase } from '../lib/firebase';
 import * as ROUTES from '../constants/routes';
 import styles from './library.module.css';
-import { v4 as uuidv4 } from 'uuid';
 
 import BrowseContainer from '../containers/browse';
 import WatchContainer from '../containers/watch';
@@ -57,6 +56,15 @@ export default function Library() {
 
     // Set active file
     const handleActiveMedia = async (fileObject, action) => {// Available actions are: "show" and "label"
+
+        // Show placeholder
+        setActiveMedia(() => {
+            const ph = {
+                type: false,
+                action: action
+            }
+            return ph
+        })
 
         // Remove active media if null
         !fileObject && setActiveMedia(null)
@@ -134,9 +142,6 @@ export default function Library() {
 
 
 
-    
-
-
 
     //__________ EFFECTS __________//
 
@@ -166,7 +171,6 @@ export default function Library() {
         return () => listener()
 
     }, [user.uid]);
-
 
     // Get thumbnail urls
     useEffect(() => {
@@ -211,7 +215,7 @@ export default function Library() {
     }, [files])
 
 
-    
+
     //__________ RENDER __________//
     return (
         <div className={styles.wrapper}>

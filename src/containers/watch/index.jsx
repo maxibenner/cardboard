@@ -17,16 +17,25 @@ export default function WatchContainer(props) {
     }, [props])
 
     return (
-        <div className={styles.container}>
+        <>
+            {props.activeMedia.type !== false  &&
+                <div className={styles.container}>
 
-            {props.activeMedia.type === 'image' &&
-                <img className={styles.image} alt={'active view'} src={props.activeMedia.url} />
-            }
-            {props.activeMedia.type === 'video' &&
-                <video controls className={styles.video} alt={'active view'} src={props.activeMedia.url} poster={props.thumbnail_url}></video>
-            }
-            <div className={styles.background} onClick={() => props.handleActiveMedia(null)} />
+                    {props.activeMedia.type === 'image' &&
+                        <img className={styles.image} alt={'active view'} src={props.activeMedia.url} />
+                    }
+                    {props.activeMedia.type === 'video' &&
+                        <video controls className={styles.video} alt={'active view'} src={props.activeMedia.url} poster={props.thumbnail_url}></video>
+                    }
+                    <div className={styles.background} onClick={() => props.handleActiveMedia(null)} />
 
-        </div>
+                </div>
+            }
+            {!props.activeMedia.type &&
+                <div className={styles.container}>
+                    <div className={styles.background} onClick={() => props.handleActiveMedia(null)} />
+                </div>
+            }
+        </>
     );
 } 
