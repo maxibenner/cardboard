@@ -6,3 +6,6 @@
     align-items: center;
     padding-bottom: 15px;
 }
+.inactive>p {
+    opacity: .5;
+}

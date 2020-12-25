@@ -28,15 +28,25 @@ import BreadCrumbs from '../../components/breadCrumbs';
 //
 // BrowserContainer works with a flat, keyed Firestore document structure
 
-
-export default function BrowseContainer(props) {
+export default function BrowseContainer({
+    firebase,
+    user,
+    files,
+    activeTags,
+    handleActiveMedia,
+    sendVisibleFilesToParent,
+    handleModal
+}) {
 
     //_________________ STATES _________________//
     // Holds the id of the dragged element
     const [dragSource, setDragSource] = useState(null)
     // Holds the current path
     const [currentPath, setCurrentPath] = useState('/')
-
+    // Holds visible elements
+    const [visibleElements, setVisibleElements] = useState()
+    // Holds sorted visible elements
+    const [visibleElements_sorted, setVisibleElements_sorted] = useState()
 
 
     //_________________ FUNCTIONS _________________//
@@ -56,7 +66,7 @@ export default function BrowseContainer(props) {
         setDragSource(sourceId)
     }
 
-    // Update path of files
+    // Add folder or add to folder
     const setNewFilePath = (dragTarget) => {
 
         if (dragTarget.display_type === 'file') {
@@ -66,22 +76,22 @@ export default function BrowseContainer(props) {
 
             // If success, set new file paths
             if (folderName) {
-                props.firebase.firestore().collection('users').doc(props.user.uid).collection('files').doc(dragSource).update({ path: `${currentPath}${folderName}/` })
-                props.firebase.firestore().collection('users').doc(props.user.uid).collection('files').doc(dragTarget.id).update({ path: `${currentPath}${folderName}/` })
+                firebase.firestore().collection('users').doc(user.uid).collection('files').doc(dragSource).update({ path: `${currentPath}${folderName}/` })
+                firebase.firestore().collection('users').doc(user.uid).collection('files').doc(dragTarget.id).update({ path: `${currentPath}${folderName}/` })
             }
         } else {
 
             // Set new file path for dragged element
-            props.firebase.firestore().collection('users').doc(props.user.uid).collection('files').doc(dragSource).update({ path: dragTarget.path })
+            firebase.firestore().collection('users').doc(user.uid).collection('files').doc(dragSource).update({ path: dragTarget.path })
 
         }
     }
 
-    // Handle removing of folder
+    // Ungroup folder
     const handleUngroup = (id) => {
 
         // Get folder to be unfoldered
-        const folder = props.sortedElements.filter((element) => { return element.id === id })[0]
+        const folder = visibleElements_sorted.filter((element) => { return element.id === id })[0]
 
         // Create array from current path sections
         const currentPathLength = currentPath.split('/').filter((path) => { return path.length !== 0 }).length
@@ -102,23 +112,24 @@ export default function BrowseContainer(props) {
             }
 
             // Update on firebase
-            props.firebase.firestore().collection('users').doc(props.user.uid).collection('files').doc(child.id).update({ path: newPath })
+            firebase.firestore().collection('users').doc(user.uid).collection('files').doc(child.id).update({ path: newPath })
 
         })
 
     }
 
-    // Set visible files (folder logic)
+    // Folder logic -> visible files
+    // Make all files visible if "activeTags" prop is not null
     useEffect(() => {
 
         // Keep track of already existing folders
         const folderTracker = []
 
         // Add type to elements
-        const elementsWithType = props.files.map((file) => {
+        const elementsWithType = files.map((file) => {
 
             // Check if element exists at current path -> file
-            if (file.path === currentPath) {
+            if (file.path === currentPath || activeTags.length !== 0) {
 
                 // Add display_type to file
                 file.display_type = 'file'
@@ -191,14 +202,60 @@ export default function BrowseContainer(props) {
             }
         })
 
-        // Set visible files
-        //setVisibleElements(filteredElements)
+        // Only show elements that match tags
+        // Make sure files exist
+        if (files && activeTags.length !== 0) {
 
-        // Send visible files back to home page
-        props.handleVisibleElements(filteredElements)
+            var results = null
 
-    }, [props.files, currentPath])
+            // Filter for tags if there are tags to filter
+            if (activeTags.length !== 0) {
+                results = elementsWithType.filter(file =>
+                    activeTags.every(tag =>
+                        file.tags && file.tags.some(obj => obj === tag)
+                    )
+                )
+            }
 
+            // Update elements
+            setVisibleElements(results)
+
+        } else {
+
+            setVisibleElements(filteredElements)
+        }
+
+    }, [files, currentPath, activeTags])
+
+
+    // Sort visible elements
+    useEffect(() => {
+
+        if (visibleElements) {
+
+            // Initialize new array
+            const newArr = [...visibleElements]
+
+            // Sort new array in descending order
+            newArr.sort((a, b) => (a.name > b.name ? 1 : -1))
+
+            // Update sorted elements
+            setVisibleElements_sorted(newArr)
+
+            // Update visible files on parent
+            sendVisibleFilesToParent(newArr)
+
+        } else {
+
+            // No sorted elements
+            setVisibleElements_sorted([])
+
+            // Update visible files on parent
+            sendVisibleFilesToParent([])
+        }
+
+
+    }, [visibleElements])
 
     //_________________ RENDER _________________//
     return (
@@ -209,7 +266,7 @@ export default function BrowseContainer(props) {
 
             <div className={styles.container}>
 
-                {props.sortedElements.map(file => {
+                {visibleElements_sorted && visibleElements_sorted.map(file => {
 
                     // Only render files in the current path
                     if (file.display_type !== 'folder') {
@@ -219,8 +276,8 @@ export default function BrowseContainer(props) {
                             onDrop={setNewFilePath}
                             key={file.id}
                             file={file}
-                            handleActiveMedia={props.handleActiveMedia}
-                            handleModal={props.handleModal}
+                            handleActiveMedia={handleActiveMedia}
+                            handleModal={handleModal}
                         />
 
                     } else {

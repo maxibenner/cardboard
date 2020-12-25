@@ -5,9 +5,9 @@ import Dropdown from '../dropdown';
 import ButtonLight from '../buttonLight';
 import ButtonLightConfirm from '../buttonLightConfirm';
 import { firebase } from '../../lib/firebase';
-import { FaVideo } from 'react-icons/fa';
-import { RiScissorsFill } from 'react-icons/ri';
-import { MdImage, MdAudiotrack, MdLabel, MdTitle, MdDelete, MdPlayCircleFilled } from 'react-icons/md';
+/*import { FaVideo } from 'react-icons/fa';
+import { RiScissorsFill } from 'react-icons/ri';*/
+import { /*MdImage, MdAudiotrack, */MdLabel, MdTitle, MdDelete, MdPlayCircleFilled, MdShare } from 'react-icons/md';
 
 export default function CardFile(props) {
 
@@ -47,6 +47,8 @@ export default function CardFile(props) {
         setMenuActive(false)
         setInputActive(true)
     }
+
+
 
     // Handle change
     const handleChange = () => {
@@ -186,6 +188,7 @@ export default function CardFile(props) {
                     <Dropdown top small active={menuActive}>
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => props.handleActiveMedia(props.file, 'label')} />
+                        <ButtonLight title={'Share'} icon={<MdShare />} /*onClick={'#'}*/ />
                         {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
                         <ButtonLightConfirm
                             danger

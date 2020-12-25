@@ -183,15 +183,15 @@ exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
 
     try {
 
-        await s3.headObject({
+        var res = await s3.headObject({
             Bucket: functions.config().data.wasabi.bucket,
             Key: data
         }).promise();
 
-        return true
+        return res
 
     } catch (err) {
-        return false
+        return res
     }
 })
 

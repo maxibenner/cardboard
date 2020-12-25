@@ -3,11 +3,11 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     height: 200px;
     border-radius: 16px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-    transition: .1s;
+    transition: .2s;
 }
 
 .videoContainer {
@@ -23,6 +23,7 @@
     top: -5%;
     background-size: cover;
     height: 110%;
+    transition: .1s;
 }
 
 .body {
@@ -44,16 +45,17 @@
 }
 
 .main {
+    height: 20px;
     display: flex;
     align-items: center;
     max-width: 85%;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 .title {
-    height: 19px;
+    height: 100%;
     margin: 0;
-    font-size: 1rem;
-    font-weight: bold;
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -69,8 +71,10 @@
     border: none;
     font-weight: bold;
     border-radius: 3px;
-    max-width: 85%;
+    max-width: 83%;
     background-color: var(--bg);
+    height: 100%;
+    margin-top: -2px;
 }
 
 .titleInput:focus {

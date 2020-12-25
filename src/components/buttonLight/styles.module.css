@@ -52,3 +52,12 @@
     margin:0;
     font-size:.9em;
 }
+.noIcon>p {
+    margin: 0;
+}
+.pointer:hover {
+    background: none;
+}
+.pointer>p {
+    cursor: pointer;
+}

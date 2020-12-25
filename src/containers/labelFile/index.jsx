@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './styles.module.css';
+import InputWithButton from '../../components/inputWithButton';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import Tag from '../../components/tag';
@@ -47,8 +48,7 @@ export default function LabelFile(props) {
                     })}
                 </div>
                 <form className={styles.inputContainer} onSubmit={(e) => addTag(e,input)}>
-                    <Input passRef={inputElement} onChange={handleInputChange} />
-                    <Button blue text={'Add'} input type={'submit'} />
+                    <InputWithButton passRef={inputElement} onChange={handleInputChange} />
                 </form>
 
             </div>

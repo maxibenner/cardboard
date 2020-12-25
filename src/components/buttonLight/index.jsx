@@ -11,6 +11,10 @@ export default function ButtonLight(props) {
         props.attention && styles.attention
     } ${
         props.stacked && styles.stacked
+    } ${
+        !props.icon && styles.noIcon
+    } ${
+        props.pointer && styles.pointer
     }`
 
     return (
@@ -18,7 +22,7 @@ export default function ButtonLight(props) {
             onClick={props.onClick}
             className={classes}
         >
-            {props.icon}
+            {props.icon && props.icon}
             <p className={styles.title}>
                 {props.title}
             </p>

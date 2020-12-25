@@ -35,13 +35,13 @@ export default function Navbar(props) {
                     {/*<ToggleNotifications />*/}
 
                     <div className={styles.navMenuWide}>
-                        <Link to={ROUTES.LIBRARY}>
-                            <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                        <Link as={Link} to={ROUTES.LIBRARY}>
+                            <ButtonLight title={'Library'} pointer />
                         </Link>
-                        <Link to={ROUTES.SETTINGS}>
-                            <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                        <Link as={Link} to={ROUTES.SETTINGS}>
+                            <ButtonLight title={'Settings'} pointer />
                         </Link>
-                        <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
+                        <ButtonLight onClick={logout} title={'Logout'} pointer />
                     </div>
 
                     <div className={styles.navMenuNarrow}>
@@ -50,13 +50,13 @@ export default function Navbar(props) {
                                 menuActive && <div className={styles.menuBackground} />
                             }
                             <Dropdown active={menuActive}>
-                                <Link to={ROUTES.LIBRARY}>
-                                    <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                                <Link as={Link} to={ROUTES.LIBRARY}>
+                                    <ButtonLight title={'Library'} pointer />
                                 </Link>
-                                <Link to={ROUTES.SETTINGS}>
-                                    <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                                <Link as={Link} to={ROUTES.SETTINGS}>
+                                    <ButtonLight title={'Settings'} pointer />
                                 </Link>
-                                <ButtonLight onClick={logout} title={'Logout'} icon={<HiOutlineLogout />} />
+                                <ButtonLight onClick={logout} title={'Logout'} pointer />
                             </Dropdown>
                         </ToggleMenu>
                     </div>

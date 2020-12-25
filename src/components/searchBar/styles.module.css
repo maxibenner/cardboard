@@ -5,8 +5,7 @@
     width: 100%;
     max-width: 450px;
     height: 50px;
-    background: var(--light);
-    border: 1px solid var(--middleGrey);
+    background: var(--bg);
     border-radius: 35px;
     overflow: hidden;
     cursor: text;

@@ -41,7 +41,7 @@ export default function SearchBar(props) {
     return (
         <div className={styles.container} onClick={() => setActive(true)}>
             {
-                !active && <p className={styles.layoverText}>Try searching for <i>vactation</i></p>
+                !active && <p className={styles.layoverText}>{props.placeholder}</p>
             }
             <div className={iconClasses}>
                 <HiSearch />

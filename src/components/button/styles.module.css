@@ -21,14 +21,14 @@
     width: 100%;
     max-width: 350px;
     height: 40px;
-    box-shadow: 0 3px 0 var(--ph);
     border-radius: 7px;
     transition: .1s;
 }
 
 .container>div:hover {
-    box-shadow: 0 2px 0 var(--ph);
-    transform: translateY(1px);
+    /*box-shadow: 0 2px 0 var(--ph);*/
+    transform: scale(.98);
+    transition: .1s;
 }
 
 .container>div>p {
@@ -83,7 +83,7 @@
 
 .container_red>div {
     background: var(--red);
-    box-shadow: 0 3px 0 var(--redDark);
+    /*box-shadow: 0 3px 0 var(--redDark);*/
 }
 
 .container_red>div>p {
@@ -91,14 +91,14 @@
 }
 
 .container_red>div:hover {
-    box-shadow: 0 2px 0 var(--redDark);
+    /*box-shadow: 0 2px 0 var(--redDark);*/
 }
 
 /*__________ Blue __________*/
 
 .container_blue>div {
     background: var(--blue);
-    box-shadow: 0 3px 0 var(--blueDark);
+    /*box-shadow: 0 3px 0 var(--blueDark);*/
 }
 
 .container_blue>div>p {
@@ -106,14 +106,14 @@
 }
 
 .container_blue>div:hover {
-    box-shadow: 0 2px 0 var(--blueDark);
+    /*box-shadow: 0 2px 0 var(--blueDark);*/
 }
 
 /*__________ Yellow __________*/
 
 .container_yellow>div {
     background: var(--main);
-    box-shadow: 0 3px 0 var(--yellow);
+    /*box-shadow: 0 3px 0 var(--yellow);*/
 }
 
 .container_yellow>div>p {
@@ -121,14 +121,14 @@
 }
 
 .container_yellow>div:hover {
-    box-shadow: 0 2px 0 var(--yellow);
+    /*box-shadow: 0 2px 0 var(--yellow);*/
 }
 
 /*__________ Dark __________*/
 
 .container_dark>div {
     background: var(--dark);
-    box-shadow: 0 3px 0 var(--dark);
+    /*box-shadow: 0 3px 0 var(--dark);*/
 }
 
 .container_dark>div>p {
@@ -136,7 +136,7 @@
 }
 
 .container_dark>div:hover {
-    box-shadow: 0 2px 0 var(--dark);
+    /*box-shadow: 0 2px 0 var(--dark);*/
 }
 
 /*__________ Modifiers __________*/
@@ -144,4 +144,8 @@
 .container:disabled {
     opacity: .1;
     cursor: default;
+}
+
+.container_absolute {
+    position: absolute;
 }

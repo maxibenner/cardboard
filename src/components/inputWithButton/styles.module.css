@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border-radius: 7px;
+    background: var(--light);
+}
+
+.input {
+    width: 75%;
+    height: 100%;
+    border: none;
+    border-radius: 7px;
+    box-sizing: border-box;
+    padding: 0 15px;
+    font-size: 1.3em
+}
+.input:focus {
+    outline: none;
+}
+
+.buttonWrapper {
+    position: absolute;
+    height: 100%;
+    right: 4px;
+    height: fit-content;
+}

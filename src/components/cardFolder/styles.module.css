@@ -2,13 +2,12 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     height: 200px;
     border-radius: 16px;
     overflow: hidden;
-    /*box-shadow: 0 0 4px rgba(0, 0, 0, 0.164);*/
-    /*border: 2px solid var(--bg);*/
-    transition: .1s;
+    transition: .2s;
+    background: white;
 }
 
 .videoContainer {
@@ -29,18 +28,13 @@
     top: -5%;
     background-size: cover;
     height: 110%;
-    /*background: var(--bg);*/
+    font-size: 6rem;
 }
-.thumbnailIllustration {
-    width: 100%;
-    max-width: 45%;
-    max-height: 45%;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+
+.image>svg {
+    color: var(--middleGrey);
 }
+
 .body {
     display: flex;
     padding: 15px 10px 15px 15px;
@@ -96,16 +90,6 @@
 .icon {
     max-height: 18px;
     margin-right: 10px;
-}
-
-.playButton {
-    visibility: visible;
-    position: absolute;
-    fill: white;
-    top: 50%;
-    left: 50%;
-    transform-origin: center center;
-    transform: scale(4) translate(-50%, -50%);
 }
 
 /*__________ Modifiers __________*/

@@ -3,6 +3,7 @@ import { useAuthListener } from '../hooks/use-auth-listener';
 import { firebase } from '../lib/firebase';
 import * as ROUTES from '../constants/routes';
 import styles from './library.module.css';
+import { v4 as uuidv4 } from 'uuid';
 
 import BrowseContainer from '../containers/browse';
 import WatchContainer from '../containers/watch';
@@ -11,16 +12,13 @@ import Uploader from '../components/uploader';
 import Button from '../components/button';
 import Navbar from '../components/navbar';
 
-import { getSignedUploadUrl, checkWasabiFile } from '../helpers/tools';
 import LabelFile from '../containers/labelFile';
 
 
 export default function Library() {
 
-
     //__________ VARS __________//
     const { user } = useAuthListener();
-
 
 
     //__________ REFS __________//
@@ -29,14 +27,16 @@ export default function Library() {
 
     //__________ STATE __________//
     const [files, setFiles] = useState(null);
+
     const [filesForUpload, setFilesForUpload] = useState([]);
+    //const [activeUploads, setActiveUploads] = useState([]);
+
     const [activeMedia, setActiveMedia] = useState(null);
-    const [visibleElements, setVisibleElements] = useState(null);
-    const [sortedElements, setSortedElements] = useState([])
+    const [visibleFiles, setVisibleFiles] = useState();
     const [activeModal, setActiveModal] = useState(null)
+
     const [tags, setTags] = useState([])
-    const [activeTags, setActiveTags] = useState([])
-    const [elementsWithActiveTags, setElementsWithActiveTags] = useState([])
+    const [activeTags, setActiveTags] = useState(null)
 
     //__________ FUNCTIONS __________//
 
@@ -47,91 +47,12 @@ export default function Library() {
 
     // Handle file upload selection
     const onFileChange = (e) => {
-        uploadFile(e.target.files)
+        setFilesForUpload(() => [...e.target.files])
     };
 
     // Handle modal
     const handleModal = (modal) => {
         setActiveModal(modal)
-    }
-
-    // Upload file to Wasabi
-    const uploadFile = (filesList) => {
-
-        const filesArray = [...filesList]
-        filesArray.forEach((file) => {
-
-            getSignedUploadUrl(file).then(({ url, uuid, key, name }) => {
-
-                var xhr = new XMLHttpRequest();
-                xhr.uuid = uuid;
-
-                //onProgress
-                xhr.upload.onprogress = (e) => {
-                    const percentage = (e.loaded / e.total) * 100
-                    setFilesForUpload(prev => {
-                        const index = prev.findIndex((element) => element.uuid === xhr.uuid);
-                        prev[index].progress = percentage;
-                        return [...prev]
-                    })
-                };
-                //onError
-                xhr.onerror = () => { xhr.abort() };
-                //onAbort
-                xhr.onabort = () => {
-                    setFilesForUpload(prev => {
-                        const newArr = prev.filter((obj) => { return obj.uuid !== xhr.uuid })
-                        return newArr ? newArr : []
-                    })
-                };
-                //onSuccess
-                xhr.onload = () => {
-
-                    // Remove from upload tracker
-                    setFilesForUpload(prev => {
-                        const newArr = prev.filter((obj) => { return obj.uuid !== xhr.uuid })
-                        return newArr ? newArr : []
-                    })
-
-                    // Set database
-                    checkWasabiFile(key).then((res) => {
-
-                        var isRaw = false
-                        if (file.type.split('/')[0] === 'video') { isRaw = true }
-
-                        if (res) {
-                            firebase.firestore().collection("users").doc(user.uid).collection("files").doc(uuid).set({
-                                isRaw: isRaw,
-                                storage_key: key,
-                                name: name.split('.')[0],
-                                owner: user.uid,
-                                path: '/',
-                                suffix: key.split('.')[1],
-                                type: file.type.split('/')[0]
-                            })
-
-                        } else {
-                            window.alert('There was a problem with your upload. Please try again.')
-                        }
-
-                    })
-                };
-
-                xhr.open('PUT', url, true);
-                xhr.setRequestHeader('Content-Type', file.type);
-                xhr.send(file);
-
-                setFilesForUpload(prev => [
-                    ...prev,
-                    {
-                        uuid: uuid,
-                        progress: 0,
-                        file: file,
-                        xhr: xhr
-                    }
-                ]);
-            });
-        })
     }
 
     // Set active file
@@ -172,24 +93,24 @@ export default function Library() {
     const handleWatchNavigatin = (pressedKey) => {
 
         // Get new visible index of only files
-        const visibleFiles = sortedElements.filter((element) => { return element.display_type === 'file' })
+        const slideShowFiles = visibleFiles.filter((element) => { return element.display_type === 'file' })
 
         // Get index of currently active element in visibleFiles array
-        const indexOfActiveFile = visibleFiles.findIndex((file) => file.id === activeMedia.id)
+        const indexOfActiveFile = slideShowFiles.findIndex((file) => file.id === activeMedia.id)
 
         // Previous/Next file
         if (pressedKey === "ArrowRight") {
 
             // Check if last file
-            if (indexOfActiveFile + 1 === visibleFiles.length) {
+            if (indexOfActiveFile + 1 === slideShowFiles.length) {
 
                 // Back to start
-                handleActiveMedia(visibleFiles[0], "show")
+                handleActiveMedia(slideShowFiles[0], "show")
 
             } else {
 
                 // Next
-                handleActiveMedia(visibleFiles[indexOfActiveFile + 1], "show")
+                handleActiveMedia(slideShowFiles[indexOfActiveFile + 1], "show")
             }
 
         } else if (pressedKey === "ArrowLeft") {
@@ -198,12 +119,12 @@ export default function Library() {
             if (indexOfActiveFile === 0) {
 
                 // Back to end
-                handleActiveMedia(visibleFiles[visibleFiles.length - 1], "show")
+                handleActiveMedia(slideShowFiles[slideShowFiles.length - 1], "show")
 
             } else {
 
                 // Previous
-                handleActiveMedia(visibleFiles[indexOfActiveFile - 1], "show")
+                handleActiveMedia(slideShowFiles[indexOfActiveFile - 1], "show")
             }
 
 
@@ -211,14 +132,20 @@ export default function Library() {
 
     }
 
-    // Handle visible files in current path
-    const handleVisibleElements = (visibleElements) => {
+    // Remove file from uploads array
+    const setParentFiles = (newState) => {
 
-        // TODO: Only activate by tag criterion
-        setVisibleElements(visibleElements)
+        setFilesForUpload(newState)
     }
 
+
+    
+
+
+
     //__________ EFFECTS __________//
+
+
     // Keep files in sync
     useEffect(() => {
 
@@ -245,6 +172,7 @@ export default function Library() {
 
     }, [user.uid]);
 
+
     // Get thumbnail urls
     useEffect(() => {
 
@@ -268,35 +196,6 @@ export default function Library() {
 
     }, [files, user.uid])
 
-    // Sort files
-    useEffect(() => {
-
-        if (visibleElements && activeTags.length === 0) {//not filtered by tags
-
-            // Initialize new array
-            const sortedVisibleElements = [...visibleElements]
-
-            // Sort new array in descending order
-            sortedVisibleElements.sort((a, b) => (a.name > b.name ? 1 : -1))
-
-            // Update sorted elements
-            setSortedElements(sortedVisibleElements)
-
-        } else { // filtered by tags
-
-            // Initialize new array
-            const sortedVisibleElements = [...elementsWithActiveTags]
-
-            // Sort new array in descending order
-            sortedVisibleElements.sort((a, b) => (a.name > b.name ? 1 : -1))
-
-            // Update sorted elements
-            setSortedElements(sortedVisibleElements)
-        }
-
-
-    }, [visibleElements, elementsWithActiveTags])
-
     // Set tags
     useEffect(() => {
 
@@ -312,33 +211,13 @@ export default function Library() {
 
         })
 
+        setTags(newTagArray)
+
     }, [files])
 
-    // Get elements with active tags
-    useEffect(() => {
 
-        var results = []
-
-        // Make sure files exist
-        if (files) {
-
-            // Filter for tags
-            if (activeTags.length === 0) {
-                results = []
-            } else {
-                results = files.filter(file =>
-                    activeTags.every(tag =>
-                        file.tags && file.tags.some(obj => obj === tag)
-                    )
-                );
-            }
-        }
-
-
-        setElementsWithActiveTags(results)
-
-    }, [activeTags, files])
-
+    
+    //__________ RENDER __________//
     return (
         <div className={styles.wrapper}>
             <Navbar
@@ -347,7 +226,10 @@ export default function Library() {
             />
             <div className={styles.spacer70}></div>
             <div className={styles.searchBarContainer}>
-                <TagSearch tags={tags} setActiveTags={setActiveTags} />
+                <TagSearch
+                    tags={tags}
+                    setActiveTags={setActiveTags}
+                />
             </div>
             <div className={styles.actionContainer}>
                 <Button
@@ -360,11 +242,11 @@ export default function Library() {
             {files &&
                 <BrowseContainer
                     files={files}
-                    sortedElements={sortedElements}
+                    activeTags={activeTags}
                     user={user}
                     firebase={firebase}
+                    sendVisibleFilesToParent={setVisibleFiles}
                     handleActiveMedia={handleActiveMedia}
-                    handleVisibleElements={handleVisibleElements}
                     handleModal={handleModal}
                 />
             }
@@ -384,7 +266,12 @@ export default function Library() {
                 />
             }
             {filesForUpload.length > 0 &&
-                <Uploader files={filesForUpload} />
+                <Uploader
+                    files={filesForUpload}
+                    user={user}
+                    firebase={firebase}
+                    setParentFiles={setParentFiles}
+                />
             }
             <input
                 className={styles.hiddenInput}

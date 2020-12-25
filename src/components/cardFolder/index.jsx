@@ -4,9 +4,7 @@ import ToggleContext from '../toggleContext';
 import Dropdown from '../dropdown';
 import ButtonLight from '../buttonLight';
 import { firebase } from '../../lib/firebase';
-import { FaFolderMinus } from 'react-icons/fa';
-import { MdFolder } from 'react-icons/md';
-import folderIllustration from '../../media/illustrations/folder.svg';
+import { FaFolderMinus, FaFolder, FaFolderOpen } from 'react-icons/fa';
 
 export default function CardFolder(props) {
 
@@ -118,14 +116,16 @@ export default function CardFolder(props) {
             <div className={styles.videoContainer} onClick={() => props.handleActiveFolder(props.path)}>
 
                 <div className={styles.image}>
-                    <img className={styles.thumbnailIllustration} alt={'folder illustration'} src={folderIllustration} />
+                    {!isHovered && <FaFolder />}
+                    {isHovered && <FaFolderOpen style={{
+                        transform: 'translateX(6px',
+                        fontSize: '6.7rem'
+                    }} />}
                 </div>
 
             </div>
             <div className={styles.body}>
                 <div className={styles.main}>
-
-                    {/*<MdFolder className={styles.title_icon} />*/}
 
                     {!inputActive ?
                         <p className={styles.title}>{title}</p>
@@ -146,7 +146,7 @@ export default function CardFolder(props) {
                         menuActive && <div className={styles.menuBackground} />
                     }
                     <Dropdown top small active={menuActive}>
-                        <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={()=>props.handleUngroup(props.id)} />
+                        <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={() => props.handleUngroup(props.id)} />
                     </Dropdown>
                 </ToggleContext>
             </div>
