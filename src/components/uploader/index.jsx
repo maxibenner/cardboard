@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { getSignedUploadUrl, checkWasabiFile } from '../../helpers/tools';
 
-export default function Uploader({ firebase, user, files, setParentFiles }) {
+export default function Uploader({ firebase, user, files }) {
 
     const [open, setOpen] = useState(true)
 

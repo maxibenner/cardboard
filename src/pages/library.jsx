@@ -132,11 +132,6 @@ export default function Library() {
 
     }
 
-    // Remove file from uploads array
-    const setParentFiles = (newState) => {
-
-        setFilesForUpload(newState)
-    }
 
 
     
@@ -270,7 +265,6 @@ export default function Library() {
                     files={filesForUpload}
                     user={user}
                     firebase={firebase}
-                    setParentFiles={setParentFiles}
                 />
             }
             <input

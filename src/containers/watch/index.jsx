@@ -19,7 +19,6 @@ export default function WatchContainer(props) {
     return (
         <div className={styles.container}>
 
-
             {props.activeMedia.type === 'image' &&
                 <img className={styles.image} alt={'active view'} src={props.activeMedia.url} />
             }
@@ -27,7 +26,6 @@ export default function WatchContainer(props) {
                 <video controls className={styles.video} alt={'active view'} src={props.activeMedia.url} poster={props.thumbnail_url}></video>
             }
             <div className={styles.background} onClick={() => props.handleActiveMedia(null)} />
-
 
         </div>
     );
