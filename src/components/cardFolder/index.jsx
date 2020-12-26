@@ -113,43 +113,47 @@ export default function CardFolder(props) {
             onDragOver={handleDragOver}
             onDrop={onDragDropFunctions}
         >
-            <div className={styles.videoContainer} onClick={() => props.handleActiveFolder(props.path)}>
+            <div>
+                <div className={styles.videoContainer} onClick={() => props.handleActiveFolder(props.path)}>
 
-                <div className={styles.image}>
-                    {!isHovered && <FaFolder />}
-                    {isHovered && <FaFolderOpen style={{
-                        transform: 'translateX(6px',
-                        fontSize: '6.7rem'
-                    }} />}
+                    <div className={styles.image}>
+                        {!isHovered && <FaFolder />}
+                        {isHovered && <FaFolderOpen style={{
+                            transform: 'translateX(6px',
+                            fontSize: '6.7rem'
+                        }} />}
+                    </div>
+
                 </div>
+                <div className={styles.body}>
+                    <div className={styles.main}>
 
-            </div>
-            <div className={styles.body}>
-                <div className={styles.main}>
-
-                    {!inputActive ?
-                        <p className={styles.title}>{title}</p>
-                        :
-                        <input
-                            ref={input}
-                            className={styles.titleInput}
-                            type="text"
-                            onKeyPress={handleKeyPress}
-                            onChange={handleChange}
-                            onBlur={handleFocusLoss}
-                            defaultValue={title}
-                        />
-                    }
+                        {!inputActive ?
+                            <p className={styles.title}>{title}</p>
+                            :
+                            <input
+                                ref={input}
+                                className={styles.titleInput}
+                                type="text"
+                                onKeyPress={handleKeyPress}
+                                onChange={handleChange}
+                                onBlur={handleFocusLoss}
+                                defaultValue={title}
+                            />
+                        }
+                    </div>
+                    <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                        {
+                            menuActive && <div className={styles.menuBackground} />
+                        }
+                        <Dropdown top small active={menuActive}>
+                            <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={() => props.handleUngroup(props.id)} />
+                        </Dropdown>
+                    </ToggleContext>
                 </div>
-                <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
-                    {
-                        menuActive && <div className={styles.menuBackground} />
-                    }
-                    <Dropdown top small active={menuActive}>
-                        <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={() => props.handleUngroup(props.id)} />
-                    </Dropdown>
-                </ToggleContext>
             </div>
+
+
         </div>
     );
 

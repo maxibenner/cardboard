@@ -64,12 +64,9 @@
     --light: white;
     --main: #FFE390;
     --yellow: #F9C463;
-    --blue: #1685FC;
+    /*--blue: #1685FC;*/
+    --blue: #0058d0;
     --blueDark: #0f61b9;
-    /*
-    --blue: #358FDD;
-    --blueDark: #205584;
-    */
     --red: #FF6760;
     --redDark: #C04A3F;
     --ph: #bdbdbd;

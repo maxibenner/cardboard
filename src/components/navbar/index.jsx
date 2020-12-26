@@ -36,12 +36,13 @@ export default function Navbar(props) {
 
                     <div className={styles.navMenuWide}>
                         <Link as={Link} to={ROUTES.LIBRARY}>
-                            <ButtonLight title={'Library'} pointer />
+                            <p className={styles.navLink}>Library</p>
                         </Link>
                         <Link as={Link} to={ROUTES.SETTINGS}>
-                            <ButtonLight title={'Settings'} pointer />
+                            <p className={styles.navLink}>Settings</p>
                         </Link>
-                        <ButtonLight onClick={logout} title={'Logout'} pointer />
+                        <HiOutlineLogout className={styles.logoutIcon} onClick={logout} />
+                        
                     </div>
 
                     <div className={styles.navMenuNarrow}>
@@ -51,12 +52,12 @@ export default function Navbar(props) {
                             }
                             <Dropdown active={menuActive}>
                                 <Link as={Link} to={ROUTES.LIBRARY}>
-                                    <ButtonLight title={'Library'} pointer />
+                                    <p className={styles.navLinkMobile}>Library</p>
                                 </Link>
                                 <Link as={Link} to={ROUTES.SETTINGS}>
-                                    <ButtonLight title={'Settings'} pointer />
+                                    <p className={styles.navLinkMobile}>Settings</p>
                                 </Link>
-                                <ButtonLight onClick={logout} title={'Logout'} pointer />
+                                <p className={styles.navLinkMobile} onClick={logout}>Logout</p>
                             </Dropdown>
                         </ToggleMenu>
                     </div>

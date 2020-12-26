@@ -5,9 +5,9 @@ import Dropdown from '../dropdown';
 import ButtonLight from '../buttonLight';
 import ButtonLightConfirm from '../buttonLightConfirm';
 import { firebase } from '../../lib/firebase';
-/*import { FaVideo } from 'react-icons/fa';
-import { RiScissorsFill } from 'react-icons/ri';*/
-import { /*MdImage, MdAudiotrack, */MdLabel, MdTitle, MdDelete, MdPlayCircleFilled, MdShare } from 'react-icons/md';
+//import { RiScissorsFill } from 'react-icons/ri';
+import { FaVideo } from 'react-icons/fa';
+import { MdImage,/* MdAudiotrack, */MdLabel, MdTitle, MdDelete, MdPlayCircleFilled, MdShare } from 'react-icons/md';
 
 export default function CardFile(props) {
 
@@ -151,58 +151,67 @@ export default function CardFile(props) {
             onDragLeave={handleDragLeave}
             onDrop={onDragDropFunctions}
         >
-            <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file, 'show')}>
-                {props.file.type === 'video' && 
-                    <MdPlayCircleFilled className={styles.playButton} />
-                }
-                <div className={styles.image} style={props.file.thumbnail_url && { backgroundImage: `url(${props.file.thumbnail_url})` }}></div>
-            </div>
-            <div className={styles.body}>
-                <div className={styles.main}>
-
-                    {/*__________Media Icons__________*/}
-                    {/*props.file.type === 'video' && <FaVideo className={styles.title_icon} />*/}
-                    {/*props.file.type === 'image' && <MdImage className={styles.title_icon} />*/}
-                    {/*props.file.type === 'audio' && <MdAudiotrack className={styles.title_icon} />*/}
-                    {/*_______________________________*/}
-
-                    {!inputActive ?
-                        <p className={styles.title}>{title}</p>
-                        :
-                        <input
-                            ref={input}
-                            className={styles.titleInput}
-                            type="text"
-                            onKeyPress={handleKeyPress}
-                            onChange={handleChange}
-                            onBlur={handleFocusLoss}
-                            defaultValue={title}
-                        />
+            <div className={styles.cardInner}>
+                <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file, 'show')}>
+                    {props.file.thumbnail_url && props.file.type === 'video' &&
+                        <MdPlayCircleFilled className={styles.playButton} />
                     }
+                    {!props.file.thumbnail_url && props.file.type === 'image' &&
+                        <MdImage className={styles.processingButton} />
+                    }
+                    {!props.file.thumbnail_url && props.file.type === 'video' &&
+                        <FaVideo className={styles.processingButton} />
+                    }
+                    <div className={styles.image} style={props.file.thumbnail_url && { backgroundImage: `url(${props.file.thumbnail_url})` }}></div>
                 </div>
+                <div className={styles.body}>
+                    <div className={styles.main}>
 
-                <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
-                    {
-                        menuActive && <div className={styles.menuBackground} />
-                    }
-                    <Dropdown top small active={menuActive}>
-                        <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
-                        <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => props.handleActiveMedia(props.file, 'label')} />
-                        <ButtonLight title={'Share'} icon={<MdShare />} /*onClick={'#'}*/ />
-                        {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
-                        <ButtonLightConfirm
-                            danger
-                            title={'Delete'}
-                            icon={<MdDelete />}
-                            onClick={(e) => preventDefault(e)}
-                            confirmAction={handleDelete}
-                            preventDrag={() => setDraggable(false)}
-                            enableDrag={() => setDraggable(true)}
-                        />
-                    </Dropdown>
-                </ToggleContext>
+                        {/*__________Media Icons__________*/}
+                        {/*props.file.type === 'video' && <FaVideo className={styles.title_icon} />*/}
+                        {/*props.file.type === 'image' && <MdImage className={styles.title_icon} />*/}
+                        {/*props.file.type === 'audio' && <MdAudiotrack className={styles.title_icon} />*/}
+                        {/*_______________________________*/}
 
+                        {!inputActive ?
+                            <p className={styles.title}>{title}</p>
+                            :
+                            <input
+                                ref={input}
+                                className={styles.titleInput}
+                                type="text"
+                                onKeyPress={handleKeyPress}
+                                onChange={handleChange}
+                                onBlur={handleFocusLoss}
+                                defaultValue={title}
+                            />
+                        }
+                    </div>
+
+                    <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                        {
+                            menuActive && <div className={styles.menuBackground} />
+                        }
+                        <Dropdown top small active={menuActive}>
+                            <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
+                            <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => props.handleActiveMedia(props.file, 'label')} />
+                            <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
+                            {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
+                            <ButtonLightConfirm
+                                danger
+                                title={'Delete'}
+                                icon={<MdDelete />}
+                                onClick={(e) => preventDefault(e)}
+                                confirmAction={handleDelete}
+                                preventDrag={() => setDraggable(false)}
+                                enableDrag={() => setDraggable(true)}
+                            />
+                        </Dropdown>
+                    </ToggleContext>
+
+                </div>
             </div>
+
         </div>
     );
 }

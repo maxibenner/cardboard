@@ -68,31 +68,37 @@ exports.new_file_setup = functions.firestore.document('users/{userId}/files/{doc
         const newThumbName = uuidv4()
         const gcsBucket = gcs.bucket(`${functions.config().data.wasabi.bucket}.appspot.com`);
 
-        // 3. Save to file pipeline
-        var file = gcsBucket.file(`users/${snap.data().owner}/thumbnails/${newThumbName}.jpeg`).createWriteStream({ contentType: 'image/jpeg' })
-            .on('error', (err) => { functions.logger.warn(err) })
-            .on('finish', () => {
-                // Write thumbnail to firestore
-                admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.id).update({
-                    thumbnail_key: `users/${snap.data().owner}/thumbnails/${newThumbName}.jpeg`
-                })
-                    .then(() => {
-                        functions.logger.info('Thumbnail uploaded successfully.')
+        try {
+            // 3. Save to file pipeline
+            var file = gcsBucket.file(`users/${snap.data().owner}/thumbnails/${newThumbName}.jpeg`).createWriteStream({ contentType: 'image/jpeg' })
+                .on('error', (err) => { functions.logger.warn(err) })
+                .on('finish', () => {
+                    // Write thumbnail to firestore
+                    admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.id).update({
+                        thumbnail_key: `users/${snap.data().owner}/thumbnails/${newThumbName}.jpeg`
                     })
-                    .catch((err) => functions.logger.error('Could not upload ....', snap.data().owner, err))
-            });
+                        .then(() => {
+                            functions.logger.info('Thumbnail uploaded successfully.')
+                        })
+                        .catch((err) => functions.logger.error('Could not upload ....', snap.data().owner, err))
+                });
 
-        // 2. Resize
-        const pipeline = sharp();
-        pipeline.resize(450, 450).jpeg({
-            quality: 50
-        }).pipe(file);
+            // 2. Resize
+            const pipeline = sharp();
+            pipeline.resize(450, 450).jpeg({
+                quality: 50
+            }).pipe(file);
 
-        // 1. Stream file from Wasabi
-        s3.getObject({
-            Bucket: 'cardboard-dev',
-            Key: storage_key
-        }).createReadStream().pipe(pipeline);
+            // 1. Stream file from Wasabi
+            s3.getObject({
+                Bucket: 'cardboard-dev',
+                Key: storage_key
+            }).createReadStream().pipe(pipeline);
+        } catch (err) {
+            functions.logger.error(err)
+        }
+
+
     }
 
     // VIDEO: Save to pending dir if video
@@ -226,7 +232,7 @@ exports.sign_wasabi_download_url = functions.https.onCall(async (data, context) 
         });
 
         return url
-        
+
     } catch (err) {
         functions.logger.error(err)
     }
