@@ -143,7 +143,7 @@ export default function CardFile(props) {
             onDragLeave={handleDragLeave}
             onDrop={onDragDropFunctions}
         >
-            <div className={`${styles.cardInner} ${dragCounter !== 0 && styles.no_click}`}>
+            <div className={styles.cardInner}>
                 <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file, 'show')}>
                     {props.file.thumbnail_url && props.file.type === 'video' &&
                         <MdPlayCircleFilled className={styles.playButton} />

@@ -7,7 +7,8 @@
     height: 200px;
     border-radius: 16px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-    /*transition: .2s;*/
+    background: var(--light);
+    transition-delay: .1s;
 }
 
 .cardInner {
@@ -131,23 +132,18 @@
 /*__________ Modifiers __________*/
 
 .is_hovered {
-    box-shadow: 0 0 0 3px var(--blue);
+    box-shadow: 0 0 0 3px var(--bg);
+    background: var(--bg);
+    transition-delay: 0s;
 }
+
 .is_hovered > div {
     transform: scale(0.9);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
     transition: .1s;
 }
-.is_hovered > div > div:nth-child(2) {
-    /*background: var(--blue);
-    color: var(--light);*/
-}
 
 .is_dragged {
     opacity: 0;
     transition: .1s;
-}
-
-.no_click {
-    pointer-events: none;
 }
