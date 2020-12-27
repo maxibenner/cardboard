@@ -40,7 +40,8 @@ export default function BrowseContainer({
 
     //_________________ STATES _________________//
     // Holds the id of the dragged element
-    const [dragSource, setDragSource] = useState(null)
+    //const [dragSource, setDragSource] = useState(null)
+    var dragSource = null
     // Holds the current path
     const [currentPath, setCurrentPath] = useState('/')
     // Holds visible elements
@@ -63,7 +64,8 @@ export default function BrowseContainer({
 
     // Keep track of dragged element
     const trackDragSource = (sourceId) => {
-        setDragSource(sourceId)
+        //setDragSource(sourceId)
+        dragSource = sourceId
     }
 
     // Add folder or add to folder

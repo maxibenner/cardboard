@@ -131,10 +131,7 @@
 /*__________ Modifiers __________*/
 
 .is_hovered {
-    box-shadow: 0 0 0 3px var(--middleGrey);
-    border-radius: 20px;
-    /*transform: scale(0.90);
-    transition: .2s;*/
+    box-shadow: 0 0 0 3px var(--blue);
 }
 .is_hovered > div {
     transform: scale(0.9);
@@ -142,11 +139,15 @@
     transition: .1s;
 }
 .is_hovered > div > div:nth-child(2) {
-    background: var(--blue);
-    color: var(--light);
+    /*background: var(--blue);
+    color: var(--light);*/
 }
 
 .is_dragged {
     opacity: 0;
     transition: .1s;
+}
+
+.no_click {
+    pointer-events: none;
 }

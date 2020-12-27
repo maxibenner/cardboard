@@ -17,19 +17,21 @@ export default function CardFile(props) {
     //Input state
     const [inputActive, setInputActive] = useState(false);
     const [title, setTitle] = useState(props.file.name)
-    const [isHovered, setIsHovered] = useState(false)
-    const [isDragged, setIsDragged] = useState(false)
-    const [dragCounter, setDragCounter] = useState(0)
     const [menuActive, setMenuActive] = useState(false)
+
     const [draggable, setDraggable] = useState(true)
+    const [isDragged, setIsDragged] = useState(false)
+
+    // counter > 0 = is hovered
+    const [dragCounter, setDragCounter] = useState(0)
+    
 
 
 
     //_________________ FUNCTIONS _________________//
-
+    
     // Handle file delete
     const handleDelete = (e) => {
-        console.log('deleted')
         firebase.firestore().collection('users').doc(props.file.owner).collection('files').doc(props.file.id).delete().then(() => {
             console.info('Deleted')
         }).catch((err) => console.err(err))
@@ -47,8 +49,6 @@ export default function CardFile(props) {
         setMenuActive(false)
         setInputActive(true)
     }
-
-
 
     // Handle change
     const handleChange = () => {
@@ -127,22 +127,14 @@ export default function CardFile(props) {
                 display_type: 'file'
             })
         }
-
     }
-    // Set drag state
-    useEffect(() => {
-        if (dragCounter === 0) {
-            setIsHovered(false)
-        } else {
-            setIsHovered(true)
-        }
-    }, [dragCounter])
 
 
 
     return (
         <div
-            className={`${styles.card} ${isHovered && styles.is_hovered} ${isDragged && styles.is_dragged}`}
+            className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged}`}
+            test={console.log('render')}
             draggable={draggable}
             onDragStart={onDragStartFunctions}
             onDragEnter={handleDragEnter}
@@ -151,7 +143,7 @@ export default function CardFile(props) {
             onDragLeave={handleDragLeave}
             onDrop={onDragDropFunctions}
         >
-            <div className={styles.cardInner}>
+            <div className={`${styles.cardInner} ${dragCounter !== 0 && styles.no_click}`}>
                 <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file, 'show')}>
                     {props.file.thumbnail_url && props.file.type === 'video' &&
                         <MdPlayCircleFilled className={styles.playButton} />
@@ -166,12 +158,6 @@ export default function CardFile(props) {
                 </div>
                 <div className={styles.body}>
                     <div className={styles.main}>
-
-                        {/*__________Media Icons__________*/}
-                        {/*props.file.type === 'video' && <FaVideo className={styles.title_icon} />*/}
-                        {/*props.file.type === 'image' && <MdImage className={styles.title_icon} />*/}
-                        {/*props.file.type === 'audio' && <MdAudiotrack className={styles.title_icon} />*/}
-                        {/*_______________________________*/}
 
                         {!inputActive ?
                             <p className={styles.title}>{title}</p>
