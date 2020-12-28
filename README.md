@@ -3,5 +3,5 @@
 
 
 TEST CREDENTIALS<br>
-email: max@mustermann.com<br>
+email: maxibenner@gmail.com<br>
 password: 123456
