@@ -6,9 +6,15 @@
     height: 200px;
     border-radius: 16px;
     overflow: hidden;
-    transition: .2s;
-    background: white;
+    background: var(--white);
     /*transition: .2s;*/
+}
+
+.cardInner {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--light);
+    transition: .1s;
 }
 
 .videoContainer {
@@ -96,19 +102,21 @@
 /*__________ Modifiers __________*/
 
 .is_hovered {
-    box-shadow: 0 0 0 3px var(--middleGrey);
-    border-radius: 20px;
+    box-shadow: 0 0 0 3px var(--bg);
+    background: var(--bg);
+    transition-delay: 0s;
 }
+
 .is_hovered > div {
     transform: scale(0.9);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
     transition: .1s;
-}
-.is_hovered > div > div:nth-child(2) {
-    background: var(--blue);
-    color: var(--light);
 }
 
 .is_dragged {
     opacity: 0;
     transition: .1s;
 }
+
+
+

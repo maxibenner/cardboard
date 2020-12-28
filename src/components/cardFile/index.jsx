@@ -89,6 +89,16 @@ export default function CardFile(props) {
         }, [props.file.id, props.file.owner, title],
     )
 
+    // Handle active media
+    const handleActiveMedia = useCallback(
+        (type) => props.handleActiveMedia(props.file, type), [props],
+    )
+
+    // Activate menu
+    const activateMenu = useCallback(
+        () => setMenuActive(prevMenuActive => !prevMenuActive),[],
+    )
+
     // Set input focus
     useEffect(() => {
         if (inputActive) {
@@ -112,7 +122,7 @@ export default function CardFile(props) {
         (e) => {
             // Only set as target if not equal to source
             if (!isDragged) {
-                setDragCounter(1)
+                setDragCounter(dragCounter => dragCounter + 1)
             }
         }, [isDragged],
     )
@@ -130,7 +140,7 @@ export default function CardFile(props) {
         () => {
             // Only remove as target if not equal to source
             if (!isDragged) {
-                setDragCounter(0)
+                setDragCounter(dragCounter => dragCounter - 1)
             }
         }, [isDragged],
     )
@@ -161,6 +171,7 @@ export default function CardFile(props) {
     return (
         <div
             className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged}`}
+            test={console.log('render')}
             draggable={draggable}
             onDragStart={onDragStartFunctions}
             onDragEnter={handleDragEnter}
@@ -170,7 +181,7 @@ export default function CardFile(props) {
             onDrop={onDragDropFunctions}
         >
             <div className={`${styles.cardInner} ${dragCounter !== 0 && styles.no_click}`}>
-                <div className={styles.videoContainer} onClick={() => props.handleActiveMedia(props.file, 'show')}>
+                <div className={styles.videoContainer} onClick={()=>handleActiveMedia('show')}>
                     {!props.file.thumbnail_url && props.file.type === 'image' &&
                         <MdImage className={styles.processingButton} />
                     }
@@ -182,7 +193,7 @@ export default function CardFile(props) {
                     }
                     <div className={styles.image} style={props.file.thumbnail_url && { backgroundImage: `url(${props.file.thumbnail_url})` }}></div>
                 </div>
-                
+
                 <div className={styles.body}>
                     <div className={styles.main}>
 
@@ -201,13 +212,13 @@ export default function CardFile(props) {
                         }
                     </div>
 
-                    <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
+                    <ToggleContext onClick={activateMenu}>
                         {
                             menuActive && <div className={styles.menuBackground} />
                         }
                         <Dropdown top small active={menuActive}>
                             <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
-                            <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => props.handleActiveMedia(props.file, 'label')} />
+                            <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
                             <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
                             {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
                             <ButtonLightConfirm

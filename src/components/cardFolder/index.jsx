@@ -113,7 +113,7 @@ export default function CardFolder(props) {
             onDragOver={handleDragOver}
             onDrop={onDragDropFunctions}
         >
-            <div>
+            <div className={styles.cardInner}>
                 <div className={styles.videoContainer} onClick={() => props.handleActiveFolder(props.path)}>
 
                     <div className={styles.image}>
