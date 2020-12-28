@@ -20,7 +20,7 @@ export default function App() {
 			<Route path={ROUTES.LANDING} exact>
 				<Landing />
 			</Route>
-			
+
 			<IsUserRedirect user={user} path={ROUTES.SIGN_UP} loggedInPath={ROUTES.LIBRARY} exact>
 				<Signup />
 			</IsUserRedirect>
@@ -36,7 +36,7 @@ export default function App() {
 			<ProtectedRoute user={user} path={ROUTES.SETTINGS} exact>
 				<Settings />
 			</ProtectedRoute>
-			
+
 		</Router>
 	);
 }
