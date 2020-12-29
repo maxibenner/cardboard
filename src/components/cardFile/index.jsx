@@ -172,7 +172,6 @@ export default function CardFile(props) {
     return (
         <div
             className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged}`}
-            test={console.log('render')}
             draggable={draggable}
             onDragStart={onDragStartFunctions}
             onDragEnter={handleDragEnter}
