@@ -1,15 +1,14 @@
 .nav {
+    padding: 20px 0;
     color: var(--dark);
     display: flex;
     position: fixed;
-    width:100%;
+    width: 100%;
     background: var(--light);
     justify-content: center;
     font-size: 1rem;
     top: 0;
     z-index: 99;
-    /*border-bottom: 1px solid var(--middleGrey);*/
-    /*box-shadow: 0 -3px 7px rgba(0, 0, 0, 0.2);*/
 }
 
 .nav_yellow {
@@ -34,6 +33,7 @@
     padding: 10px 25px;
     cursor: pointer;
 }
+
 .navLink:hover {
     text-decoration: underline;
 }
@@ -88,14 +88,27 @@
 }
 
 /*__________ CONTAINERS __________*/
+
 .navMenuWide {
     display: flex;
     align-items: center;
+    position: relative;
 }
+
+.navMenuWide>a {
+    margin: 0 10px;
+}
+
+.navMenuWide>div {
+    margin: 0 10px;
+}
+
 .navMenuNarrow {
     display: none;
+    position: relative;
 }
-@media(max-width:800px){
+
+@media(max-width:800px) {
     .navMenuWide {
         display: none;
     }

@@ -1,5 +1,3 @@
-
-
 .container {
     position: absolute;
     overflow: hidden;
@@ -10,19 +8,24 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.158);
     padding: 5px;
     z-index: 999;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-
-
 
 /*__________ Modifieres __________*/
+
 .closed {
-    height:0;
+    height: 0;
     padding: 0;
 }
+
 .top {
     top: unset;
     bottom: calc(100% + 5px);
 }
+
 .small {
     font-size: .9rem;
 }

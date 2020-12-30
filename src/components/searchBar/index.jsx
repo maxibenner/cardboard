@@ -36,20 +36,18 @@ export default function SearchBar(props) {
 
 
     //__________ CLASSES __________//
-    const iconClasses = `${styles.searchIcon} ${active ? styles.searchIconSideways : undefined}`
+    const iconClasses = `${styles.searchIcon} ${active ? styles.searchIconActive : undefined}`
 
     return (
-        <div className={styles.container} onClick={() => setActive(true)}>
-            {
-                !active && <p className={styles.layoverText}>{props.placeholder}</p>
-            }
+        <div className={`${styles.container} ${active && styles.containerActive}`} onClick={() => setActive(true)}>
+            
             <div className={iconClasses}>
                 <HiSearch />
             </div>
-            <div className={!active ? styles.cursorDouble : undefined}></div>
             <form className={styles.form} action="submit" onSubmit={(e)=>submit(e)}>
                 <input
                     ref={input}
+                    placeholder={props.placeholder}
                     onBlur={() => setActive(!active)}
                     onChange={(e)=>setInputValue(e.target.value)}
                     className={styles.input}

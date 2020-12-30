@@ -11,9 +11,10 @@ export default function Signin() {
 
     const history = useHistory();
     const { firebase } = useContext(FirebaseContext);
-    const [emailAddress, setEmailAddress] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    
+    const [emailAddress, setEmailAddress] = useState();
+    const [password, setPassword] = useState();
+    const [error, setError] = useState();
 
     const handleSignin = (event) => {
         event.preventDefault();
@@ -25,8 +26,6 @@ export default function Signin() {
                 history.push(ROUTES.LIBRARY)
             })
             .catch((error) => {
-                setEmailAddress('');
-                setPassword('');
                 setError(error.message);
             })
     }

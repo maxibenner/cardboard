@@ -8,10 +8,12 @@ import BrowseContainer from '../containers/browse';
 import WatchContainer from '../containers/watch';
 import TagSearch from '../containers/tagSearch';
 import Uploader from '../components/uploader';
-import Button from '../components/button';
 import Navbar from '../components/navbar';
+import ButtonLight from '../components/buttonLight';
+import { IoMdArrowDropdown } from 'react-icons/io'
 
 import LabelFile from '../containers/labelFile';
+
 
 
 export default function Library() {
@@ -230,14 +232,13 @@ export default function Library() {
                     setActiveTags={setActiveTags}
                 />
             </div>
-            <div className={styles.actionContainer}>
-                <Button
-                    blue
-                    fitText
+            {/*<div className={styles.actionContainer}>
+                <ButtonLight
                     onClick={handleClick}
-                    text="Upload"
+                    title="More"
+                    icon={<IoMdArrowDropdown />}
                 />
-            </div>
+            </div>*/}
             {files &&
                 <BrowseContainer
                     files={files}

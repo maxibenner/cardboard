@@ -120,6 +120,14 @@ export default function BrowseContainer({
 
     }
 
+    // Share logic
+    const shareFiles = (fileArr) => {
+
+        // Create new firebase share directory
+
+        // Get link to it
+    }
+
     // Folder logic -> visible files
     // Make all files visible if "activeTags" prop is not null
     useEffect(() => {

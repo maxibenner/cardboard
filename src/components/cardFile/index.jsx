@@ -215,7 +215,7 @@ export default function CardFile(props) {
                     <ToggleContext onClick={activateMenu}>
                         {
                             menuActive && <div className={styles.menuBackground} />
-                        }
+                        } 
                         <Dropdown top small active={menuActive}>
                             <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                             <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />

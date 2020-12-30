@@ -27,8 +27,6 @@ export default function Signup() {
                 history.push(ROUTES.LIBRARY)
             })
             .catch((error) => {
-                setEmailAddress('');
-                setPassword('');
                 setError(error.message);
             })
             */

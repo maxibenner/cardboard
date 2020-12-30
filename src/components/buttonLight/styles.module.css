@@ -46,18 +46,26 @@
 
 .stacked>svg {
     margin-bottom: 5px;
-    font-size:1.1em;
+    font-size: 1.1em;
 }
+
 .stacked>p {
-    margin:0;
-    font-size:.9em;
+    margin: 0;
+    font-size: .9em;
 }
+
 .noIcon>p {
     margin: 0;
 }
+
 .pointer:hover {
     background: none;
 }
+
 .pointer>p {
     cursor: pointer;
+}
+.large {
+    padding: 20px 30px;
+    font-size: 1.1rem;
 }

@@ -4,17 +4,15 @@ import Logo from "../../media/logo-dark.svg"
 import * as ROUTES from '../../constants/routes';
 import styles from './styles.module.css';
 import { FirebaseContext } from '../../context/firebase';
-import { MdSettings } from 'react-icons/md';
-import { HiOutlineLogout } from 'react-icons/hi';
 import { BiBookHeart } from 'react-icons/bi';
+import { HiOutlineLogout } from 'react-icons/hi';
+import { MdSettings, MdGroup } from 'react-icons/md';
 
-import Dropdown from '../dropdown';
-import ToggleMenu from '../toggleMenu';
+import UserContext from '../userContext';
 import ButtonLight from '../buttonLight';
-import ToggleNotifications from '../toggleNotifications';
 
 
-export default function Navbar(props) {
+export default function Navbar() {
 
     const { firebase } = useContext(FirebaseContext);
     const [menuActive, setMenuActive] = useState(false)
@@ -31,37 +29,34 @@ export default function Navbar(props) {
                 <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
 
                 <div className={styles.menuContainer}>
-
-                    {/*<ToggleNotifications />*/}
-
                     <div className={styles.navMenuWide}>
                         <Link as={Link} to={ROUTES.LIBRARY}>
-                            <p className={styles.navLink}>Library</p>
+                            <ButtonLight title={'Library'} />
                         </Link>
-                        <Link as={Link} to={ROUTES.SETTINGS}>
-                            <p className={styles.navLink}>Settings</p>
+                        <Link as={Link} to={'#'}>
+                            <ButtonLight title={'Shared'} onClick={()=>window.alert('Coming soon.')} />
                         </Link>
-                        <HiOutlineLogout className={styles.logoutIcon} onClick={logout} />
-                        
+                        <UserContext firebase={firebase}>
+                            <Link as={Link} to={ROUTES.SETTINGS}>
+                                <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                            </Link>
+                            <ButtonLight title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
+                        </UserContext>
                     </div>
-
                     <div className={styles.navMenuNarrow}>
-                        <ToggleMenu active={menuActive} onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
-                            {
-                                menuActive && <div className={styles.menuBackground} />
-                            }
-                            <Dropdown active={menuActive}>
-                                <Link as={Link} to={ROUTES.LIBRARY}>
-                                    <p className={styles.navLinkMobile}>Library</p>
-                                </Link>
-                                <Link as={Link} to={ROUTES.SETTINGS}>
-                                    <p className={styles.navLinkMobile}>Settings</p>
-                                </Link>
-                                <p className={styles.navLinkMobile} onClick={logout}>Logout</p>
-                            </Dropdown>
-                        </ToggleMenu>
+                        <UserContext firebase={firebase} text={'M'} routes={ROUTES} logout={logout} >
+                            <Link as={Link} to={ROUTES.LIBRARY}>
+                                <ButtonLight large title={'Library'} icon={<BiBookHeart />} />
+                            </Link>
+                            <Link as={Link} to={'#'}>
+                                <ButtonLight large title={'Shared'} onClick={()=>window.alert('Coming soon.')} icon={<MdGroup />} />
+                            </Link>
+                            <Link as={Link} to={ROUTES.SETTINGS}>
+                                <ButtonLight large title={'Settings'} icon={<MdSettings />} />
+                            </Link>
+                            <ButtonLight large title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
+                        </UserContext>
                     </div>
-
                 </div>
             </div>
         </div>

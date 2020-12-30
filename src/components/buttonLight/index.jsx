@@ -15,6 +15,8 @@ export default function ButtonLight(props) {
         !props.icon && styles.noIcon
     } ${
         props.pointer && styles.pointer
+    } ${
+        props.large && styles.large
     }`
 
     return (

@@ -10,7 +10,12 @@
     overflow: hidden;
     cursor: text;
     margin: 0 25px;
-    transition: .2s;
+    
+}
+
+.containerActive {
+    box-shadow: 0 0 0 3px var(--blue);
+    transition: .1s;
 }
 
 .form {
@@ -25,61 +30,24 @@
     background: none;
     outline: none;
     border: none;
-    padding: 0 21px;
+    padding: 0 21px 0 28px;
     border-radius: 25px;
+}
+
+.input::placeholder {
+    color: var(--ph)
 }
 
 .searchIcon {
     pointer-events: none;
     position: relative;
     text-align: center;
-    position: absolute;
     font-size: 25px;
     height: 25px;
-    left: 10px;
-    color: var(--dark);
-    transition: .2s;
-}
-
-.searchIconSideways {
-    color: var(--dark);
-    transform: rotateY(90deg);
-}
-
-.cursorDouble {
-    pointer-events: none;
-    opacity: 0;
-    position: absolute;
-    left: 21px;
-    height: 20px;
-    width: 1px;
-    background: var(--dark);
-    transition: .05s;
-}
-
-.layoverText {
-    text-overflow: ellipsis;
-    pointer-events: none;
-    position: absolute;
+    left: 18px;
     color: var(--ph);
-    top: 0;
-    left: 50px;
-    white-space: nowrap;
-    transition: 1s;
 }
 
-.container:hover>.searchIcon {
-    color: var(--dark);
-    transform: rotateY(90deg);
-}
-
-.container:hover>.cursorDouble {
-    opacity: 1;
-    transition: .05s;
-    transition-delay: .15s;
-}
-
-.container:hover>.layoverText {
-    opacity: 0;
-    transition: .2s;
+.searchIconActive {
+    color: var(--blue);
 }

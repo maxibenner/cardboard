@@ -7,9 +7,13 @@
 .breadCrumb {
     padding: 10px 15px;
     border-radius: 7px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
 }
 .breadCrumb:hover {
-    /*color: var(--blue);*/
     background: var(--middleGrey);
     padding: 10px 15px;
     transition: .2s;
