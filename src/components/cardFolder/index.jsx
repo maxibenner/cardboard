@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import ToggleContext from '../toggleContext';
-import Dropdown from '../dropdown';
+import Dropdown from '../dropdownFull';
 import ButtonLight from '../buttonLight';
 import { firebase } from '../../lib/firebase';
 import { FaFolderMinus, FaFolder, FaFolderOpen } from 'react-icons/fa';

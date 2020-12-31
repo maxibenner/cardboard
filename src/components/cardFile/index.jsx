@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./styles.module.css";
 import ToggleContext from '../toggleContext';
-import Dropdown from '../dropdown';
+import DropdownFull from '../dropdownFull';
 import ButtonLight from '../buttonLight';
 import ButtonLightConfirm from '../buttonLightConfirm';
 import { firebase } from '../../lib/firebase';
@@ -97,7 +97,7 @@ export default function CardFile(props) {
 
     // Activate menu
     const activateMenu = useCallback(
-        () => setMenuActive(prevMenuActive => !prevMenuActive),[],
+        () => setMenuActive(prevMenuActive => !prevMenuActive), [],
     )
 
     // Set input focus
@@ -181,7 +181,7 @@ export default function CardFile(props) {
             onDrop={onDragDropFunctions}
         >
             <div className={`${styles.cardInner} ${dragCounter !== 0 && styles.no_click}`}>
-                <div className={styles.videoContainer} onClick={()=>handleActiveMedia('show')}>
+                <div className={styles.videoContainer} onClick={() => handleActiveMedia('show')}>
                     {!props.file.thumbnail_url && props.file.type === 'image' &&
                         <MdImage className={styles.processingButton} />
                     }
@@ -212,27 +212,21 @@ export default function CardFile(props) {
                         }
                     </div>
 
-                    <ToggleContext onClick={activateMenu}>
-                        {
-                            menuActive && <div className={styles.menuBackground} />
-                        } 
-                        <Dropdown top small active={menuActive}>
-                            <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
-                            <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
-                            <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
-                            {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
-                            <ButtonLightConfirm
-                                danger
-                                title={'Delete'}
-                                icon={<MdDelete />}
-                                onClick={(e) => preventDefault(e)}
-                                confirmAction={handleDelete}
-                                preventDrag={() => setDraggable(false)}
-                                enableDrag={() => setDraggable(true)}
-                            />
-                        </Dropdown>
-                    </ToggleContext>
-
+                    <DropdownFull icon={<ToggleContext />}>
+                        <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
+                        <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
+                        <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
+                        {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
+                        <ButtonLightConfirm
+                            danger
+                            title={'Delete'}
+                            icon={<MdDelete />}
+                            onClick={(e) => preventDefault(e)}
+                            confirmAction={handleDelete}
+                            preventDrag={() => setDraggable(false)}
+                            enableDrag={() => setDraggable(true)}
+                        />
+                    </DropdownFull>
                 </div>
             </div>
 

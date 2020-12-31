@@ -232,13 +232,13 @@ export default function Library() {
                     setActiveTags={setActiveTags}
                 />
             </div>
-            {/*<div className={styles.actionContainer}>
+            <div className={styles.actionContainer}>
                 <ButtonLight
                     onClick={handleClick}
                     title="More"
                     icon={<IoMdArrowDropdown />}
                 />
-            </div>*/}
+            </div>
             {files &&
                 <BrowseContainer
                     files={files}
