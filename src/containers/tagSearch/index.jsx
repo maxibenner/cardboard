@@ -17,7 +17,7 @@ export default function TagSearch(props) {
 
         // Add tag to activeTags
         if (!duplicate) {
-            setActiveTags(existingTags => [...existingTags, tag])
+            setActiveTags(existingTags => [...existingTags, tag.toLowerCase()])
         }
 
     }
