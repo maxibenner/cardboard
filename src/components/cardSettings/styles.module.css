@@ -34,3 +34,12 @@
     padding: 5px;
     border-radius: 5px;
 }
+
+@media(max-width: 374px){
+    .container {
+        flex-direction: column;
+    }
+    .container > div:first-child > p {
+        margin-bottom: -5px;
+    }
+}

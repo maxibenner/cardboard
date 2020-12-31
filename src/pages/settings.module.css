@@ -7,6 +7,12 @@
     height: fit-content;
 }
 
+.container > h2 {
+    font-family: recoleta;
+    font-size: 1.2rem;
+    margin-top: 50px;
+}
+
 .spacer70 {
     height: 70px;
     width: 100%;

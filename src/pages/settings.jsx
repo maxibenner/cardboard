@@ -28,7 +28,7 @@ export default function Settings(props) {
                     if (capacity_used < 1048575999) {
                         setUserInfo({
                             storage_capacity: (snap.data().storage_capacity / 1000000000),
-                            capacity_used: `${(capacity_used / 1000000).toFixed(0)} MB`
+                            capacity_used: `${(capacity_used / 10000000).toFixed(0)} MB`
                         });
                     } else {
                         setUserInfo({
