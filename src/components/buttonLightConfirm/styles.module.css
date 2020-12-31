@@ -8,7 +8,7 @@
 .contentContainer {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 15px;
 }
 
 .contentContainer>svg {
@@ -18,7 +18,7 @@
 .contentContainerTop {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
+    padding: 15px;
     background: var(--red);
     border-radius: 5px;
     color: var(--light);
