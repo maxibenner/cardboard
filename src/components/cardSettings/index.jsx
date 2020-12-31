@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.css';
-import { MdEdit } from 'react-icons/md';
+
 
 export default function CardSettings(props) {
 
@@ -12,7 +12,7 @@ export default function CardSettings(props) {
             <div className={styles.rightSide}>
                 <p className={styles.info}>{props.info}</p>
                 <div className={styles.editContainer} onClick={props.onClick}>
-                    <MdEdit />
+                    {props.icon}
                 </div>
                 
             </div>
