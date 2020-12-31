@@ -21,11 +21,19 @@ export default function Settings(props) {
             .onSnapshot(
                 (snap) => {
 
-                    setUserInfo({
-                        storage_capacity: (snap.data().storage_capacity / 1000000000),
-                        capacity_used: (snap.data().capacity_used / 1000000000).toFixed(3)
-                    });
+                    const capacity_used = snap.data().capacity_used
 
+                    if (capacity_used < 1048575999) {
+                        setUserInfo({
+                            storage_capacity: (snap.data().storage_capacity / 1000000000),
+                            capacity_used: `${(capacity_used / 1000000).toFixed(0)} MB`
+                        });
+                    } else {
+                        setUserInfo({
+                            storage_capacity: (snap.data().storage_capacity / 1000000000),
+                            capacity_used: `${(capacity_used / 1000000000).toFixed(3)} GB`
+                        });
+                    }
                 }
             );
 
@@ -61,7 +69,7 @@ export default function Settings(props) {
                         <CardSettings title={"Password"} info={"•••••••••"} />
                         <h2>Subscription</h2>
                         <CardSettings title={"Plan"} info={"Free"} onClick={() => changeModal('plan')} />
-                        <CardSettings title={"Storage"} info={`${userInfo.capacity_used}GB / ${userInfo.storage_capacity}GB used`} />
+                        <CardSettings title={"Storage"} info={`${userInfo.capacity_used} / ${userInfo.storage_capacity}GB used`} />
                     </div>
                 </>
                 :
