@@ -1,23 +1,24 @@
 .card {
-    overflow: hidden;
     display: flex;
+    min-width: 0;
     position: relative;
     flex-direction: column;
     width: auto;
     height: 200px;
     border-radius: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     background: var(--light);
     transition-delay: .1s;
 }
 
 .cardInner {
     border-radius: 16px;
-    overflow: hidden;
     transition: .1s;
 }
 
 .videoContainer {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
     position: relative;
     height: 150px;
     overflow: hidden;

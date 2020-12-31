@@ -5,7 +5,7 @@
     top: calc(100% + 5px);
     border-radius: 7px;
     background: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.158);
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.158);
     padding: 5px;
     z-index: 999;
     -webkit-user-select: none;
