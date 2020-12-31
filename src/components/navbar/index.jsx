@@ -46,15 +46,15 @@ export default function Navbar() {
                     <div className={styles.navMenuNarrow}>
                         <UserContext firebase={firebase} text={'M'} routes={ROUTES} logout={logout} >
                             <Link as={Link} to={ROUTES.LIBRARY}>
-                                <ButtonLight large title={'Library'} icon={<BiBookHeart />} />
+                                <ButtonLight title={'Library'} icon={<BiBookHeart />} />
                             </Link>
                             <Link as={Link} to={'#'}>
-                                <ButtonLight large title={'Shared'} onClick={()=>window.alert('Coming soon.')} icon={<MdGroup />} />
+                                <ButtonLight title={'Shared'} onClick={()=>window.alert('Coming soon.')} icon={<MdGroup />} />
                             </Link>
                             <Link as={Link} to={ROUTES.SETTINGS}>
-                                <ButtonLight large title={'Settings'} icon={<MdSettings />} />
+                                <ButtonLight title={'Settings'} icon={<MdSettings />} />
                             </Link>
-                            <ButtonLight large title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
+                            <ButtonLight title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
                         </UserContext>
                     </div>
                 </div>
