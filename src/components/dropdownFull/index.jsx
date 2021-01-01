@@ -36,6 +36,7 @@ export default function DropdownFull(props) {
 
     // Open and close dropdown
     const toggleActive = () => {
+        if (props.parentAction) props.parentAction(true)
         calculateDirection()
         setIsVisible(true)
     }
@@ -45,8 +46,7 @@ export default function DropdownFull(props) {
 
         if (props.parentAction) {
 
-            if (isVisible) props.parentAction(true)
-            else props.parentAction(false)
+            if (!isVisible) props.parentAction(false)
 
         }
 
