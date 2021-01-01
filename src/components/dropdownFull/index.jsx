@@ -1,17 +1,18 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import styles from './styles.module.css';
+import useClickOutside from '../../helpers/clickOutside';
 
 
 export default function DropdownFull(props) {
 
     const [active, setActive] = useState(null)
+    const { ref, isVisible, setIsVisible } = useClickOutside(false);
 
     const toggle = useRef()
 
     const classes =
         `
         ${styles.container}
-        ${!active && styles.closed}
         ${active === 'up' && styles.up}
         `
 
@@ -36,7 +37,21 @@ export default function DropdownFull(props) {
     // Open and close dropdown
     const toggleActive = () => {
         calculateDirection()
+        setIsVisible(true)
     }
+
+    // Update parent z on active
+    useEffect(() => {
+
+        if (props.parentAction) {
+
+            if (isVisible) props.parentAction(true)
+            else props.parentAction(false)
+
+        }
+
+    }, [isVisible])
+
 
 
     return (
@@ -45,14 +60,13 @@ export default function DropdownFull(props) {
                 <div onClick={toggleActive}>
                     {props.icon}
                 </div>
-                {
-                    active && <div className={styles.background} onClick={() => setActive(null)} />
+                {isVisible &&
+                    <div className={classes} ref={ref}>
+                        {props.children}
+                    </div>
                 }
-                <div className={classes}>
-                    {props.children}
-                </div>
-            </div>
 
+            </div>
 
         </div>
     );

@@ -11,8 +11,10 @@ import Uploader from '../components/uploader';
 import Navbar from '../components/navbar';
 import ButtonLight from '../components/buttonLight';
 import { IoMdArrowDropdown } from 'react-icons/io'
+import { MdCloudUpload } from 'react-icons/md'
 
 import LabelFile from '../containers/labelFile';
+import DropdownFull from '../components/dropdownFull';
 
 
 
@@ -233,11 +235,16 @@ export default function Library() {
                 />
             </div>
             <div className={styles.actionContainer}>
-                <ButtonLight
-                    onClick={handleClick}
-                    title="More"
-                    icon={<IoMdArrowDropdown />}
-                />
+                <DropdownFull icon={
+                    <ButtonLight
+                        title="More"
+                        icon={<IoMdArrowDropdown />}
+                    />
+                }
+                >
+                    <ButtonLight title={'Upload'} icon={<MdCloudUpload />} onClick={handleClick} />
+                </DropdownFull>
+
             </div>
             {files &&
                 <BrowseContainer
@@ -274,7 +281,6 @@ export default function Library() {
             }
             <input
                 className={styles.hiddenInput}
-                onClick={() => console.log('clicked')}
                 type="file"
                 multiple
                 ref={inputRef}

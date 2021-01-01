@@ -12,6 +12,7 @@
 
 .cardInner {
     border-radius: 16px;
+    z-index: 1;
     transition: .1s;
 }
 
@@ -146,4 +147,8 @@
 .is_dragged {
     opacity: 0;
     transition: .1s;
+}
+
+.zPop {
+    z-index: 2;
 }

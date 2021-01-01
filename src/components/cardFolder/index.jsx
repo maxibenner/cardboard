@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import ToggleContext from '../toggleContext';
-import Dropdown from '../dropdownFull';
+import DropdownFull from '../dropdownFull';
 import ButtonLight from '../buttonLight';
 import { firebase } from '../../lib/firebase';
 import { FaFolderMinus, FaFolder, FaFolderOpen } from 'react-icons/fa';
@@ -142,14 +142,9 @@ export default function CardFolder(props) {
                             />
                         }
                     </div>
-                    <ToggleContext onClick={() => setMenuActive(prevMenuActive => !prevMenuActive)}>
-                        {
-                            menuActive && <div className={styles.menuBackground} />
-                        }
-                        <Dropdown top small active={menuActive}>
-                            <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={() => props.handleUngroup(props.id)} />
-                        </Dropdown>
-                    </ToggleContext>
+                    <DropdownFull icon={<ToggleContext />}>
+                        <ButtonLight title={'Ungroup'} icon={<FaFolderMinus />} onClick={() => props.handleUngroup(props.id)} />
+                    </DropdownFull>
                 </div>
             </div>
 

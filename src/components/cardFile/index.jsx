@@ -18,7 +18,7 @@ export default function CardFile(props) {
     //Input state
     const [inputActive, setInputActive] = useState(false);
     const [title, setTitle] = useState(props.file.name)
-    const [menuActive, setMenuActive] = useState(false)
+    const [zPop, setZPop] = useState(false)
 
     const [draggable, setDraggable] = useState(true)
     const [isDragged, setIsDragged] = useState(false)
@@ -50,7 +50,6 @@ export default function CardFile(props) {
     const handleRename = useCallback(
         (e) => {
             e.stopPropagation()
-            setMenuActive(false)
             setInputActive(true)
         }, [],
     )
@@ -93,11 +92,6 @@ export default function CardFile(props) {
     // Handle active media
     const handleActiveMedia = useCallback(
         (type) => props.handleActiveMedia(props.file, type), [props],
-    )
-
-    // Activate menu
-    const activateMenu = useCallback(
-        () => setMenuActive(prevMenuActive => !prevMenuActive), [],
     )
 
     // Set input focus
@@ -171,7 +165,7 @@ export default function CardFile(props) {
 
     return (
         <div
-            className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged}`}
+            className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged} ${zPop && styles.zPop}`}
             draggable={draggable}
             onDragStart={onDragStartFunctions}
             onDragEnter={handleDragEnter}
@@ -212,7 +206,7 @@ export default function CardFile(props) {
                         }
                     </div>
 
-                    <DropdownFull icon={<ToggleContext />}>
+                    <DropdownFull parentAction={(bool) => setZPop(bool)} icon={<ToggleContext />}>
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
                         <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
