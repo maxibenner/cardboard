@@ -44,3 +44,7 @@
 .small {
     font-size: .9rem;
 }
+
+.z {
+    transform:translateZ(1px);
+}

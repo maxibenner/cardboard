@@ -1,67 +1,81 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './styles.module.css';
-import useClickOutside from '../../helpers/clickOutside';
 
 
 export default function DropdownFull(props) {
 
-    const [active, setActive] = useState(null)
-    const { ref, isVisible, setIsVisible } = useClickOutside(false);
+    const [active, setActive] = useState(false)
+    const [direction, setDirection] = useState(null)
 
     const toggle = useRef()
 
     const classes =
         `
         ${styles.container}
-        ${active === 'up' && styles.up}
+        ${direction === 'up' && styles.up}
+        ${/*To prevent flicker of parent z-index change*/active === true && styles.z}
         `
 
-    // Show dropdown on top or below, depending on available space 
-    const calculateDirection = useCallback(() => {
+    // Calculate dropdown direction and set close click event listener
+    useEffect(() => {
 
-        // Get window height
-        const windowHeight = window.innerHeight
+        // Set parend z index to top
+        if (props.parentAction) {
 
-        // Get position of dropdown toggle
-        const toggleCenter = toggle.current.getBoundingClientRect().top - (toggle.current.offsetHeight / 2)
+            if (active) props.parentAction(true)
+            else props.parentAction(false)
 
-        // Choose which direction to go
-        if (toggleCenter < windowHeight / 2.5) {
-            setActive('down')
-        } else {
-            setActive('up')
         }
 
-    }, [])
+        if (active !== false) {
+
+            // Get window height
+            const windowHeight = window.innerHeight
+
+            // Get position of dropdown toggle
+            const toggleCenter = toggle.current.getBoundingClientRect().top - (toggle.current.offsetHeight / 2)
+
+            // Choose which direction to go
+            if (toggleCenter < windowHeight / 2.5) {
+                setDirection('down')
+            } else {
+                setDirection('up')
+            }
+        }
+
+        // Add outside click listener
+        active === true && document.addEventListener('click', toggleActive);
+
+        return () => {
+            document.removeEventListener('click', toggleActive);
+        };
+
+    }, [active])
+
 
     // Open and close dropdown
     const toggleActive = () => {
-        if (props.parentAction) props.parentAction(true)
-        calculateDirection()
-        setIsVisible(true)
+        console.log('test')
+        setActive(status => !status)
     }
 
-    // Update parent z on active
-    useEffect(() => {
-
-        if (props.parentAction) {
-
-            if (!isVisible) props.parentAction(false)
-
-        }
-
-    }, [isVisible])
+    // Open and close dropdown
+    const toggleInitialActive = () => {
+        if (active === true) return
+        console.log('running')
+        setActive(true)
+    }
 
 
 
     return (
         <div ref={toggle}>
             <div className={styles.containerInner}>
-                <div onClick={toggleActive}>
+                <div onClick={toggleInitialActive}>
                     {props.icon}
                 </div>
-                {isVisible &&
-                    <div className={classes} ref={ref}>
+                {active !== false &&
+                    <div className={classes}>
                         {props.children}
                     </div>
                 }

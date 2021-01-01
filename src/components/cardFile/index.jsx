@@ -99,6 +99,7 @@ export default function CardFile(props) {
         if (inputActive) {
             input.current.focus()
             input.current.select()
+            input.current.click()
         }
     }, [inputActive])
 
@@ -206,7 +207,7 @@ export default function CardFile(props) {
                         }
                     </div>
 
-                    <DropdownFull parentAction={(bool) => setZPop(bool)} icon={<ToggleContext />}>
+                    <DropdownFull parentAction={(bool) => setZPop(bool)} icon={<ToggleContext />} blocker={zPop}>
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
                         <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
