@@ -3,19 +3,15 @@ import styles from './styles.module.css';
 
 export default function ButtonLight(props) {
 
-    const classes = `${
-        styles.container
-    } ${
-        props.danger && styles.danger
-    } ${
-        props.attention && styles.attention
-    } ${
-        props.stacked && styles.stacked
-    } ${
-        !props.icon && styles.noIcon
-    } ${
-        props.pointer && styles.pointer
-    }`
+    const classes =`
+    ${styles.container}
+    ${styles.noselect}
+    ${props.danger && styles.danger}
+    ${props.attention && styles.attention}
+    ${props.stacked && styles.stacked}
+    ${!props.icon && styles.noIcon}
+    ${props.pointer && styles.pointer}
+    `
 
     return (
         <div
@@ -26,7 +22,7 @@ export default function ButtonLight(props) {
             <p className={styles.title}>
                 {props.title}
             </p>
-            
-        </div> 
+
+        </div>
     )
 }

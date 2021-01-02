@@ -62,7 +62,6 @@ export default function DropdownFull(props) {
     // Open and close dropdown
     const toggleInitialActive = () => {
         if (active === true) return
-        console.log('running')
         setActive(true)
     }
 
