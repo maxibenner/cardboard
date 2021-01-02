@@ -36,11 +36,11 @@ export default function Library() {
 
     const [activeMedia, setActiveMedia] = useState(null);
     const [visibleFiles, setVisibleFiles] = useState();
-    const [activeModal, setActiveModal] = useState(null)
 
     const [tags, setTags] = useState([])
     const [activeTags, setActiveTags] = useState(null)
 
+    
     //__________ FUNCTIONS __________//
 
     // Handle UPLOAD click
@@ -52,11 +52,6 @@ export default function Library() {
     const onFileChange = (e) => {
         setFilesForUpload(() => [...e.target.files])
     };
-
-    // Handle modal
-    const handleModal = (modal) => {
-        setActiveModal(modal)
-    }
 
     // Set active file
     const handleActiveMedia = async (fileObject, action) => {// Available actions are: "show" and "label"
@@ -146,9 +141,7 @@ export default function Library() {
 
 
 
-
     //__________ EFFECTS __________//
-
 
     // Keep files in sync
     useEffect(() => {
@@ -254,7 +247,6 @@ export default function Library() {
                     firebase={firebase}
                     sendVisibleFilesToParent={setVisibleFiles}
                     handleActiveMedia={handleActiveMedia}
-                    handleModal={handleModal}
                 />
             }
             {activeMedia && activeMedia.action === 'show' &&
