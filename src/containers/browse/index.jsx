@@ -4,6 +4,8 @@ import CardFile from '../../components/cardFile';
 import CardFolder from '../../components/cardFolder';
 import BreadCrumbs from '../../components/breadCrumbs';
 
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 //______________________________ READ ME ______________________________//
@@ -40,7 +42,6 @@ export default function BrowseContainer({
 
     //_________________ STATES _________________//
     // Holds the id of the dragged element
-    //const [dragSource, setDragSource] = useState(null)
     var dragSource = null
     // Holds the current path
     const [currentPath, setCurrentPath] = useState('/')
@@ -64,7 +65,6 @@ export default function BrowseContainer({
 
     // Keep track of dragged element
     const trackDragSource = (sourceId) => {
-        //setDragSource(sourceId)
         dragSource = sourceId
     }
 
@@ -118,14 +118,6 @@ export default function BrowseContainer({
 
         })
 
-    }
-
-    // Share logic
-    const shareFiles = (fileArr) => {
-
-        // Create new firebase share directory
-
-        // Get link to it
     }
 
     // Folder logic -> visible files
@@ -237,7 +229,6 @@ export default function BrowseContainer({
 
     }, [files, currentPath, activeTags])
 
-
     // Sort visible elements
     useEffect(() => {
 
@@ -265,7 +256,8 @@ export default function BrowseContainer({
         }
 
 
-    }, [visibleElements])
+    }, [sendVisibleFilesToParent, visibleElements])
+
 
     //_________________ RENDER _________________//
     return (

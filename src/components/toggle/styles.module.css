@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 37px;
+    height: 24px;
+    background-color: var(--middleGrey);
+    border-radius: 13px;
+    padding: 0 3px;
+    transition: .2s;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.container>div {
+    height: 18px;
+    width: 18px;
+    border-radius: 13px;
+    background-color: var(--light);
+    transition: .2s;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/*__________ Modifieres __________*/
+
+.active {
+    background-color: var(--blue);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.active>div {
+    transform: translateX(13px);
+}

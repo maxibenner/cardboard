@@ -59,12 +59,14 @@
     box-shadow: 0 0 0 3px var(--blue);
 }*/
 
+
 :root {
     --dark: black;
     --light: white;
     --main: #FFE390;
     --yellow: #F9C463;
     --blue: #2D7AF2;
+    --blueTransparent: #2d79f218;
     --blueDark: #0f61b9;
     --red: #FF6760;
     --redDark: #C04A3F;
@@ -80,6 +82,10 @@ html {
 
 body {
     font-size: 16px;
+}
+
+h1 {
+    font-size: 2rem;
 }
 
 a {

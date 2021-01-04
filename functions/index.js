@@ -146,6 +146,28 @@ exports.new_file_setup = functions.firestore.document('users/{userId}/files/{doc
 
 
 
+/*__________________________ SHARING _____________________*/
+// Copy file to sharing on creation
+exports.copy_shared_file = functions.firestore.document('users/{userId}/shared/{docId}').onCreate(async (snap, context) => {
+
+    // Get doc object
+    const obj = snap.data()
+
+    // Copy data to global sharing directory
+    admin.firestore().collection('shared').doc(snap.id).set(obj)
+
+})
+
+// Delete file from global dir after deletion
+exports.delete_shared_file = functions.firestore.document('users/{userId}/shared/{docId}').onDelete(async (snap, context) => {
+
+    // Copy data to global sharing directory
+    admin.firestore().collection('shared').doc(snap.id).delete()
+
+})
+
+
+
 /*__________________________ SERVICES _____________________*/
 
 // Sign upload url for Wasabi and create fileDoc

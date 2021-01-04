@@ -1,6 +1,7 @@
 .container {
     position: relative;
     box-sizing: border-box;
+    overflow: hidden;
     width: 100%;
     min-width: 100px;
     max-width: 140px;
@@ -11,30 +12,50 @@
     border-radius: 7px;
 }
 
-.container>div {
-    background: var(--bg);
+.container>div:last-child {
+    position: absolute;
+    top:0;
+    left:0;
+    background-color: var(--bg);
     box-sizing: border-box;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100%;
     max-width: 350px;
-    height: 40px;
-    border-radius: 7px;
     transition: .1s;
 }
 
-.container>div:hover {
-    /*box-shadow: 0 2px 0 var(--ph);*/
-    transform: scale(.98);
+.container>div:last-child:hover {
+    opacity:.8;
     transition: .1s;
 }
 
-.container>div>p {
+.container>div:last-child>p {
     color: var(--dark);
     font-size: 16px;
     margin: 0;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+.backgroundForOpacity {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: var(--light);
 }
 
 /*__________ Large __________*/
@@ -51,7 +72,6 @@
 }
 
 .container_large>div>p {
-    /*font-weight: bold;*/
     font-size: 22px;
 }
 
@@ -81,62 +101,42 @@
 
 /*__________ Red __________*/
 
-.container_red>div {
-    background: var(--red);
-    /*box-shadow: 0 3px 0 var(--redDark);*/
+.container_red {
+    background-color: var(--red)!important;
 }
 
-.container_red>div>p {
-    color: white;
-}
-
-.container_red>div:hover {
-    /*box-shadow: 0 2px 0 var(--redDark);*/
+.container_red>p {
+    color: white!important;
 }
 
 /*__________ Blue __________*/
 
-.container_blue>div {
-    background: var(--blue);
-    /*box-shadow: 0 3px 0 var(--blueDark);*/
+.container_blue {
+    background-color: var(--blue)!important;
 }
 
-.container_blue>div>p {
-    color: white;
-}
-
-.container_blue>div:hover {
-    /*box-shadow: 0 2px 0 var(--blueDark);*/
+.container_blue>p {
+    color: white!important;
 }
 
 /*__________ Yellow __________*/
 
-.container_yellow>div {
-    background: var(--main);
-    /*box-shadow: 0 3px 0 var(--yellow);*/
+.container_yellow {
+    background: var(--main)!important;
 }
 
-.container_yellow>div>p {
-    color: var(--dark);
-}
-
-.container_yellow>div:hover {
-    /*box-shadow: 0 2px 0 var(--yellow);*/
+.container_yellow>p {
+    color: var(--dark)!important;
 }
 
 /*__________ Dark __________*/
 
-.container_dark>div {
-    background: var(--dark);
-    /*box-shadow: 0 3px 0 var(--dark);*/
+.container_dark {
+    background: var(--dark)!important;
 }
 
-.container_dark>div>p {
-    color: var(--light);
-}
-
-.container_dark>div:hover {
-    /*box-shadow: 0 2px 0 var(--dark);*/
+.container_dark>p {
+    color: var(--light)!important;
 }
 
 /*__________ Modifiers __________*/

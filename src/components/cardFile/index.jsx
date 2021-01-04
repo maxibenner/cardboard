@@ -210,7 +210,7 @@ export default function CardFile(props) {
                     <DropdownFull parentAction={(bool) => setZPop(bool)} icon={<ToggleContext />} blocker={zPop}>
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
-                        <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => window.alert("Sharing is not yet supported. Stay put.")} />
+                        <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => handleActiveMedia('share')} />
                         {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
                         <ButtonLightConfirm
                             danger

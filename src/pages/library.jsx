@@ -15,6 +15,7 @@ import { MdCloudUpload } from 'react-icons/md'
 
 import LabelFile from '../containers/labelFile';
 import DropdownFull from '../components/dropdownFull';
+import ShareContainer from '../containers/shareContainer/ShareContainer';
 
 
 
@@ -40,7 +41,7 @@ export default function Library() {
     const [tags, setTags] = useState([])
     const [activeTags, setActiveTags] = useState(null)
 
-    
+
     //__________ FUNCTIONS __________//
 
     // Handle UPLOAD click
@@ -93,6 +94,15 @@ export default function Library() {
 
             // Set active media
             setActiveMedia(fileObject)
+        }
+        else if (action === 'share') {
+
+            // Set action
+            fileObject.action = 'share'
+
+            // Set active media
+            setActiveMedia(fileObject)
+
         }
     }
 
@@ -211,6 +221,26 @@ export default function Library() {
 
     }, [files])
 
+    // Refresh currently active media on file change
+    useEffect(() => {
+
+        if(!activeMedia) return
+
+        // Get action type
+        const type = activeMedia.action
+
+        // Get updated file
+        const updatedFile = files.filter((el) => el.id === activeMedia.id)
+
+        // Merge updated file and action type
+        updatedFile[0].action = type
+        
+        // Update
+        setActiveMedia(() => updatedFile[0])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [files])
+
 
 
     //__________ RENDER __________//
@@ -258,6 +288,14 @@ export default function Library() {
             }
             {activeMedia && activeMedia.action === 'label' &&
                 <LabelFile
+                    handleModal={handleActiveMedia}
+                    file={activeMedia}
+                    user={user}
+                    firebase={firebase}
+                />
+            }
+            {activeMedia && activeMedia.action === 'share' &&
+                <ShareContainer
                     handleModal={handleActiveMedia}
                     file={activeMedia}
                     user={user}
