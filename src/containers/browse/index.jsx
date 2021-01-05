@@ -4,9 +4,6 @@ import CardFile from '../../components/cardFile';
 import CardFolder from '../../components/cardFolder';
 import BreadCrumbs from '../../components/breadCrumbs';
 
-import { v4 as uuidv4 } from 'uuid';
-
-
 
 //______________________________ READ ME ______________________________//
 // BrowserContainer requires the following props:

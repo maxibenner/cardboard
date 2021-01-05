@@ -8,6 +8,7 @@ import Signup from './pages/signup';
 import * as ROUTES from './constants/routes';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 import { useAuthListener } from './hooks/use-auth-listener.js';
+import Share from './pages/sh';
 
 
 export default function App() {
@@ -19,6 +20,10 @@ export default function App() {
 
 			<Route path={ROUTES.LANDING} exact>
 				<Landing />
+			</Route>
+
+			<Route path={ROUTES.SHARE} exact>
+				<Share />
 			</Route>
 
 			<IsUserRedirect user={user} path={ROUTES.SIGN_UP} loggedInPath={ROUTES.LIBRARY} exact>

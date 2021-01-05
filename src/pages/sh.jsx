@@ -1,27 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useAuthListener } from '../hooks/use-auth-listener';
 import { firebase } from '../lib/firebase';
 import * as ROUTES from '../constants/routes';
 import styles from './sh.module.css';
 
-import BrowseContainer from '../containers/browse';
 import WatchContainer from '../containers/watch';
-import TagSearch from '../containers/tagSearch';
-import Uploader from '../components/uploader';
 import Navbar from '../components/navbar';
-import ButtonLight from '../components/buttonLight';
-import { IoMdArrowDropdown } from 'react-icons/io'
-import { MdCloudUpload } from 'react-icons/md'
-
-import LabelFile from '../containers/labelFile';
-import DropdownFull from '../components/dropdownFull';
 
 
 
-export default function Library() {
-
-    //__________ VARS __________//
-    const { user } = useAuthListener();
+export default function Share() {
 
 
     //__________ REFS __________//
@@ -32,7 +19,7 @@ export default function Library() {
     const [files, setFiles] = useState(null);
 
     const [filesForUpload, setFilesForUpload] = useState([]);
-    //const [activeUploads, setActiveUploads] = useState([]);
+    const [activeUploads, setActiveUploads] = useState([]);
 
     const [activeMedia, setActiveMedia] = useState(null);
     const [visibleFiles, setVisibleFiles] = useState();
@@ -43,20 +30,6 @@ export default function Library() {
 
     //__________ FUNCTIONS __________//
 
-    // Handle UPLOAD click
-    const handleClick = () => {
-        inputRef.current.click()
-    };
-
-    // Handle file upload selection
-    const onFileChange = (e) => {
-        setFilesForUpload(() => [...e.target.files])
-    };
-
-    // Handle modal
-    const handleModal = (modal) => {
-        setActiveModal(modal)
-    }
 
     // Set active file
     const handleActiveMedia = async (fileObject, action) => {// Available actions are: "show" and "label"
@@ -151,7 +124,7 @@ export default function Library() {
 
 
     // Keep files in sync
-    useEffect(() => {
+    /*useEffect(() => {
 
         const listener = firebase.firestore().collection('users').doc(user.uid).collection('files')
             .onSnapshot(
@@ -174,10 +147,10 @@ export default function Library() {
             );
         return () => listener()
 
-    }, [user.uid]);
+    }, [user.uid]);*/
 
     // Get thumbnail urls
-    useEffect(() => {
+    /*useEffect(() => {
 
         // Add thumbnail url
         if (files) {
@@ -197,7 +170,7 @@ export default function Library() {
             })
         }
 
-    }, [files, user.uid])
+    }, [files, user.uid])*/
 
     // Set tags
     useEffect(() => {
@@ -228,35 +201,6 @@ export default function Library() {
                 to={ROUTES.LIBRARY}
             />
             <div className={styles.spacer70}></div>
-            <div className={styles.searchBarContainer}>
-                <TagSearch
-                    tags={tags}
-                    setActiveTags={setActiveTags}
-                />
-            </div>
-            <div className={styles.actionContainer}>
-                <DropdownFull icon={
-                    <ButtonLight
-                        title="More"
-                        icon={<IoMdArrowDropdown />}
-                    />
-                }
-                >
-                    <ButtonLight title={'Upload'} icon={<MdCloudUpload />} onClick={handleClick} />
-                </DropdownFull>
-
-            </div>
-            {files &&
-                <BrowseContainer
-                    files={files}
-                    activeTags={activeTags}
-                    user={user}
-                    firebase={firebase}
-                    sendVisibleFilesToParent={setVisibleFiles}
-                    handleActiveMedia={handleActiveMedia}
-                    handleModal={handleModal}
-                />
-            }
             {activeMedia && activeMedia.action === 'show' &&
                 <WatchContainer
                     activeMedia={activeMedia}
@@ -264,28 +208,6 @@ export default function Library() {
                     handleWatchKeydown={handleWatchNavigatin}
                     thumbnail={'#'} />
             }
-            {activeMedia && activeMedia.action === 'label' &&
-                <LabelFile
-                    handleModal={handleActiveMedia}
-                    file={activeMedia}
-                    user={user}
-                    firebase={firebase}
-                />
-            }
-            {filesForUpload.length > 0 &&
-                <Uploader
-                    files={filesForUpload}
-                    user={user}
-                    firebase={firebase}
-                />
-            }
-            <input
-                className={styles.hiddenInput}
-                type="file"
-                multiple
-                ref={inputRef}
-                onChange={onFileChange}
-            />
         </div>
     );
 };
