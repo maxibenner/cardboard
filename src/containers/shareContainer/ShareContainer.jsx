@@ -9,20 +9,18 @@ import Button from '../../components/button'
 
 export default function ShareContainer({ firebase, handleModal, user, selection }) {
 
-    const [url, setUrl] = useState(
-        selection[0].shareId !== null
-            ?
-            window.location.href.replace('/library', '/sh?id=') + selection[0].shareId
-            :
-            null)
+    const [url, setUrl] = useState(null)
 
+    // Keep url in sync
     useEffect(() => {
 
-        setUrl(selection[0].shareId !== null
+        setUrl(
+            selection[0].shareId === null || !selection[0].shareId
             ?
-            window.location.href.replace('/library', '/sh?id=') + selection[0].shareId
+            null
             :
-            null)
+            window.location.href.replace('/library', '/sh?id=') + selection[0].shareId)
+
     }, [selection])
 
     // Share logic
