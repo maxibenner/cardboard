@@ -50,7 +50,6 @@ export default function DropdownFull(props) {
         if(direction === null) return
         
         // Add outside click listener
-        direction && console.log('tesgisterd')
         direction && document.addEventListener('click', toggleActive);
 
         return () => {
