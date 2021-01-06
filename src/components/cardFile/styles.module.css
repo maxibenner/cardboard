@@ -108,6 +108,17 @@
     font-size: 3.6rem;
 }
 
+.shareIcon {
+    font-size: .8rem;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+    background: var(--light);
+    padding: 5px;
+    border-radius: 20px;
+}
+
 .processingButton {
     visibility: visible;
     position: absolute;

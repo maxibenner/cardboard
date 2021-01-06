@@ -7,83 +7,89 @@ import Toggle from '../../components/toggle/Toggle'
 import Button from '../../components/button'
 
 
-export default function ShareContainer({ firebase, handleModal, user, file }) {
+export default function ShareContainer({ firebase, handleModal, user, selection }) {
 
     const [url, setUrl] = useState(
-        file.shareId
+        selection[0].shareId !== null
             ?
-            window.location.href.replace('/library', '/sh/') + file.shareId
+            window.location.href.replace('/library', '/sh?id=') + selection[0].shareId
             :
             null)
 
-    // Keep file in sync
     useEffect(() => {
 
-        // Update file state
-        setUrl(() => file.shareId
+        setUrl(selection[0].shareId !== null
             ?
-            window.location.href.replace('/library', '/sh/') + file.shareId
+            window.location.href.replace('/library', '/sh?id=') + selection[0].shareId
             :
             null)
-
-    }, [file])
-
+    }, [selection])
 
     // Share logic
-    const handleShare = () => {
+    const handleShare = async () => {
 
         if (!url) {// => create reference
 
             // Get new doc id
             const id = uuidv4().replace(/-/g, '')
 
-            // Create new firebase share directory
-            firebase
-                .firestore()
-                .collection('users')
-                .doc(user.uid)
-                .collection('shared')
-                .doc(id)
-                .set({
-                    fileId: file.id,
-                    name: file.name,
-                    ownerEmail: user.email,
-                    ownerId: user.uid,
-                    thumbnail_url: file.thumbnail_url
-                })
-                .catch(err => window.alert(err))
+            // Create new batch action
+            const batch = firebase.firestore().batch()
 
-            // Add share dir id to file
-            firebase
-                .firestore()
-                .collection('users')
-                .doc(user.uid)
-                .collection('files')
-                .doc(file.id)
-                .update({ shareId: id })
-                .catch(err => window.alert(err))
+            // Add actions to batch
+            selection.forEach((file) => {
+
+                // Add share id to local file
+                file.shareId = id
+
+                // Save to user share dir
+                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(id)
+                batch.set(userShareDir, file);
+
+                // Add share dir id to file
+                const userFileDir = firebase.firestore().collection('users').doc(user.uid).collection('files').doc(file.id)
+                batch.update(userFileDir, { shareId: id })
+
+                // Save to public share dir
+                const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(id).doc(file.id)
+                batch.set(publicShareDir, file)
+
+            })
+
+            // Execute batch actions
+            batch.commit()
+
+
 
         } else {// => delete reference
 
-            // Remove firebase share directory
-            firebase
-                .firestore()
-                .collection('users')
-                .doc(user.uid)
-                .collection('shared')
-                .doc(file.shareId)
-                .delete()
-                .catch(err => window.alert(err))
+            // Get all shared files under that shareId
+            const sharedFileDocs = await firebase.firestore().collection('public').doc('shared').collection(selection[0].shareId).get()
 
-            // Remove shareId from file
-            firebase
-                .firestore()
-                .collection('users')
-                .doc(user.uid)
-                .collection('files')
-                .doc(file.id)
-                .update({ shareId: null })
-                .catch(err => window.alert(err))
+            // Create new batch action
+            const batch = firebase.firestore().batch()
+
+            // Add actions to batch
+            sharedFileDocs.forEach((doc) => {
+
+                const file = doc.data()
+
+                // Remove from user share dir
+                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(file.shareId)
+                batch.delete(userShareDir)
+
+                // Remove shareId from file
+                const userFileDir = firebase.firestore().collection('users').doc(user.uid).collection('files').doc(file.id)
+                batch.update(userFileDir, { shareId: null })
+
+                // Remove from public share dir
+                const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(file.shareId).doc(file.id)
+                batch.delete(publicShareDir)
+
+            })
+
+            // Execute batch actions
+            batch.commit()
 
         }
     }
@@ -92,7 +98,7 @@ export default function ShareContainer({ firebase, handleModal, user, file }) {
     const handleCopyUrl = () => {
         navigator
             .clipboard
-            .writeText(window.location.href.replace('/library', '/sh/') + file.shareId)
+            .writeText(window.location.href.replace('/library', '/sh?id=') + selection[0].shareId)
             .then(
                 () => window.alert('Link has been copied to clipboard'),
                 () => window.alert("Your browser doesn't support automatically copying to clipboard. Please manually select the link to share it.")
@@ -124,7 +130,7 @@ export default function ShareContainer({ firebase, handleModal, user, file }) {
 
                 </div>}
             </div>
-            <div className={styles.background} onClick={() => handleModal(null)} />
+            <div className={styles.background} onClick={() => handleModal([])} />
         </div>
     )
 }

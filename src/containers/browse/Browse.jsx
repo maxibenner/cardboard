@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from './styles.module.css';
-import CardFile from '../../components/cardFile';
+import CardFile from '../../components/cardFile/CardFile';
 import CardFolder from '../../components/cardFolder';
 import BreadCrumbs from '../../components/breadCrumbs';
 
@@ -33,6 +33,7 @@ export default function BrowseContainer({
     files,
     activeTags,
     handleActiveMedia,
+    sendSelectionToParent,
     sendVisibleFilesToParent,
     handleModal
 }) {
@@ -275,6 +276,7 @@ export default function BrowseContainer({
                             onDrop={setNewFilePath}
                             key={file.id}
                             file={file}
+                            sendSelectionToParent={sendSelectionToParent}
                             handleActiveMedia={handleActiveMedia}
                             handleModal={handleModal}
                         />

@@ -10,11 +10,11 @@ import { MdSettings, MdGroup } from 'react-icons/md';
 
 import UserContext from '../userContext';
 import ButtonLight from '../buttonLight';
-import Dropdown from '../dropdownFull';
 import DropdownFull from '../dropdownFull';
+import ArrowText from '../arrow-text';
 
 
-export default function Navbar() {
+export default function Navbar(props) {
 
     const { firebase } = useContext(FirebaseContext);
     const [menuActive, setMenuActive] = useState(false)
@@ -31,35 +31,40 @@ export default function Navbar() {
                 <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
 
                 <div className={styles.menuContainer}>
-                    <div className={styles.navMenuWide}>
-                        <Link as={Link} to={ROUTES.LIBRARY}>
-                            <ButtonLight title={'Library'} />
-                        </Link>
-                        <Link as={Link} to={'#'}>
-                            <ButtonLight title={'Shared'} onClick={() => window.alert('Coming soon.')} />
-                        </Link>
 
-                        <DropdownFull icon={<UserContext />}>
-                            <Link as={Link} to={ROUTES.SETTINGS}>
-                                <ButtonLight title={'Settings'} icon={<MdSettings />} />
-                            </Link>
-                            <ButtonLight title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
-                        </DropdownFull>
-                    </div>
-                    <div className={styles.navMenuNarrow}>
-                        <DropdownFull icon={<UserContext />} >
-                            <Link as={Link} to={ROUTES.LIBRARY}>
-                                <ButtonLight title={'Library'} icon={<BiBookHeart />} />
-                            </Link>
-                            <Link as={Link} to={'#'}>
-                                <ButtonLight title={'Shared'} onClick={() => window.alert('Coming soon.')} icon={<MdGroup />} />
-                            </Link>
-                            <Link as={Link} to={ROUTES.SETTINGS}>
-                                <ButtonLight title={'Settings'} icon={<MdSettings />} />
-                            </Link>
-                            <ButtonLight title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
-                        </DropdownFull>
-                    </div>
+                    {!props.noauth &&
+                        <>
+                            <div className={styles.navMenuWide}>
+                                <Link as={Link} to={ROUTES.LIBRARY}>
+                                    <ButtonLight title={'Library'} /> 
+                                </Link>
+                                <Link as={Link} to={'#'}>
+                                    <ButtonLight title={'Shared'} onClick={() => window.alert('Coming soon.')} />
+                                </Link>
+
+                                <DropdownFull icon={<UserContext />}>
+                                    <Link as={Link} to={ROUTES.SETTINGS}>
+                                        <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                                    </Link>
+                                    <ButtonLight title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
+                                </DropdownFull>
+                            </div>
+                            <div className={styles.navMenuNarrow}>
+                                <DropdownFull icon={<UserContext />} >
+                                    <Link as={Link} to={ROUTES.LIBRARY}>
+                                        <ButtonLight title={'Library'} icon={<BiBookHeart />} />
+                                    </Link>
+                                    <Link as={Link} to={'#'}>
+                                        <ButtonLight title={'Shared'} onClick={() => window.alert('Coming soon.')} icon={<MdGroup />} />
+                                    </Link>
+                                    <Link as={Link} to={ROUTES.SETTINGS}>
+                                        <ButtonLight title={'Settings'} icon={<MdSettings />} />
+                                    </Link>
+                                    <ButtonLight title={'Logout'} onClick={logout} icon={<HiOutlineLogout />} />
+                                </DropdownFull>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ import ButtonLightConfirm from '../buttonLightConfirm';
 import { firebase } from '../../lib/firebase';
 //import { RiScissorsFill } from 'react-icons/ri';
 import { FaVideo } from 'react-icons/fa';
-import { MdImage,/* MdAudiotrack, */MdLabel, MdTitle, MdDelete, MdPlayCircleFilled, MdShare } from 'react-icons/md';
+import { MdImage,/* MdAudiotrack, */MdGroup, MdLabel, MdTitle, MdDelete, MdPlayCircleFilled, MdShare } from 'react-icons/md';
 
 
 export default function CardFile(props) {
@@ -186,6 +186,9 @@ export default function CardFile(props) {
                     {props.file.thumbnail_url && props.file.type === 'video' &&
                         <MdPlayCircleFilled className={styles.playButton} />
                     }
+                    {props.file.shareId && props.file.shareId != null &&
+                        <MdGroup className={styles.shareIcon} />
+                    }
                     <div className={styles.image} style={props.file.thumbnail_url && { backgroundImage: `url(${props.file.thumbnail_url})` }}></div>
                 </div>
 
@@ -210,7 +213,7 @@ export default function CardFile(props) {
                     <DropdownFull parentAction={(bool) => setZPop(bool)} icon={<ToggleContext />} blocker={zPop}>
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
-                        <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => handleActiveMedia('share')} />
+                        <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => props.sendSelectionToParent([props.file])} />
                         {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
                         <ButtonLightConfirm
                             danger

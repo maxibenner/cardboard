@@ -1,32 +1,24 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { firebase } from '../lib/firebase';
-import * as ROUTES from '../constants/routes';
 import styles from './sh.module.css';
 
 import WatchContainer from '../containers/watch';
 import Navbar from '../components/navbar';
+import CardFile from '../components/cardFile/CardFile';
 
 
 
 export default function Share() {
 
 
-    //__________ REFS __________//
-    const inputRef = useRef(null);
-
-
     //__________ STATE __________//
     const [files, setFiles] = useState(null);
-
-    const [filesForUpload, setFilesForUpload] = useState([]);
-    const [activeUploads, setActiveUploads] = useState([]);
+    const [cards, setCards] = useState(null);
+    const [owner, setOwner] = useState(null)
 
     const [activeMedia, setActiveMedia] = useState(null);
     const [visibleFiles, setVisibleFiles] = useState();
-    const [activeModal, setActiveModal] = useState(null)
 
-    const [tags, setTags] = useState([])
-    const [activeTags, setActiveTags] = useState(null)
 
     //__________ FUNCTIONS __________//
 
@@ -123,73 +115,42 @@ export default function Share() {
     //__________ EFFECTS __________//
 
 
-    // Keep files in sync
-    /*useEffect(() => {
-
-        const listener = firebase.firestore().collection('users').doc(user.uid).collection('files')
-            .onSnapshot(
-                (snap) => {
-
-                    // For each file change
-                    const files = snap.docs.map((doc) => {
-
-                        const file = doc.data()
-
-                        //Add id to be used as react list key
-                        file.id = doc.id
-
-                        return file
-
-                    })
-                    setFiles(files);
-
-                }
-            );
-        return () => listener()
-
-    }, [user.uid]);*/
-
-    // Get thumbnail urls
-    /*useEffect(() => {
-
-        // Add thumbnail url
-        if (files) {
-            files.forEach(async (file) => {
-
-                //Check if file has thumbnail_key => add thumbnail_url if it doesn't exist
-                if (file.thumbnail_key && file.thumbnail_url === undefined) {
-
-                    // Get download url
-                    const url = await firebase.storage().ref().child(file.thumbnail_key).getDownloadURL()
-
-                    // Update firestore
-                    firebase.firestore().collection("users").doc(user.uid).collection("files").doc(file.id).update({
-                        thumbnail_url: url
-                    })
-                };
-            })
-        }
-
-    }, [files, user.uid])*/
-
-    // Set tags
+    // Get shared files
     useEffect(() => {
 
-        var newTagArray = []
+        // Get doc id
+        const queryString = window.location.search
+        const urlParams = new URLSearchParams(queryString)
+        const docId = urlParams.get('id')
 
-        // Put all tags into one array
-        files && files.forEach(file => {
-
-            // Push tag if unique
-            file.tags && file.tags.forEach(tag => {
-                !newTagArray.includes(tag) && newTagArray.push(tag)
-            })
-
+        // Get firestore doc
+        firebase.firestore().collection('shared').doc(docId).get().then((doc) => {
+            setFiles([doc.data()])
         })
 
-        setTags(newTagArray)
+    }, [])
 
-    }, [files])
+    // Listen for files
+    useEffect(() => {
+
+        if(!files) return
+        
+        // Format owner email 
+        const nameString = files[0].ownerEmail.split('@')[0]
+        const name = nameString.charAt(0).toUpperCase() + nameString.slice(1)
+        setOwner(name)
+
+        // Create cards
+        const cards = files.map((file)=>{
+            return <CardFile />
+        })
+        setCards(()=>cards)
+
+
+        
+
+    },[files])
+
 
 
 
@@ -197,10 +158,16 @@ export default function Share() {
     return (
         <div className={styles.wrapper}>
             <Navbar
-                loggedIn
-                to={ROUTES.LIBRARY}
+                noauth
             />
-            <div className={styles.spacer70}></div>
+            <div className={styles.spacer}></div>
+            <div className={styles.ownerContainer}>
+                <p>Shared by</p>
+                <p>{owner}</p>
+            </div>
+            <div className={styles.fileContainer}>
+                {cards}
+            </div>
             {activeMedia && activeMedia.action === 'show' &&
                 <WatchContainer
                     activeMedia={activeMedia}

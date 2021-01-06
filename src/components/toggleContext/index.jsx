@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 
 export default function ToggleContext(props) {
 
-    const classes = `${styles.container} ${props.active && styles.closed}`
+    const classes = [styles.container, props.active && styles.closed].join(' ')
 
     return (
         <>

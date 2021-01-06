@@ -4,7 +4,7 @@ import { firebase } from '../lib/firebase';
 import * as ROUTES from '../constants/routes';
 import styles from './library.module.css';
 
-import BrowseContainer from '../containers/browse';
+import BrowseContainer from '../containers/browse/Browse';
 import WatchContainer from '../containers/watch';
 import TagSearch from '../containers/tagSearch';
 import Uploader from '../components/uploader';
@@ -36,6 +36,7 @@ export default function Library() {
     //const [activeUploads, setActiveUploads] = useState([]);
 
     const [activeMedia, setActiveMedia] = useState(null);
+    const [selection, setSelection] = useState([])
     const [visibleFiles, setVisibleFiles] = useState();
 
     const [tags, setTags] = useState([])
@@ -224,7 +225,7 @@ export default function Library() {
     // Refresh currently active media on file change
     useEffect(() => {
 
-        if(!activeMedia) return
+        if (!activeMedia) return
 
         // Get action type
         const type = activeMedia.action
@@ -234,9 +235,23 @@ export default function Library() {
 
         // Merge updated file and action type
         updatedFile[0].action = type
-        
+
         // Update
         setActiveMedia(() => updatedFile[0])
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [files])
+
+    // Keep selected files in sync
+    useEffect(() => {
+
+        const updatedSelectionFiles = []
+
+        selection.forEach((file) => {
+            updatedSelectionFiles.push(files.filter((el) => el.id === file.id)[0])
+        })
+
+        setSelection(updatedSelectionFiles)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [files])
@@ -275,6 +290,7 @@ export default function Library() {
                     activeTags={activeTags}
                     user={user}
                     firebase={firebase}
+                    sendSelectionToParent={setSelection}
                     sendVisibleFilesToParent={setVisibleFiles}
                     handleActiveMedia={handleActiveMedia}
                 />
@@ -294,10 +310,10 @@ export default function Library() {
                     firebase={firebase}
                 />
             }
-            {activeMedia && activeMedia.action === 'share' &&
+            {selection[0] &&
                 <ShareContainer
-                    handleModal={handleActiveMedia}
-                    file={activeMedia}
+                    handleModal={setSelection}
+                    selection={selection}
                     user={user}
                     firebase={firebase}
                 />

@@ -2,35 +2,22 @@
     margin-bottom: 70px;
 }
 
-.spacer70 {
-    height: 70px;
+.spacer {
+    height: 200px;
     width: 100%;
 }
 
-.searchBarContainer {
-    margin: 75px auto 0 auto;
-    padding: 0 25px;
-}
-
-.actionContainer {
+.ownerContainer {
     display: flex;
-    box-sizing: border-box;
-    padding: 0 25px;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: flex-end;
+    margin: 0 25px;
 }
 
-.hiddenInput {
-    position: fixed;
-    top: -1000px;
+.ownerContainer>p:nth-child(2) {
+    font-weight: bold;
+    margin-left: 5px;
 }
 
-.horizontalContainer {
-    padding-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 -25px;
-}
+
+
+
+

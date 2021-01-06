@@ -12,7 +12,7 @@ service cloud.firestore {
 			match /files/{id} {
         allow read, write: if request.auth.uid == uid;
       }
-      match /shared/{id} {
+			match /shared/{id} {
         allow read, write: if request.auth.uid == uid;
       }
       match /checkout_sessions/{id} {
@@ -21,6 +21,17 @@ service cloud.firestore {
       match /subscriptions/{id} {
         allow read: if request.auth.uid == uid;
       }
+    }
+
+    //Shared
+    match /public/shared/{allPaths=**} {
+      allow read: if true
+    }
+    match /public/shared/{allPaths=**} {
+      allow write: if request.resource.data.storage_key.split('/')[1] == request.auth.uid
+    }
+    match /public/shared/{shareId}/{docId} {
+      allow delete: if resource.data.storage_key.split('/')[1] == request.auth.uid
     }
     
     // Stripe plans
