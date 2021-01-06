@@ -4,7 +4,6 @@ import styles from './styles.module.css';
 
 export default function DropdownFull(props) {
 
-    const [active, setActive] = useState(false)
     const [direction, setDirection] = useState(null)
 
     const toggle = useRef()
@@ -13,21 +12,21 @@ export default function DropdownFull(props) {
         `
         ${styles.container}
         ${direction === 'up' && styles.up}
-        ${/*To prevent flicker of parent z-index change*/active === true && styles.z}
+        ${/*To prevent flicker of parent z-index change*/direction && styles.z}
         `
 
     // Calculate dropdown direction and set close click event listener
-    useEffect(() => {
+    const toggleMenu = () => {
 
         // Set parend z index to top
         if (props.parentAction) {
 
-            if (active) props.parentAction(true)
+            if (direction) props.parentAction(true)
             else props.parentAction(false)
 
         }
 
-        if (active !== false) {
+        if (!direction) {
 
             // Get window height
             const windowHeight = window.innerHeight
@@ -43,36 +42,39 @@ export default function DropdownFull(props) {
             }
         }
 
+    }
+
+    //Set click listener
+    useEffect(()=>{
+
+        if(direction === null) return
+        
         // Add outside click listener
-        active === true && document.addEventListener('click', toggleActive);
+        direction && console.log('tesgisterd')
+        direction && document.addEventListener('click', toggleActive);
 
         return () => {
             document.removeEventListener('click', toggleActive);
         };
 
-    }, [active])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[direction])
 
 
     // Open and close dropdown
     const toggleActive = () => {
-        setActive(status => !status)
+        if(direction === null) toggleMenu()
+        else setDirection(null)
     }
-
-    // Open and close dropdown
-    const toggleInitialActive = () => {
-        if (active === true) return
-        setActive(true)
-    }
-
 
 
     return (
         <div ref={toggle}>
             <div className={styles.containerInner}>
-                <div onClick={toggleInitialActive}>
+                <div onClick={toggleActive}>
                     {props.icon}
                 </div>
-                {active !== false &&
+                {direction &&
                     <div className={classes}>
                         {props.children}
                     </div>
