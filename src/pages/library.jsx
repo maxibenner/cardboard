@@ -82,8 +82,9 @@ export default function Library() {
                 // Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
                 return setActiveMedia(fileObject)
             } else {
-                const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject.storage_key)
+                const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject)
                 fileObject.url = url.data
+                
                 setActiveMedia(fileObject)
             }
 
@@ -253,7 +254,7 @@ export default function Library() {
 
         setSelection(updatedSelectionFiles)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [files])
 
 

@@ -4,23 +4,19 @@ import styles from './sh.module.css';
 
 import WatchContainer from '../containers/watch';
 import Navbar from '../components/navbar';
-import CardFile from '../components/cardFile/CardFile';
+import CardFileStatic from '../components/cardFileStatic/CardFileStatic';
+
+import emptyIllustration from '../media/illustration-empty.svg';
 
 
 
 export default function Share() {
 
-
-    //__________ STATE __________//
     const [files, setFiles] = useState(null);
     const [cards, setCards] = useState(null);
     const [owner, setOwner] = useState(null)
 
     const [activeMedia, setActiveMedia] = useState(null);
-    const [visibleFiles, setVisibleFiles] = useState();
-
-
-    //__________ FUNCTIONS __________//
 
 
     // Set active file
@@ -50,7 +46,7 @@ export default function Share() {
                 // Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
                 return setActiveMedia(fileObject)
             } else {
-                const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject.storage_key)
+                const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject)
                 fileObject.url = url.data
                 setActiveMedia(fileObject)
             }
@@ -70,7 +66,7 @@ export default function Share() {
     const handleWatchNavigatin = (pressedKey) => {
 
         // Get new visible index of only files
-        const slideShowFiles = visibleFiles.filter((element) => { return element.display_type === 'file' })
+        const slideShowFiles = files.filter((element) => { return element.display_type === 'file' })
 
         // Get index of currently active element in visibleFiles array
         const indexOfActiveFile = slideShowFiles.findIndex((file) => file.id === activeMedia.id)
@@ -109,12 +105,6 @@ export default function Share() {
 
     }
 
-
-
-
-    //__________ EFFECTS __________//
-
-
     // Get shared files
     useEffect(() => {
 
@@ -124,32 +114,40 @@ export default function Share() {
         const docId = urlParams.get('id')
 
         // Get firestore doc
-        firebase.firestore().collection('shared').doc(docId).get().then((doc) => {
-            setFiles([doc.data()])
-        })
+        firebase.firestore().collection('public').doc('shared').collection(docId).get().then((collection) => {
 
+            // Set files
+            const filesArr = []
+            collection.forEach((doc) => {
+                filesArr.push(doc.data())
+            })
+
+            setFiles(filesArr)
+        }).catch((err) => { window.alert(err) })
+        setFiles(null)
     }, [])
 
     // Listen for files
     useEffect(() => {
 
-        if(!files) return
-        
+        if (!files || files.length === 0) return
+
         // Format owner email 
-        const nameString = files[0].ownerEmail.split('@')[0]
+        const nameString = files[0].owner_email.split('@')[0]
         const name = nameString.charAt(0).toUpperCase() + nameString.slice(1)
         setOwner(name)
 
         // Create cards
-        const cards = files.map((file)=>{
-            return <CardFile />
+        const cards = files.map((file) => {
+            return <CardFileStatic
+                file={file}
+                key={file.id}
+                handleActiveMedia={handleActiveMedia}
+            />
         })
-        setCards(()=>cards)
+        setCards(cards)
 
-
-        
-
-    },[files])
+    }, [files])
 
 
 
@@ -161,19 +159,30 @@ export default function Share() {
                 noauth
             />
             <div className={styles.spacer}></div>
-            <div className={styles.ownerContainer}>
-                <p>Shared by</p>
-                <p>{owner}</p>
-            </div>
-            <div className={styles.fileContainer}>
-                {cards}
-            </div>
+            {files && files.length > 0 &&
+                <div className={styles.ownerContainer}>
+                    <p>Shared by</p>
+                    <p>{owner}</p>
+                </div>
+            }
+            {files && files.length > 0 &&
+                <div className={styles.fileContainer}>
+                    {cards}
+                </div>
+            }
             {activeMedia && activeMedia.action === 'show' &&
                 <WatchContainer
                     activeMedia={activeMedia}
                     handleActiveMedia={handleActiveMedia}
                     handleWatchKeydown={handleWatchNavigatin}
                     thumbnail={'#'} />
+            }
+            {files && files.length === 0 &&
+                <div className={styles.unavailableContainer}>
+                    <img alt={'character floating in a void'} src={emptyIllustration} />
+                    <h1>Hmm...</h1>
+                    <p>Looks like the owner of this memory stopped sharing it.</p>
+                </div>
             }
         </div>
     );

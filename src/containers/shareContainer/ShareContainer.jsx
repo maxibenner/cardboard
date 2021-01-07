@@ -15,11 +15,11 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
     useEffect(() => {
 
         setUrl(
-            selection[0].shareId === null || !selection[0].shareId
+            selection[0].share_id === null || !selection[0].share_id
             ?
             null
             :
-            window.location.href.replace('/library', '/sh?id=') + selection[0].shareId)
+            window.location.href.replace('/library', '/sh?id=') + selection[0].share_id)
 
     }, [selection])
 
@@ -38,7 +38,8 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
             selection.forEach((file) => {
 
                 // Add share id to local file
-                file.shareId = id
+                file.share_id = id
+                file.owner_email = user.email
 
                 // Save to user share dir
                 const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(id)
@@ -46,7 +47,7 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
 
                 // Add share dir id to file
                 const userFileDir = firebase.firestore().collection('users').doc(user.uid).collection('files').doc(file.id)
-                batch.update(userFileDir, { shareId: id })
+                batch.update(userFileDir, { share_id: id })
 
                 // Save to public share dir
                 const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(id).doc(file.id)
@@ -61,8 +62,8 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
 
         } else {// => delete reference
 
-            // Get all shared files under that shareId
-            const sharedFileDocs = await firebase.firestore().collection('public').doc('shared').collection(selection[0].shareId).get()
+            // Get all shared files under that share_id
+            const sharedFileDocs = await firebase.firestore().collection('public').doc('shared').collection(selection[0].share_id).get()
 
             // Create new batch action
             const batch = firebase.firestore().batch()
@@ -73,16 +74,17 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
                 const file = doc.data()
 
                 // Remove from user share dir
-                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(file.shareId)
+                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(file.share_id)
                 batch.delete(userShareDir)
 
-                // Remove shareId from file
-                const userFileDir = firebase.firestore().collection('users').doc(user.uid).collection('files').doc(file.id)
-                batch.update(userFileDir, { shareId: null })
-
                 // Remove from public share dir
-                const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(file.shareId).doc(file.id)
+                const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(file.share_id).doc(file.id)
                 batch.delete(publicShareDir)
+
+                // Remove share_id from file
+                const userFileDir = firebase.firestore().collection('users').doc(user.uid).collection('files').doc(file.id)
+                delete file.share_id;
+                batch.set(userFileDir, file)
 
             })
 
@@ -96,7 +98,7 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
     const handleCopyUrl = () => {
         navigator
             .clipboard
-            .writeText(window.location.href.replace('/library', '/sh?id=') + selection[0].shareId)
+            .writeText(window.location.href.replace('/library', '/sh?id=') + selection[0].share_id)
             .then(
                 () => window.alert('Link has been copied to clipboard'),
                 () => window.alert("Your browser doesn't support automatically copying to clipboard. Please manually select the link to share it.")

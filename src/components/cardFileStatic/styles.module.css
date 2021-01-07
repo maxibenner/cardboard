@@ -1,0 +1,165 @@
+.card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    width: auto;
+    height: 200px;
+    border-radius: 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    background: var(--light);
+    transition-delay: .1s;
+}
+
+.cardInner {
+    border-radius: 16px;
+    z-index: 1;
+    transition: .1s;
+}
+
+.videoContainer {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+    background: var(--bg);
+}
+
+.image {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center center;
+    top: -5%;
+    background-size: cover;
+    height: 110%;
+}
+
+.body {
+    display: flex;
+    padding: 15px 10px 15px 15px;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--light);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+.body_image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    padding: 15px 10px 15px 15px;
+}
+
+.main {
+    height: 20px;
+    display: flex;
+    align-items: center;
+    max-width: 85%;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.title {
+    height: 100%;
+    margin: 0;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.title_icon {
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.titleInput {
+    padding: 0;
+    border: none;
+    font-weight: bold;
+    border-radius: 3px;
+    max-width: 83%;
+    background-color: var(--bg);
+    height: 100%;
+    margin-top: -2px;
+}
+
+.titleInput:focus {
+    border: none;
+    outline: none;
+}
+
+.icon {
+    max-height: 18px;
+    margin-right: 10px;
+}
+
+.playButton {
+    visibility: visible;
+    position: absolute;
+    fill: var(--light);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+    z-index: 1;
+    opacity: .8;
+    font-size: 3.6rem;
+}
+
+.shareIcon {
+    font-size: .8rem;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+    background: var(--light);
+    padding: 5px;
+    border-radius: 20px;
+}
+
+.processingButton {
+    visibility: visible;
+    position: absolute;
+    fill: var(--middleGrey);
+    color: var(--middleGrey);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    opacity: .8;
+    font-size: 3.6rem;
+}
+
+.menuBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 90;
+}
+
+/*__________ Modifiers __________*/
+
+.is_hovered {
+    box-shadow: 0 0 0 3px var(--bg);
+    background: var(--bg);
+    transition-delay: 0s;
+}
+
+.is_hovered > div {
+    transform: scale(0.9);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
+    transition: .1s;
+}
+
+.is_dragged {
+    opacity: 0;
+    transition: .1s;
+}
+
+.zPop {
+    z-index: 2;
+}

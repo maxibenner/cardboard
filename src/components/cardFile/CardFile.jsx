@@ -186,7 +186,7 @@ export default function CardFile(props) {
                     {props.file.thumbnail_url && props.file.type === 'video' &&
                         <MdPlayCircleFilled className={styles.playButton} />
                     }
-                    {props.file.shareId && props.file.shareId != null &&
+                    {props.file.share_id && props.file.shareI_id !== null &&
                         <MdGroup className={styles.shareIcon} />
                     }
                     <div className={styles.image} style={props.file.thumbnail_url && { backgroundImage: `url(${props.file.thumbnail_url})` }}></div>

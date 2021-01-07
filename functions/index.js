@@ -197,7 +197,14 @@ exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
 // Get signed download url
 exports.sign_wasabi_download_url = functions.https.onCall(async (data, context) => {
 
-    functions.logger.info(`DATA: ${data}`)
+    // Prevent non owners to access non shared files
+    /*if (data.storage_key.split('/')[1] !== context.auth.uid) {
+        // Get user doc
+        let userDoc = await admin.firestore().collection('users').doc(data.owner).collection('files').doc(data.id).get()
+        let file = userDoc.data()
+
+        if(!file.share_id) return 'Access denied'
+    }*/
 
     // round the time to the last 10-minute mark
     const getTruncatedTime = () => {
@@ -218,7 +225,7 @@ exports.sign_wasabi_download_url = functions.https.onCall(async (data, context) 
                 "getObject",
                 {
                     Bucket: functions.config().data.wasabi.bucket,
-                    Key: data,
+                    Key: data.storage_key,
                     Expires: 21600
                 }
             );
@@ -230,17 +237,6 @@ exports.sign_wasabi_download_url = functions.https.onCall(async (data, context) 
         functions.logger.error(err)
     }
 
-
-    /*try {
-        let url = s3.getSignedUrl('getObject', {
-            Bucket: functions.config().data.wasabi.bucket,
-            Key: data,
-            Expires: 604800
-        })
-        return url
-    } catch (err) {
-        console.log(err)
-    }*/
 })
 
 
