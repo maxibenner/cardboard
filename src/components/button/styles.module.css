@@ -16,6 +16,7 @@
     position: absolute;
     top:0;
     left:0;
+    border-radius: 7px;
     background-color: var(--bg);
     box-sizing: border-box;
     display: flex;
@@ -51,6 +52,7 @@
 
 .backgroundForOpacity {
     position: absolute;
+    border-radius: 7px;
     top:0;
     left:0;
     width: 100%;
