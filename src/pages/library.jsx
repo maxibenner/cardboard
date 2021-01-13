@@ -321,6 +321,7 @@ export default function Library() {
             }
             {filesForUpload.length > 0 &&
                 <Uploader
+                    inputRef={inputRef}
                     files={filesForUpload}
                     user={user}
                     firebase={firebase}

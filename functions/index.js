@@ -23,8 +23,8 @@ var AWS = require('aws-sdk');
 const s3 = new AWS.S3({
     correctClockSkew: true,
     endpoint: 's3.us-east-1.wasabisys.com',
-    accessKeyId: 'JB2PKLBI4BULKKE2WSRX',
-    secretAccessKey: 'E4NFb1Cs2WhL7G04INbvhfwMvveU2kO8dbgLOmzQ',
+    accessKeyId: '0QCM752BDQ9L5G5CAT0U',
+    secretAccessKey: 'aeGUw3eCIHFN08bvKY08I6eBeP9lNsRBJFEve137',
     region: 'us-east-1',
     logger: console
 });
@@ -57,74 +57,52 @@ exports.setUserData = functions.auth.user().onCreate(async (user) => {
     return console.log(`Added storage info to user ${user.uid}.`)
 })
 
-// Run tasks for new file
-exports.new_file_setup = functions.firestore.document('users/{userId}/files/{docId}').onCreate(async (snap, context) => {
-
-    // IMAGE: Create image thumbnail if image
-    if (snap.data().type === 'image') {
-
-        const storage_key = snap.data().storage_key
-        const newThumbName = uuidv4()
-        const gcsBucket = gcs.bucket(`${functions.config().data.wasabi.bucket}.appspot.com`);
-
-        // 3. Save to file pipeline
-        var file = gcsBucket.file(`users/${snap.data().owner}/thumbnails/${newThumbName}.jpeg`).createWriteStream({ contentType: 'image/jpeg' })
-            .on('error', (err) => { functions.logger.warn(err) })
-            .on('finish', () => {
-                // Write thumbnail to firestore
-                admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.id).update({
-                    thumbnail_key: `users/${snap.data().owner}/thumbnails/${newThumbName}.jpeg`
-                })
-                    .then(() => {
-                        functions.logger.info('Thumbnail uploaded successfully.')
-                    })
-                    .catch((err) => functions.logger.error('Could not upload ....', snap.data().owner, err))
-            });
-
-        // 2. Resize
-        const pipeline = sharp();
-        pipeline.resize(450, 450).jpeg({
-            quality: 50
-        }).pipe(file);
-
-        // 1. Stream file from Wasabi
-        s3.getObject({
-            Bucket: 'cardboard-dev',
-            Key: storage_key
-        }).createReadStream().pipe(pipeline);
-    }
+// Add filesize
+exports.set_storage = functions.firestore.document('users/{userId}/files/{docId}').onCreate(async (snap, context) => {
 
     // VIDEO: Save to pending dir if video
-    if (snap.data().type === 'video' && snap.data().isRaw === true) {
+    /*if (snap.data().type === 'video' && snap.data().isRaw === true) {
         await admin.firestore().collection("system").doc("processing").collection("files").doc(snap.id).set({
             name: snap.data().name,
             owner: snap.data().owner,
             type: snap.data().type,
             suffix: snap.data().suffix,
-            action: "transcode"
+            action: "initial"
         })
-    }
+
+        start_compute_engine()
+    }*/
 
     // PROCESSING: Start compute engine if file needs processing (raw file with no children)
-    if (snap.data().isRaw === true && !snap.data().children) {
+    /*if (snap.data().isRaw === true && !snap.data().children) {
         start_compute_engine()
-    }
+    }*/
 
-    // STORAGE UPDATE: Set file doc size
-    const params = {
+    // Get file metadata from Wasabi
+    const metaData = await s3.headObject({
         Bucket: functions.config().data.wasabi.bucket,
         Key: snap.data().storage_key
-    }
-    const metaData = await s3.headObject(params).promise();
+    }).promise();
+
+    // Get file size from metadata
     const new_file_size_bytes = metaData.ContentLength
 
-    // Set file size on firestore doc
+    // Update file size in file doc
     admin.firestore().collection('users').doc(context.params.userId).collection('files').doc(snap.id).update({
         size: new_file_size_bytes
     })
 
+    //Get currently utilized data
+    let storageDoc = await admin.firestore().collection('users').doc(context.params.userId).get()
+    let capacity_used = storageDoc.data().capacity_used
+
+    // Update storage doc
+    admin.firestore().collection('users').doc(context.params.userId).update({
+        capacity_used: capacity_used + new_file_size_bytes
+    })
+
     // STORAGE UPDATE: Check if document counts against storage and add to used storage amount
-    if (snap.data().type === 'video' && snap.data().isRaw === false) {
+    /*if (snap.data().type === 'video' && snap.data().isRaw === false) {
 
         return functions.logger.info(`${snap.id} is child-data and does not count towards storage quota.`)
 
@@ -140,7 +118,7 @@ exports.new_file_setup = functions.firestore.document('users/{userId}/files/{doc
         })
 
         return functions.logger.info(`Added ${new_file_size_bytes / 1000000}MB to storage count of user ${context.params.userId}`)
-    }
+    }*/
 
 });
 
@@ -182,16 +160,50 @@ exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
 
     try {
 
-        await s3.headObject({
+        const meta = await s3.headObject({
             Bucket: functions.config().data.wasabi.bucket,
             Key: data
         }).promise();
 
-        return true
+        return meta
 
     } catch (err) {
         return false
     }
+})
+
+// Get image thumbnail
+exports.get_image_thumb = functions.https.onCall(async (data, context) => {
+
+    const storage_key = data.storage_key
+    const newThumbName = uuidv4()
+    const gcsBucket = gcs.bucket(`${functions.config().data.wasabi.bucket}.appspot.com`);
+
+    // 3. Save to file pipeline
+    var file = gcsBucket.file(`users/${data.owner}/thumbnails/${newThumbName}.jpeg`).createWriteStream({ contentType: 'image/jpeg' })
+        .on('error', (err) => { functions.logger.warn(err) })
+        .on('finish', () => {
+            // Write thumbnail to firestore
+            admin.firestore().collection('users').doc(data.owner).collection('files').doc(data.id).update({
+                thumbnail_key: `users/${data.owner}/thumbnails/${newThumbName}.jpeg`
+            })
+                .then(() => {
+                    functions.logger.info('Thumbnail uploaded successfully.')
+                })
+                .catch((err) => functions.logger.error('Could not upload ....', data.owner, err))
+        });
+
+    // 2. Resize
+    const pipeline = sharp();
+    pipeline.resize(450, 450).jpeg({
+        quality: 50
+    }).pipe(file);
+
+    // 1. Stream file from Wasabi
+    s3.getObject({
+        Bucket: 'cardboard-dev',
+        Key: storage_key
+    }).createReadStream().pipe(pipeline);
 })
 
 // Get signed download url
@@ -305,21 +317,22 @@ exports.stopComputeEngine = functions.https.onRequest(async (request, response) 
 exports.delete_trigger = functions.firestore.document('users/{userId}/files/{docId}').onDelete(async (snap, context) => {
 
     // STORAGE UPDATE: Check if document counts against storage
-    if (snap.data().type === 'video' && snap.data().isRaw === false) {
+    /*if (snap.data().type === 'video' && snap.data().isRaw === false) {
 
         // Do nothing
 
-    } else {
+    } else {*/
 
-        //Get stored data
-        let storageDoc = await admin.firestore().collection('users').doc(context.params.userId).get()
-        let capacity_used = storageDoc.data().capacity_used
+    //Get stored data
+    let storageDoc = await admin.firestore().collection('users').doc(context.params.userId).get()
+    let capacity_used = storageDoc.data().capacity_used
 
-        // Update storage doc
-        admin.firestore().collection('users').doc(context.params.userId).update({
-            capacity_used: capacity_used - snap.data().size
-        })
-    }
+    // Update storage doc
+    admin.firestore().collection('users').doc(context.params.userId).update({
+        capacity_used: capacity_used - snap.data().size
+    })
+
+    //}
 
     // Remove file from Wasabi
     await s3.deleteObject({

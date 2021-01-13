@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import styles from "./styles.module.css";
 //import { RiScissorsFill } from 'react-icons/ri';
 import { FaVideo } from 'react-icons/fa';
@@ -7,17 +7,10 @@ import { MdImage,/* MdAudiotrack, */MdPlayCircleFilled } from 'react-icons/md';
 
 export default function CardFileStatic(props) {
 
-    //Input state
-    const [title, setTitle] = useState(props.file.name)
-
-
     // Handle active media
     const handleActiveMedia = useCallback(
         (type) => props.handleActiveMedia(props.file, type), [props],
     )
-
-
-
 
     return (
         <div className={styles.card} >
@@ -37,7 +30,7 @@ export default function CardFileStatic(props) {
 
                 <div className={styles.body}>
                     <div className={styles.main}>
-                        <p className={styles.title}>{title}</p>
+                        <p className={styles.title}>{props.file.name}</p>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,6 @@
     border-radius: 16px;
     overflow: hidden;
     background: var(--white);
-    /*transition: .2s;*/
 }
 
 .cardInner {
@@ -102,9 +101,8 @@
 /*__________ Modifiers __________*/
 
 .is_hovered {
-    box-shadow: 0 0 0 3px var(--bg);
-    background: var(--bg);
-    transition-delay: 0s;
+    box-shadow: 0 0 0 3px var(--blue);
+    background: var(--blueTransparent);
 }
 
 .is_hovered > div {

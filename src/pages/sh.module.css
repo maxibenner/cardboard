@@ -12,6 +12,10 @@
 .ownerContainer {
     display: flex;
     margin: 0 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5px 25px 15px 25px;
+    box-sizing: border-box;
 }
 
 .ownerContainer>p:nth-child(2) {
@@ -59,6 +63,7 @@
     text-align: center;
     margin-top: 10px;
     max-width: 350px;
+    font-size: 1.1rem;
 }
 
 @media (max-width: 1200px) {

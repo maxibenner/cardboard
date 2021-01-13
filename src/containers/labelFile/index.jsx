@@ -39,6 +39,11 @@ export default function LabelFile(props) {
         })
     },[tags])
 
+    // Focus input
+    useEffect(()=>{
+        inputElement.current.focus()
+    },[])
+
     return (
         <div className={styles.wrapper}>
             <div className={styles.container}>

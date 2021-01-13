@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { getSignedUploadUrl, checkWasabiFile } from '../../helpers/tools';
 
-export default function Uploader({ firebase, user, files }) {
+export default function Uploader({ inputRef, firebase, user, files }) {
 
     const [open, setOpen] = useState(true)
 
@@ -15,6 +15,9 @@ export default function Uploader({ firebase, user, files }) {
 
     // Set number of simultaneously allowed uploads
     const parallelUploads = 3
+
+    // Get env
+    const env = process.env.NODE_ENV === 'production' ? 'live' : 'dev' 
 
     // Push to queue
     useEffect(() => {
@@ -104,21 +107,13 @@ export default function Uploader({ firebase, user, files }) {
             // onSuccess
             xhr.onload = () => {
 
-                setActiveUploads(prev => {
-                    const index = prev.map((el) => el.id).indexOf(fileId)
-                    prev.splice(index, 1)
-                    return prev ? [...prev] : []
-                })
-
                 // Set database
                 checkWasabiFile(key).then((res) => {
-                    var isRaw = false
-                    if (file.type.split('/')[0] === 'video') { isRaw = true }
 
                     if (res.data) {
-                        console.log('exists')
+
+                        // Add to firestore
                         firebase.firestore().collection("users").doc(user.uid).collection("files").doc(uuid).set({
-                            isRaw: isRaw,
                             storage_key: key,
                             name: name.split('.')[0],
                             owner: user.uid,
@@ -126,13 +121,48 @@ export default function Uploader({ firebase, user, files }) {
                             suffix: key.split('.')[1],
                             tags: [],
                             type: file.type.split('/')[0]
+                        }).then(() => {
+
+                            if (file.type.split('/')[0] === 'image') {//image
+                                fetch(`https://img-thumb.cardboard.video/img-thumb-${env}?key=${key}`)
+                                    .then(function (response) {
+                                        console.log(response)
+                                        return
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error)
+                                    });
+                            }else if(file.type.split('/')[0] === 'video') {//video
+                                fetch(`https://img-thumb.cardboard.video/video-thumb-${env}?key=${key}`)
+                                    .then(function (response) {
+                                        console.log(response)
+                                        return
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error)
+                                    });
+                            }
+
+                            // Clear input
+                            //inputRef.current.value = ''
+
                         })
+
+
 
                     } else {
                         window.alert('There was a problem with your upload. Please try again.')
                     }
 
+                    setActiveUploads(prev => {
+                        const index = prev.map((el) => el.id).indexOf(fileId)
+                        prev.splice(index, 1)
+                        return prev ? [...prev] : []
+                    })
+
                 })
+
+
             };
 
             xhr.open('PUT', url, true);
