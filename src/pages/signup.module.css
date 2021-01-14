@@ -5,8 +5,7 @@
 .wrapper {
     display: flex;
     width: 100%;
-    height: 100vh;
-    margin-top: -70px;
+    height: calc(100vh - 100px);
     align-items: center
 }
 
@@ -17,7 +16,7 @@
     border-radius: 17px;
     box-sizing: border-box;
     padding: 0 25px;
-    margin: 0 auto
+    margin: -80px auto 0 auto
 }
 
 .title {
@@ -33,4 +32,9 @@
     border-radius: 7px;
     color: white;
     text-align: left;
+}
+
+/*__________ Modifiers __________*/
+.bold {
+    font-weight: bold;
 }

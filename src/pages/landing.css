@@ -22,6 +22,7 @@
     padding: calc(6% + 50px) 0;
     box-sizing: border-box;
 }
+
 @media(min-height:1100px){
     .index--container {
         min-height:1100px;
@@ -46,6 +47,7 @@
     font-size: 4em;
     max-width: 500px;
     line-height: 1em;
+    margin: 0 auto 20px 0;
 }
 .index--title-half > span {
     font-weight:bold;
@@ -137,7 +139,7 @@
     }
     .index--title-half {
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0 auto 20px auto;
     }
     .index--sub {
         margin: 15px auto 30px auto;

@@ -65,16 +65,11 @@
 .container_large {
     max-width: 350px;
     min-width: 270px;
-    height: 67px;
-}
-
-.container_large>div {
     height: 60px;
-    border-radius: 15px;
 }
 
 .container_large>div>p {
-    font-size: 22px;
+    font-size: 22px!important;
 }
 
 /*__________ fitText __________*/

@@ -6,13 +6,10 @@ service cloud.firestore {
 		match /users/{uid} {
       allow read: if request.auth.uid == uid;
       
-      match /files {
-        allow read: if request.auth.uid == uid;
-      }
-			match /files/{id} {
+      match /files/{allPaths=**} {
         allow read, write: if request.auth.uid == uid;
       }
-			match /shared/{id} {
+			match /public/{allPaths=**} {
         allow read, write: if request.auth.uid == uid;
       }
       match /checkout_sessions/{id} {

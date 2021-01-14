@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
 import * as ROUTES from '../constants/routes';
-import NavbarLanding from '../components/navbarLanding';
+import Navbar from '../components/navbar';
 import Button from '../components/button';
 import Input from '../components/input';
 import styles from "./signin.module.css";
@@ -32,7 +32,7 @@ export default function Signin() {
 
     return (
         <div className={styles.base}>
-            <NavbarLanding yellow to={ROUTES.LANDING}/>
+            <Navbar noauth relative yellow to={ROUTES.LANDING}/>
             <div className={styles.wrapper}>
                 <form onSubmit={handleSignin} className={styles.form}>
                     <h1 className={styles.title}>Login</h1>
@@ -48,7 +48,7 @@ export default function Signin() {
                         label="Password*" value={password}
                         onChange={value => setPassword(value)} />
                     <Button large red type="submit" text="Sign In" />
-                    <p>Don't have an account, yet? <Link to={ROUTES.SIGN_UP}>Sign up</Link></p>
+                    <p>Don't have an account, yet? <Link to={ROUTES.SIGN_UP} className={styles.bold}>Sign up</Link></p>
                 </form>
             </div>
 

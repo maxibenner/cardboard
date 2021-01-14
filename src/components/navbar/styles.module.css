@@ -11,6 +11,12 @@
     z-index: 50;
 }
 
+.navMenu {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
 .nav_yellow {
     background: var(--main);
 }
@@ -85,6 +91,14 @@
 
 .topLayer {
     z-index: 999;
+}
+
+.relative {
+    position: relative;
+}
+
+.yellow {
+    background-color: var(--main);
 }
 
 /*__________ CONTAINERS __________*/

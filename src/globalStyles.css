@@ -114,3 +114,14 @@ a:active, a:visited {
     /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
 }
+
+.global--textflag {
+    position: absolute;
+    background: black;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: .5em;
+    color: white;
+    font-family: inter;
+    transform: translate(5px, -5px);
+}

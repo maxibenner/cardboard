@@ -32,9 +32,6 @@ const s3 = new AWS.S3({
 //UUID
 const { v4: uuidv4 } = require('uuid');
 
-// Image processing
-const sharp = require("sharp");
-
 // Timekeeper
 const tk = require("timekeeper")
 
@@ -172,40 +169,6 @@ exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
     }
 })
 
-// Get image thumbnail
-exports.get_image_thumb = functions.https.onCall(async (data, context) => {
-
-    const storage_key = data.storage_key
-    const newThumbName = uuidv4()
-    const gcsBucket = gcs.bucket(`${functions.config().data.wasabi.bucket}.appspot.com`);
-
-    // 3. Save to file pipeline
-    var file = gcsBucket.file(`users/${data.owner}/thumbnails/${newThumbName}.jpeg`).createWriteStream({ contentType: 'image/jpeg' })
-        .on('error', (err) => { functions.logger.warn(err) })
-        .on('finish', () => {
-            // Write thumbnail to firestore
-            admin.firestore().collection('users').doc(data.owner).collection('files').doc(data.id).update({
-                thumbnail_key: `users/${data.owner}/thumbnails/${newThumbName}.jpeg`
-            })
-                .then(() => {
-                    functions.logger.info('Thumbnail uploaded successfully.')
-                })
-                .catch((err) => functions.logger.error('Could not upload ....', data.owner, err))
-        });
-
-    // 2. Resize
-    const pipeline = sharp();
-    pipeline.resize(450, 450).jpeg({
-        quality: 50
-    }).pipe(file);
-
-    // 1. Stream file from Wasabi
-    s3.getObject({
-        Bucket: 'cardboard-dev',
-        Key: storage_key
-    }).createReadStream().pipe(pipeline);
-})
-
 // Get signed download url
 exports.sign_wasabi_download_url = functions.https.onCall(async (data, context) => {
 
@@ -316,12 +279,7 @@ exports.stopComputeEngine = functions.https.onRequest(async (request, response) 
 // Delete Files trigger
 exports.delete_trigger = functions.firestore.document('users/{userId}/files/{docId}').onDelete(async (snap, context) => {
 
-    // STORAGE UPDATE: Check if document counts against storage
-    /*if (snap.data().type === 'video' && snap.data().isRaw === false) {
-
-        // Do nothing
-
-    } else {*/
+    const file = snap.data()
 
     //Get stored data
     let storageDoc = await admin.firestore().collection('users').doc(context.params.userId).get()
@@ -329,40 +287,49 @@ exports.delete_trigger = functions.firestore.document('users/{userId}/files/{doc
 
     // Update storage doc
     admin.firestore().collection('users').doc(context.params.userId).update({
-        capacity_used: capacity_used - snap.data().size
+        capacity_used: capacity_used - file.size
     })
-
-    //}
 
     // Remove file from Wasabi
     await s3.deleteObject({
         Bucket: functions.config().data.wasabi.bucket,
-        Key: snap.data().storage_key
+        Key: file.storage_key
     }).promise()
 
     // Remove thumbnail from GCS
-    if (snap.data().thumbnail_key) {
+    if (file.thumbnail_key) {
         const bucket = gcs.bucket(functions.config().data.wasabi.bucket + ".appspot.com");
-        await bucket.file(snap.data().thumbnail_key).delete()
+        await bucket.file(file.thumbnail_key).delete()
     } else {
         console.log('No thumbnail')
     }
 
+    // Check for and remove share dirs
+    if (file.share_id) {
+
+        // Remove from user share dir
+        admin.firestore().collection('users').doc(file.owner).collection('public').doc('shared').collection(file.share_id).doc(snap.id).delete()
+
+        // Remove from public share dir
+        admin.firestore().collection('public').doc('shared').collection(file.share_id).doc(snap.id).delete()
+
+    }
+
     // Check for and remove transcoded child
-    if (snap.data().transcoded_child_id) {
-        const transcoded_child = await admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.data().transcoded_child_id).get()
+    if (file.transcoded_child_id) {
+        const transcoded_child = await admin.firestore().collection('users').doc(file.owner).collection('files').doc(file.transcoded_child_id).get()
         if (transcoded_child.exists) {
-            await admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.data().transcoded_child_id).delete()
+            await admin.firestore().collection('users').doc(file.owner).collection('files').doc(file.transcoded_child_id).delete()
         }
     } else {
         console.log('No transcoded child')
     }
 
     // Check for and remove source file
-    if (snap.data().source_file_id) {
-        const sourceDoc = await admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.data().source_file_id).get()
+    if (file.source_file_id) {
+        const sourceDoc = await admin.firestore().collection('users').doc(file.owner).collection('files').doc(file.source_file_id).get()
         if (sourceDoc.exists) {
-            admin.firestore().collection('users').doc(snap.data().owner).collection('files').doc(snap.data().source_file_id).delete()
+            admin.firestore().collection('users').doc(file.owner).collection('files').doc(file.source_file_id).delete()
         }
     } else {
         console.log('No source file')

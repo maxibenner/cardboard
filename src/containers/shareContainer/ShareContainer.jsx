@@ -29,7 +29,7 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
         if (!url) {// => create reference
 
             // Get new doc id
-            const id = uuidv4().replace(/-/g, '')
+            const share_id = uuidv4().replace(/-/g, '')
 
             // Create new batch action
             const batch = firebase.firestore().batch()
@@ -38,19 +38,19 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
             selection.forEach((file) => {
 
                 // Add share id to local file
-                file.share_id = id
+                file.share_id = share_id
                 file.owner_email = user.email
 
                 // Save to user share dir
-                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(id)
+                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('public').doc('shared').collection(share_id).doc(file.id)
                 batch.set(userShareDir, file);
 
                 // Add share dir id to file
                 const userFileDir = firebase.firestore().collection('users').doc(user.uid).collection('files').doc(file.id)
-                batch.update(userFileDir, { share_id: id })
+                batch.update(userFileDir, { share_id: share_id })
 
                 // Save to public share dir
-                const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(id).doc(file.id)
+                const publicShareDir = firebase.firestore().collection('public').doc('shared').collection(share_id).doc(file.id)
                 batch.set(publicShareDir, file)
 
             })
@@ -63,18 +63,19 @@ export default function ShareContainer({ firebase, handleModal, user, selection 
         } else {// => delete reference
 
             // Get all shared files under that share_id
-            const sharedFileDocs = await firebase.firestore().collection('public').doc('shared').collection(selection[0].share_id).get()
+            //const sharedFileDocs = await firebase.firestore().collection('public').doc('shared').collection(selection[0].share_id).get()
 
             // Create new batch action
             const batch = firebase.firestore().batch()
 
             // Add actions to batch
-            sharedFileDocs.forEach((doc) => {
+            selection.forEach((doc) => {
 
-                const file = doc.data()
+                const file = doc
+                console.log(file)
 
                 // Remove from user share dir
-                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('shared').doc(file.share_id)
+                const userShareDir = firebase.firestore().collection('users').doc(user.uid).collection('public').doc('shared').collection(file.share_id).doc(file.id)
                 batch.delete(userShareDir)
 
                 // Remove from public share dir

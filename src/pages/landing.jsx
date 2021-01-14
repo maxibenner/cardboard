@@ -1,7 +1,7 @@
 import React from 'react';
 import '../globalStyles.css';
 import './landing.css';
-import NavbarLanding from '../components/navbarLanding';
+import Navbar from '../components/navbar';
 import Button from "../components/button/"
 import Footer from '../components/footer';
 import * as ROUTES from '../constants/routes';
@@ -11,16 +11,16 @@ import { Link } from 'react-router-dom';
 export default function Landing() {
     return (
         <div className="landing--base">
-            <NavbarLanding yellow to={ROUTES.LANDING}/>
+            <Navbar noauth login relative yellow to={ROUTES.LANDING}/>
             <div className='index--wrapper-landing'>
                 <div className='index--container'>
                     <div>
-                        <h1 className='index--title-half'>Cloud storage for <span>digitized tapes</span></h1>
-                        <h2 className='index--sub'>With auto-cutting and smart search to help you rediscover and share memories.
+                        <h1 className='index--title-half'>Cloud Storage for <span>Memories</span></h1>
+                        <h2 className='index--sub'>A beautifully simple place to re&#8209;discover and share your memories.
                     </h2>
                         <div className='index--hero-button-container'>
                             <Link to={ROUTES.SIGN_UP}>
-                                <Button large red text="Sign Up"/>
+                                <Button large red text="Sign Up" />
                             </Link>
                         </div>
                     </div>
@@ -29,30 +29,20 @@ export default function Landing() {
                         <img src="/images/landing-graphics.svg" alt="" className='index--hero-illustrations' />
                     </div>
                 </div>
-
                 <div className='index--features-wrapper'>
                     <div className='index--container-features'>
                         <div>
-                            <h1 className='index--title-full'>Made for <span>video tapes</span></h1>
-                            <h2 className='index--sub index--sub_centered'>Experience and sort your memories in ways tailor-made for
-                            digitized tapes.</h2>
+                            <h1 className='index--title-full'>Made for <span>memories</span></h1>
+                            <h2 className='index--sub index--sub_centered'>Features tailor-made to experience your memories and to keep them safe.</h2>
                         </div>
                         <div>
                             <div className='home--container-features-elements'>
                                 <div>
                                     <div>
-                                        <img src="./images/illustration--smartsearch.svg" alt="" />
+                                        <img src="./images/illustration--privacy.svg" alt="" />
                                     </div>
-                                    <h3>Smart Search</h3>
-                                    <p>Our smart search helps you rediscover memories and even suggests search terms.</p>
-                                </div>
-                                <div>
-                                    <div>
-                                        <img src="./images/illustration--scissors.svg" alt="" />
-                                    </div>
-                                    <h3>Auto-Cut Tapes<span className='global--textflag'>Beta</span></h3>
-                                    <p>We automatically cut long tapes so you can find special moments faster and share them
-                                    easier.
+                                    <h3>Privacy first</h3>
+                                    <p>We never track you. We never analyze your data. Stay in control of your privacy.
                                 </p>
                                 </div>
                                 <div>
@@ -66,27 +56,26 @@ export default function Landing() {
                                 </div>
                                 <div>
                                     <div>
-                                        <img src="./images/illustration--privacy.svg" alt="" />
+                                        <img src="./images/illustration--smartsearch.svg" alt="" />
                                     </div>
-                                    <h3>Made for privacy</h3>
-                                    <p>We never track you. We never analyze your data. Stay in control of your privacy.
-                                </p>
+                                    <h3>Smart Search</h3>
+                                    <p>Our smart search helps you re&#8209;discover memories by suggesting search terms.</p>
                                 </div>
                                 <div>
                                     <div>
-                                        <img src="./images/illustration--video.svg" alt="" />
+                                        <img src="./images/illustration--scissors.svg" alt="" />
                                     </div>
-                                    <h3>Video Optimisation</h3>
-                                    <p>We transcode all videos to give you the best viewing experience. (We also store the
-                                    original
-                                    for archival)</p>
+                                    <h3>Auto-Cut<span className='global--textflag'>Beta</span></h3>
+                                    <p>We automatically cut long tapes so you can find special moments faster and share them
+                                    easier.
+                                </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className='index--container-share'>
+                {/*<div className='index--container-share'>
                     <div>
                         <h1 className='index--title-full'>Made for <span>sharing</span></h1>
                         <h2 className='index--sub index--sub_centered'>Share your favourite clips through a beautifully simple
@@ -123,7 +112,7 @@ export default function Landing() {
                         </div>
                         <img src="./images/landing--unboxing.svg" alt="" />
                     </div>
-                </div>
+                </div>*/}
 
                 <div className='index--container-CTA-wrapper'>
                     <div className='index--container-CTA'>
@@ -133,7 +122,7 @@ export default function Landing() {
                             <h2 className='index--sub index--sub_centered'>And get 3GB of storage for free</h2>
                             <div className='index--CTA-button-container'>
                                 <Link to={ROUTES.SIGN_UP}>
-                                    <Button large red text="Sign Up"/>
+                                    <Button large red text="Sign Up" />
                                 </Link>
                             </div>
                         </div>

@@ -24,19 +24,21 @@ export default function Navbar(props) {
     }
 
     return (
-        <div className={styles.nav}>
+        <div className={`${styles.nav} ${props.relative && styles.relative} ${props.yellow && styles.yellow}`}>
 
             <div className={`${styles.container} ${menuActive && styles.topLayer}`}>
 
-                <img className={styles.logo} to="/" src={Logo} alt='CardboardLogo' />
-
+                <Link to={props.to}>
+                    <img className={styles.logo} src={Logo} alt='CardboardLogo' />
+                </Link>
+                
                 <div className={styles.menuContainer}>
 
                     {!props.noauth &&
                         <>
                             <div className={styles.navMenuWide}>
                                 <Link as={Link} to={ROUTES.LIBRARY}>
-                                    <ButtonLight title={'Library'} /> 
+                                    <ButtonLight title={'Library'} />
                                 </Link>
                                 <Link as={Link} to={'#'}>
                                     <ButtonLight title={'Shared'} onClick={() => window.alert('Coming soon.')} />
@@ -64,6 +66,13 @@ export default function Navbar(props) {
                                 </DropdownFull>
                             </div>
                         </>
+                    }
+                    {props.login &&
+                        <div className={styles.navMenu}>
+                            <Link to={ROUTES.SIGN_IN}>
+                                <ArrowText text="Login" />
+                            </Link>
+                        </div>
                     }
                 </div>
             </div>
