@@ -260,7 +260,7 @@ export default function BrowseContainer({
     //_________________ RENDER _________________//
     return (
         <>
-            <div className={styles.breadcrumbContainer}>
+            <div className={`${styles.breadcrumbContainer} ${activeTags.length > 0 && styles.invisible}`}>
                 <BreadCrumbs handlePath={updateCurrentBreadcrumb} path={currentPath} />
             </div>
 

@@ -11,7 +11,7 @@ export default function ButtonLightConfirm(props) {
     const [confirmInProgress, setConfirmInProgress] = useState(false)
     const timeToConfirm = 1500
 
-
+ 
 
     const classes = `${styles.container
         } ${props.danger && styles.danger

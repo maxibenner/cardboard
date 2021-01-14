@@ -30,7 +30,7 @@
 
 .title {
     margin: 0;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .container:hover {
@@ -55,7 +55,6 @@
     display: flex;
     align-items: center;
     font-weight: normal;
-    font-size: .9rem;
     color: var(--red);
     border-radius: 5px;
     cursor: default;

@@ -8,7 +8,7 @@
 }
 
 .container>svg {
-    color: var(--dark);
+    color: var(--dark); 
 }
 
 .title {
