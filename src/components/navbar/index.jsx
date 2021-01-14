@@ -44,7 +44,7 @@ export default function Navbar(props) {
                                     <ButtonLight title={'Shared'} onClick={() => window.alert('Coming soon.')} />
                                 </Link>
 
-                                <DropdownFull icon={<UserContext />}>
+                                <DropdownFull down icon={<UserContext />}>
                                     <Link as={Link} to={ROUTES.SETTINGS}>
                                         <ButtonLight title={'Settings'} icon={<MdSettings />} />
                                     </Link>
@@ -52,7 +52,7 @@ export default function Navbar(props) {
                                 </DropdownFull>
                             </div>
                             <div className={styles.navMenuNarrow}>
-                                <DropdownFull icon={<UserContext />} >
+                                <DropdownFull down icon={<UserContext />} >
                                     <Link as={Link} to={ROUTES.LIBRARY}>
                                         <ButtonLight title={'Library'} icon={<BiBookHeart />} />
                                     </Link>

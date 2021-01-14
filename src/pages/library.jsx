@@ -274,7 +274,7 @@ export default function Library() {
                 />
             </div>
             <div className={styles.actionContainer}>
-                <DropdownFull icon={
+                <DropdownFull down icon={
                     <ButtonLight
                         title="More"
                         icon={<IoMdArrowDropdown />}

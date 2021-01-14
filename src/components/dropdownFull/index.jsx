@@ -1,85 +1,42 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 
 
 export default function DropdownFull(props) {
 
-    const [direction, setDirection] = useState(null)
-
-    const toggle = useRef()
-
-    const classes =
-        `
-        ${styles.container}
-        ${direction === 'up' && styles.up}
-        ${/*To prevent flicker of parent z-index change*/direction && styles.z}
-        `
-
-    // Calculate dropdown direction and set close click event listener
-    const toggleMenu = () => {
-
-        // Set parend z index to top
-        if (props.parentAction) {
-
-            if (direction) props.parentAction(true)
-            else props.parentAction(false)
-
-        }
-
-        if (!direction) {
-
-            // Get window height
-            const windowHeight = window.innerHeight
-
-            // Get position of dropdown toggle
-            const toggleCenter = toggle.current.getBoundingClientRect().top - (toggle.current.offsetHeight / 2)
-
-            // Choose which direction to go
-            if (toggleCenter < windowHeight / 2.5) {
-                setDirection('down')
-            } else {
-                setDirection('up')
-            }
-        }
-
-    }
+    const [active, setActive] = useState(false)
 
     //Set click listener
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(direction === null) return
-        
+        if (active === false) return
+
         // Add outside click listener
-        direction && document.addEventListener('click', toggleActive);
+        active && document.addEventListener('click', closeMenu);
 
         return () => {
-            document.removeEventListener('click', toggleActive);
+            document.removeEventListener('click', closeMenu);
         };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[direction])
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [active])
 
     // Open and close dropdown
-    const toggleActive = () => {
-        if(direction === null) toggleMenu()
-        else setDirection(null)
+    const closeMenu = () => {
+        setActive(false)
     }
-
+    console.log(props.down)
 
     return (
-        <div ref={toggle}>
-            <div className={styles.containerInner}>
-                <div onClick={toggleActive}>
-                    {props.icon}
-                </div>
-                {direction &&
-                    <div className={classes}>
-                        {props.children}
-                    </div>
-                }
-
+        <div className={styles.containerInner}>
+            <div onClick={() => setActive(true)}>
+                {props.icon}
             </div>
+            {active === true &&
+                <div className={`${styles.container} ${props.down && styles.down}`}>
+                    {props.children}
+                </div>
+            }
 
         </div>
     );

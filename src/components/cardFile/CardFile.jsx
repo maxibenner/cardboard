@@ -18,7 +18,6 @@ export default function CardFile(props) {
     //Input state
     const [inputActive, setInputActive] = useState(false);
     const [title, setTitle] = useState(props.file.name)
-    const [zPop, setZPop] = useState(false)
 
     const [draggable, setDraggable] = useState(true)
     const [isDragged, setIsDragged] = useState(false)
@@ -166,7 +165,7 @@ export default function CardFile(props) {
 
     return (
         <div
-            className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged} ${zPop && styles.zPop}`}
+            className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged}`}
             draggable={draggable}
             onDragStart={onDragStartFunctions}
             onDragEnter={handleDragEnter}
@@ -210,7 +209,7 @@ export default function CardFile(props) {
                         }
                     </div>
 
-                    <DropdownFull parentAction={(bool) => setZPop(bool)} icon={<ToggleContext />} blocker={zPop}>
+                    <DropdownFull icon={<ToggleContext />} >
                         <ButtonLight title={'Rename'} icon={<MdTitle />} onClick={handleRename} />
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
                         <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => props.sendSelectionToParent([props.file])} />
