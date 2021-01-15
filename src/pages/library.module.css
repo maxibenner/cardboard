@@ -1,6 +1,4 @@
-.wrapper {
-    margin-bottom: 70px;
-}
+.wrapper {}
 
 .spacer70 {
     height: 70px;
@@ -33,4 +31,14 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 -25px;
+}
+
+/*__________ Wrappers __________*/
+
+.noFilesWrapper {
+    width: 100%;
+    height: calc(100vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

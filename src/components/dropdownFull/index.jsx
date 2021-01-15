@@ -25,11 +25,10 @@ export default function DropdownFull(props) {
     const closeMenu = () => {
         setActive(false)
     }
-    console.log(props.down)
 
     return (
         <div className={styles.containerInner}>
-            <div onClick={() => setActive(true)}>
+            <div className={styles.icon} onClick={() => setActive(true)}>
                 {props.icon}
             </div>
             {active === true &&

@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    cursor: default;
+    cursor: pointer;
     align-items: center;
     padding: 15px;
     border-radius: 5px;

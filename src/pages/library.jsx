@@ -1,21 +1,25 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useAuthListener } from '../hooks/use-auth-listener';
-import { firebase } from '../lib/firebase';
-import * as ROUTES from '../constants/routes';
-import styles from './library.module.css';
+import React, { useRef, useState, useEffect } from 'react'
+import { useAuthListener } from '../hooks/use-auth-listener'
+import { firebase } from '../lib/firebase'
+import * as ROUTES from '../constants/routes'
+import styles from './library.module.css'
 
-import BrowseContainer from '../containers/browse/Browse';
-import WatchContainer from '../containers/watch';
-import TagSearch from '../containers/tagSearch';
-import Uploader from '../components/uploader';
-import Navbar from '../components/navbar';
-import ButtonLight from '../components/buttonLight';
+import BrowseContainer from '../containers/browse/Browse'
+import WatchContainer from '../containers/watch'
+import TagSearch from '../containers/tagSearch'
+import CardSimple from '../components/cardSimple/CardSimple'
+import Uploader from '../components/uploader'
+import Navbar from '../components/navbar'
+import ButtonLight from '../components/buttonLight'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { MdCloudUpload } from 'react-icons/md'
 
-import LabelFile from '../containers/labelFile';
-import DropdownFull from '../components/dropdownFull';
-import ShareContainer from '../containers/shareContainer/ShareContainer';
+import LabelFile from '../containers/labelFile'
+import DropdownFull from '../components/dropdownFull'
+import ShareContainer from '../containers/shareContainer/ShareContainer'
+
+import placeholder from '../media/illustration-empty.svg'
+import Button from '../components/button'
 
 
 
@@ -30,7 +34,7 @@ export default function Library() {
 
 
     //__________ STATE __________//
-    const [files, setFiles] = useState(null);
+    const [files, setFiles] = useState([]);
 
     const [filesForUpload, setFilesForUpload] = useState([]);
     //const [activeUploads, setActiveUploads] = useState([]);
@@ -40,13 +44,13 @@ export default function Library() {
     const [visibleFiles, setVisibleFiles] = useState();
 
     const [tags, setTags] = useState([])
-    const [activeTags, setActiveTags] = useState(null)
+    const [activeTags, setActiveTags] = useState([])
 
 
     //__________ FUNCTIONS __________//
 
     // Handle UPLOAD click
-    const handleClick = () => {
+    const handleUploadClick = () => {
         inputRef.current.click()
     };
 
@@ -84,7 +88,7 @@ export default function Library() {
             } else {
                 const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject)
                 fileObject.url = url.data
-                
+
                 setActiveMedia(fileObject)
             }
 
@@ -266,26 +270,32 @@ export default function Library() {
                 loggedIn
                 to={ROUTES.LIBRARY}
             />
-            <div className={styles.spacer70}></div>
-            <div className={styles.searchBarContainer}>
-                <TagSearch
-                    tags={tags}
-                    setActiveTags={setActiveTags}
-                />
-            </div>
-            <div className={styles.actionContainer}>
-                <DropdownFull down icon={
-                    <ButtonLight
-                        title="More"
-                        icon={<IoMdArrowDropdown />}
+            {files.length > 0 &&
+                <div className={styles.spacer70}></div>
+            }
+            {files.length > 0 &&
+                <div className={styles.searchBarContainer}>
+                    <TagSearch
+                        tags={tags}
+                        setActiveTags={setActiveTags}
                     />
-                }
-                >
-                    <ButtonLight title={'Upload'} icon={<MdCloudUpload />} onClick={handleClick} />
-                </DropdownFull>
+                </div>
+            }
+            {files.length > 0 && // Action container
+                <div className={styles.actionContainer}>
+                    <DropdownFull down icon={
+                        <ButtonLight title="More" icon={
+                            <IoMdArrowDropdown />
+                        } />
+                    }>
+                        <ButtonLight title={'Upload'} icon={
+                            <MdCloudUpload />
+                        } onClick={handleUploadClick} />
+                    </DropdownFull>
 
-            </div>
-            {files &&
+                </div>
+            }
+            {files.length > 0 &&
                 <BrowseContainer
                     files={files}
                     activeTags={activeTags}
@@ -295,6 +305,15 @@ export default function Library() {
                     sendVisibleFilesToParent={setVisibleFiles}
                     handleActiveMedia={handleActiveMedia}
                 />
+            }
+            {files.length === 0 && // Placeholder for no files
+                <div className={styles.noFilesWrapper}>
+                    <CardSimple large
+                        imgSrc={placeholder}
+                        title={'Looks empty here'}
+                        button={<Button blue wide onClick={handleUploadClick} text={'Upload your first memory'} />}
+                    />
+                </div>
             }
             {activeMedia && activeMedia.action === 'show' &&
                 <WatchContainer

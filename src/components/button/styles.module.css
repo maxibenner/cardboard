@@ -1,4 +1,5 @@
 .container {
+    cursor: pointer;
     position: relative;
     box-sizing: border-box;
     overflow: hidden;

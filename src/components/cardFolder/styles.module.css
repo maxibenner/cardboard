@@ -17,6 +17,7 @@
 }
 
 .videoContainer {
+    cursor: pointer;
     position: relative;
     height: 150px;
     overflow: hidden;

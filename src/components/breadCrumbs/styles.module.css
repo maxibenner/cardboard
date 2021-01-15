@@ -5,6 +5,7 @@
     height: 70px;
 }
 .breadCrumb {
+    cursor: pointer;
     padding: 10px 15px;
     border-radius: 7px;
     max-width: 150px;

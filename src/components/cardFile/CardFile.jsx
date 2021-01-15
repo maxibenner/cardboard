@@ -26,8 +26,6 @@ export default function CardFile(props) {
     const [dragCounter, setDragCounter] = useState(0)
 
 
-
-
     //_________________ FUNCTIONS _________________//
 
     // Handle file delete
@@ -109,6 +107,7 @@ export default function CardFile(props) {
         () => {
             props.onDragStart(props.file.id)
             setIsDragged(true)
+            //document.body.style.cursor = 'move!important'
         }, [props],
     )
 
@@ -160,7 +159,6 @@ export default function CardFile(props) {
             }
         }, [isDragged, props],
     )
-
 
 
     return (

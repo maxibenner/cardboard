@@ -1,12 +1,13 @@
 .container {
     position: relative;
-    cursor: default;
+    cursor: pointer;
     border-radius: 5px;
     user-select: none;
 }
 
 .contentContainer {
     display: flex;
+    cursor: pointer;
     align-items: center;
     padding: 15px;
 }
@@ -17,6 +18,7 @@
 
 .contentContainerTop {
     display: flex;
+    cursor: pointer;
     align-items: center;
     padding: 15px;
     background: var(--red);

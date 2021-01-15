@@ -28,6 +28,10 @@
     z-index: 98;
 }
 
+.icon {
+    cursor: pointer;
+}
+
 /*__________ Modifieres __________*/
 
 .closed {

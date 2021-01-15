@@ -255,6 +255,7 @@ export default function BrowseContainer({
 
 
     }, [sendVisibleFilesToParent, visibleElements])
+    console.log(activeTags)
 
 
     //_________________ RENDER _________________//
