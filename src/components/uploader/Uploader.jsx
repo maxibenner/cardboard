@@ -11,15 +11,11 @@ export default function Uploader({ firebase, user, files }) {
 
 	const [uploads, setUploads] = useState([]);
 
-	// Set number of simultaneously allowed uploads
-	const parallelUploads = 3;
-
 	// Get env
 	const env = process.env.NODE_ENV === "production" ? "live" : "dev";
 
 	// Push to queue
 	useEffect(() => {
-		console.log(files);
 		if (!files || files.length === 0) return;
 
 		setUploads((prev) => {
@@ -62,7 +58,7 @@ export default function Uploader({ firebase, user, files }) {
 			const fileId = newFile.id;
 
 			// Prevent duplicates
-			if (uploads.filter((el) => el.id === fileId && el.active === true) != 0)
+			if (uploads.filter((el) => el.id === fileId && el.active === true) !== 0)
 				return;
 
 			// Limit number of uploads
@@ -74,7 +70,6 @@ export default function Uploader({ firebase, user, files }) {
 			// Upload setup
 			getSignedUploadUrl(file)
 				.then(({ url, uuid, key, name }) => {
-					console.log("running");
 					//____________ XHR Setup ____________//
 					var xhr = new XMLHttpRequest();
 
@@ -105,7 +100,6 @@ export default function Uploader({ firebase, user, files }) {
 
 					// onSuccess
 					xhr.onload = () => {
-						console.log("loaded");
 						// Set database
 						checkWasabiFile(key).then(async (res) => {
 							if (res.data) {
@@ -139,26 +133,12 @@ export default function Uploader({ firebase, user, files }) {
 									//Image
 									await fetch(
 										`https://api.cardboard.video/img-thumb-${env}?key=${key}`
-									)
-										.then(function (response) {
-											console.log(response);
-											return;
-										})
-										.catch(function (error) {
-											console.log(error);
-										});
+									);
 								} else if (file.type.split("/")[0] === "video") {
 									//Video
 									fetch(
 										`https://api.cardboard.video/video-thumb-${env}?key=${key}`
-									)
-										.then(function (response) {
-											console.log(response);
-											return;
-										})
-										.catch(function (error) {
-											console.log(error);
-										});
+									);
 								}
 							} else {
 								window.alert(
@@ -198,7 +178,7 @@ export default function Uploader({ firebase, user, files }) {
 					});
 				});
 		},
-		[uploads]
+		[uploads, env, firebase, user.uid]
 	);
 
 	// Remove item from upload

@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import ToggleContext from '../toggleContext';
 import DropdownFull from '../dropdownFull';
 import ButtonLight from '../buttonLight';
-import ButtonLightConfirm from '../buttonLightConfirm';
+import ButtonLightConfirm from '../buttonLightConfirm/ButtonLightConfirm';
 import { firebase } from '../../lib/firebase';
 //import { RiScissorsFill } from 'react-icons/ri';
 import { FaVideo } from 'react-icons/fa';

@@ -6,7 +6,7 @@ import styles from "./library.module.css";
 
 import BrowseContainer from "../containers/browse/Browse";
 import WatchContainer from "../containers/watch/WatchContainer";
-import TagSearch from "../containers/tagSearch";
+import TagSearch from "../containers/tagSearch/TagSearch";
 import CardSimple from "../components/cardSimple/CardSimple";
 import Uploader from "../components/uploader/Uploader";
 import Navbar from "../components/navbar";
@@ -14,7 +14,7 @@ import ButtonLight from "../components/buttonLight";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdCloudUpload } from "react-icons/md";
 
-import LabelFile from "../containers/labelFile";
+import LabelFile from "../containers/labelFile/LabelFile";
 import DropdownFull from "../components/dropdownFull";
 import ShareContainer from "../containers/shareContainer/ShareContainer";
 

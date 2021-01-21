@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import CardFile from "../../components/cardFile/CardFile";
-import CardFolder from "../../components/cardFolder";
+import CardFolder from "../../components/cardFolder/CardFolder";
 import BreadCrumbs from "../../components/breadCrumbs";
 
 //______________________________ READ ME ______________________________//

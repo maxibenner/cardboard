@@ -40,7 +40,7 @@ export default function TagSearch(props) {
 
         props.setActiveTags(activeTags)
 
-    }, [activeTags])
+    }, [activeTags, props])
 
     // Set random tag placeholder
     useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../media/logo-dark.svg";
 import * as ROUTES from "../../constants/routes";
@@ -15,7 +15,6 @@ import ArrowText from "../arrow-text";
 
 export default function Navbar(props) {
 	const { firebase } = useContext(FirebaseContext);
-	const [menuActive, setMenuActive] = useState(false);
 
 	const logout = () => {
 		firebase.auth().signOut();
@@ -27,7 +26,7 @@ export default function Navbar(props) {
 				props.yellow && styles.yellow
 			}`}
 		>
-			<div className={`${styles.container} ${menuActive && styles.topLayer}`}>
+			<div className={styles.container}>
 				<Link to={props.to}>
 					<img className={styles.logo} src={Logo} alt="CardboardLogo" />
 				</Link>

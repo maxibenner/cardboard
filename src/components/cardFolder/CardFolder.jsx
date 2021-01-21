@@ -16,7 +16,6 @@ export default function CardFolder(props) {
     const [title, setTitle] = useState(null)
     const [isHovered, setIsHovered] = useState(false)
     const [dragCounter, setDragCounter] = useState(0)
-    const [menuActive, setMenuActive] = useState(false)
 
 
     // Handle change
