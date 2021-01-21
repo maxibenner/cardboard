@@ -72,7 +72,7 @@ export default function Uploader({ firebase, user, files }) {
 			//__________ Add upload __________//
 
 			// Upload setup
-			getSignedUploadUrl(newFile.file)
+			getSignedUploadUrl(file)
 				.then(({ url, uuid, key, name }) => {
 					console.log("running");
 					//____________ XHR Setup ____________//
@@ -85,7 +85,9 @@ export default function Uploader({ firebase, user, files }) {
 
 						//Push to active Uploads
 						setUploads((prev) => {
+							if (prev === undefined) return;
 							const i = prev.findIndex((el) => el.id === fileId);
+							if (prev[i] === undefined) return;
 							prev[i].progress = percentage;
 							return [...prev];
 						});
@@ -105,10 +107,17 @@ export default function Uploader({ firebase, user, files }) {
 					xhr.onload = () => {
 						console.log("loaded");
 						// Set database
-						checkWasabiFile(key).then((res) => {
+						checkWasabiFile(key).then(async (res) => {
 							if (res.data) {
-								// Add to firestore
-								firebase
+								// Get download url
+								const urlObject = await firebase
+									.functions()
+									.httpsCallable("sign_wasabi_download_url")({
+									storage_key: key,
+								});
+
+								// Create Firestore object
+								await firebase
 									.firestore()
 									.collection("users")
 									.doc(user.uid)
@@ -122,44 +131,46 @@ export default function Uploader({ firebase, user, files }) {
 										suffix: key.split(".")[1],
 										tags: [],
 										type: file.type.split("/")[0],
-									})
-									.then(() => {
-										if (file.type.split("/")[0] === "image") {
-											//image
-											fetch(
-												`https://api.cardboard.video/img-thumb-${env}?key=${key}`
-											)
-												.then(function (response) {
-													console.log(response);
-													return;
-												})
-												.catch(function (error) {
-													console.log(error);
-												});
-										} else if (file.type.split("/")[0] === "video") {
-											//video
-											fetch(
-												`https://api.cardboard.video/video-thumb-${env}?key=${key}`
-											)
-												.then(function (response) {
-													console.log(response);
-													return;
-												})
-												.catch(function (error) {
-													console.log(error);
-												});
-										}
+										url: urlObject.data,
 									});
+
+								// Get thumbnails
+								if (file.type.split("/")[0] === "image") {
+									//Image
+									await fetch(
+										`https://api.cardboard.video/img-thumb-${env}?key=${key}`
+									)
+										.then(function (response) {
+											console.log(response);
+											return;
+										})
+										.catch(function (error) {
+											console.log(error);
+										});
+								} else if (file.type.split("/")[0] === "video") {
+									//Video
+									fetch(
+										`https://api.cardboard.video/video-thumb-${env}?key=${key}`
+									)
+										.then(function (response) {
+											console.log(response);
+											return;
+										})
+										.catch(function (error) {
+											console.log(error);
+										});
+								}
 							} else {
 								window.alert(
 									"There was a problem with your upload. Please try again."
 								);
 							}
 
+							// Remove from uploads
 							setUploads((prev) => {
-								const index = prev.map((el) => el.id).indexOf(fileId);
+								const index = prev.findIndex((el) => el.id === fileId);
 								prev.splice(index, 1);
-								return prev ? [...prev] : [];
+								return [...prev];
 							});
 						});
 					};
@@ -179,10 +190,11 @@ export default function Uploader({ firebase, user, files }) {
 
 					// Get index
 					const i = uploads.findIndex((el) => el.id === fileId);
+
 					//Push to active Uploads
 					setUploads((prev) => {
 						prev[i] = newFile;
-						return prev;
+						return [...prev];
 					});
 				});
 		},

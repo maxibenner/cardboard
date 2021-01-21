@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { firebase } from '../lib/firebase';
 import styles from './sh.module.css';
 
-import WatchContainer from '../containers/watch';
+import WatchContainer from '../containers/watch/WatchContainer';
 import Navbar from '../components/navbar';
 import CardFileStatic from '../components/cardFileStatic/CardFileStatic';
 

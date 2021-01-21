@@ -87,9 +87,9 @@ export default function CardFile(props) {
     )
 
     // Handle active media
-    const handleActiveMedia = useCallback(
-        (type) => props.handleActiveMedia(props.file, type), [props],
-    )
+    const handleActiveMedia = (type) => {
+        props.handleActiveMedia(props.file, type)
+    }
 
     // Set input focus
     useEffect(() => {

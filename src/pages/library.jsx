@@ -5,7 +5,7 @@ import * as ROUTES from "../constants/routes";
 import styles from "./library.module.css";
 
 import BrowseContainer from "../containers/browse/Browse";
-import WatchContainer from "../containers/watch";
+import WatchContainer from "../containers/watch/WatchContainer";
 import TagSearch from "../containers/tagSearch";
 import CardSimple from "../components/cardSimple/CardSimple";
 import Uploader from "../components/uploader/Uploader";
@@ -60,8 +60,8 @@ export default function Library() {
 	};
 
 	// Set active file
-	const handleActiveMedia = async (fileObject, action) => {
-		// Available actions are: "show" and "label"
+	const handleActiveMedia = (fileObject, action) => {
+		// Available actions are: "show", "label", "share"
 
 		// Show placeholder
 		setActiveMedia(() => {
@@ -73,11 +73,13 @@ export default function Library() {
 		});
 
 		// Remove active media if null
-		!fileObject && setActiveMedia(null);
+		if (!fileObject) {
+			setActiveMedia(null);
+			return;
+		}
 
+		// Display file
 		if (action === "show") {
-			// Display file
-
 			//Set action
 			fileObject.action = "show";
 
@@ -87,12 +89,15 @@ export default function Library() {
 				// Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
 				return setActiveMedia(fileObject);
 			} else {
-				const url = await firebase
-					.functions()
-					.httpsCallable("sign_wasabi_download_url")(fileObject);
-				fileObject.url = url.data;
-
-				setActiveMedia(fileObject);
+				console.log("Jetzt habet ma ein problem")
+				// firebase
+				// 	.functions()
+				// 	.httpsCallable("sign_wasabi_download_url")(fileObject)
+				// 	.then((url) => {
+				// 		fileObject.url = url.data;
+				// 		console.log(fileObject.url);
+				// 		setActiveMedia(fileObject);
+				// 	});
 			}
 		} else if (action === "label") {
 			// Label file
