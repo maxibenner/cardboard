@@ -6,13 +6,11 @@
     height: 200px;
     border-radius: 16px;
     overflow: hidden;
-    background: var(--white);
 }
 
 .cardInner {
     border-radius: 16px;
     overflow: hidden;
-    background: var(--light);
     transition: .1s;
 }
 

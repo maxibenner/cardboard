@@ -33,7 +33,6 @@ export default function Library() {
 	const [files, setFiles] = useState(null);
 
 	const [filesForUpload, setFilesForUpload] = useState([]);
-	//const [activeUploads, setActiveUploads] = useState([]);
 
 	const [activeMedia, setActiveMedia] = useState(null);
 	const [selection, setSelection] = useState([]);
@@ -51,6 +50,7 @@ export default function Library() {
 
 	// Handle file upload selection
 	const onFileChange = (e) => {
+
 		setFilesForUpload(
 			// Set files
 			[...e.target.files],

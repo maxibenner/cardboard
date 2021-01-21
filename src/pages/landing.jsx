@@ -15,12 +15,12 @@ export default function Landing() {
             <div className='index--wrapper-landing'>
                 <div className='index--container'>
                     <div>
-                        <h1 className='index--title-half'>Cloud Storage for <span>Memories</span></h1>
+                        <h1 className='index--title-half'><span>Cloud Storage for Memories</span></h1>
                         <h2 className='index--sub'>A beautifully simple place to re&#8209;discover and share your memories.
                     </h2>
                         <div className='index--hero-button-container'>
-                            <Link to={ROUTES.SIGN_UP}>
-                                <Button large red text="Sign Up" />
+                            <Link to={ROUTES.SIGN_UP} tabIndex="-1">
+                                <Button large red text="Sign Up" sub="- it's free" />
                             </Link>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export default function Landing() {
                             <h1 className='index--title-full'><span>Join today</span></h1>
                             <h2 className='index--sub index--sub_centered'>And get 3GB of storage for free</h2>
                             <div className='index--CTA-button-container'>
-                                <Link to={ROUTES.SIGN_UP}>
+                                <Link to={ROUTES.SIGN_UP} tabIndex="-1">
                                     <Button large red text="Sign Up" />
                                 </Link>
                             </div>

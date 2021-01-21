@@ -1,7 +1,7 @@
 .container {
     margin: 10px 0;
     padding: 10px 25px;
-    background: var(--bg);
+    background: var(--light);
     border-radius: 15px;
     display: flex;
     justify-content: space-between;

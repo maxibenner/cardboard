@@ -8,7 +8,6 @@ import { getSignedUploadUrl, checkWasabiFile } from "../../helpers/tools";
 
 export default function Uploader({ firebase, user, files }) {
 	const [open, setOpen] = useState(true);
-
 	const [uploads, setUploads] = useState([]);
 
 	// Get env
@@ -16,7 +15,7 @@ export default function Uploader({ firebase, user, files }) {
 
 	// Push to queue
 	useEffect(() => {
-		if (!files || files.length === 0) return;
+		if (files.length === 0) return;
 
 		setUploads((prev) => {
 			const newArray = [...prev];
@@ -40,146 +39,136 @@ export default function Uploader({ firebase, user, files }) {
 	}, [files]);
 
 	// Activate upload
-	useEffect(
-		(prev) => {
-			if (prev && prev.length > uploads.length) return;
-			if (uploads.length === 0) return;
+	useEffect(() => {
 
-			// Get new file
-			const newFile = uploads.find((el) => el.active === false);
+		// Prevent running on empty array
+		if (uploads.length === 0) return;
 
-			// Make sure it exists
-			if (!newFile) return;
+		// Limit number of uploads
+		const activeUploads = uploads.filter((el) => el.active === true);
+		if (activeUploads.length > 2) return;
 
-			// Get file
-			const file = newFile.file;
+		// Get first file from queue while preventing duplicates
+		const file = uploads.find((el) => el.active === false).file;
 
-			// Get file id
-			const fileId = newFile.id;
+		// Get file id
+		const fileId = file.id;
 
-			// Prevent duplicates
-			if (uploads.filter((el) => el.id === fileId && el.active === true) !== 0)
-				return;
+		// Add xhr to file
+		createXhr(file).then((xhr) => {
+			// Append xhr to element
+			file.xhr = xhr;
 
-			// Limit number of uploads
-			const activeUploads = uploads.filter((el) => el.active === true);
-			if (activeUploads.length >= 3) return;
+			// Activate
+			file.active = true;
 
-			//__________ Add upload __________//
+			// Get index
+			const i = uploads.findIndex((el) => el.id === fileId);
 
-			// Upload setup
-			getSignedUploadUrl(file)
-				.then(({ url, uuid, key, name }) => {
-					//____________ XHR Setup ____________//
-					var xhr = new XMLHttpRequest();
+			//Push to active Uploads
+			setUploads((prev) => {
+				prev[i] = file;
+				return [...prev];
+			});
 
-					// onProgress
-					xhr.upload.onprogress = (e) => {
-						// Get progress
-						const percentage = (e.loaded / e.total) * 100;
+			// Start upload
+			xhr.send(file);
+		});
 
-						//Push to active Uploads
-						setUploads((prev) => {
-							if (prev === undefined) return;
-							const i = prev.findIndex((el) => el.id === fileId);
-							if (prev[i] === undefined) return;
-							prev[i].progress = percentage;
-							return [...prev];
-						});
-					};
+		// .then((xhr) => {
+		//
+		// });
+	}, [uploads /*, env, firebase, user.uid*/]);
 
-					// onError
-					xhr.onerror = () => {
-						xhr.abort();
-					};
+	// Create xhr
+	async function createXhr(file) {
+		console.log(file)
+		// Get upload url
+		const { url, uuid, key, name } = await getSignedUploadUrl({
+			name: file.name,
+			type: file.type,
+		});
 
-					// onAbort
-					xhr.onabort = () => {
-						removeUpload(fileId);
-					};
+		// Get file id
+		const fileId = file.id;
 
-					// onSuccess
-					xhr.onload = () => {
-						// Set database
-						checkWasabiFile(key).then(async (res) => {
-							if (res.data) {
-								// Get download url
-								const urlObject = await firebase
-									.functions()
-									.httpsCallable("sign_wasabi_download_url")({
-									storage_key: key,
-								});
+		// Create XHR object
+		const xhr = new XMLHttpRequest();
 
-								// Create Firestore object
-								await firebase
-									.firestore()
-									.collection("users")
-									.doc(user.uid)
-									.collection("files")
-									.doc(uuid)
-									.set({
-										storage_key: key,
-										name: name.split(".")[0],
-										owner: user.uid,
-										path: "/",
-										suffix: key.split(".")[1],
-										tags: [],
-										type: file.type.split("/")[0],
-										url: urlObject.data,
-									});
+		// onProgress
+		xhr.upload.onprogress = (e) => {
+			// Get progress
+			const percentage = (e.loaded / e.total) * 100;
 
-								// Get thumbnails
-								if (file.type.split("/")[0] === "image") {
-									//Image
-									await fetch(
-										`https://api.cardboard.video/img-thumb-${env}?key=${key}`
-									);
-								} else if (file.type.split("/")[0] === "video") {
-									//Video
-									fetch(
-										`https://api.cardboard.video/video-thumb-${env}?key=${key}`
-									);
-								}
-							} else {
-								window.alert(
-									"There was a problem with your upload. Please try again."
-								);
-							}
+			//Push to active Uploads
+			updateUpload(fileId, percentage);
+		};
 
-							// Remove from uploads
-							setUploads((prev) => {
-								const index = prev.findIndex((el) => el.id === fileId);
-								prev.splice(index, 1);
-								return [...prev];
-							});
-						});
-					};
+		// onError
+		xhr.onerror = () => {
+			xhr.abort();
+		};
 
-					xhr.open("PUT", url, true);
-					xhr.setRequestHeader("Content-Type", file.type);
-					xhr.send(file);
+		// onAbort
+		xhr.onabort = () => {
+			removeUpload(fileId);
+		};
 
-					return xhr;
-				})
-				.then((xhr) => {
-					// Append xhr to element
-					newFile.xhr = xhr;
+		// onSuccess
+		xhr.onload = async () => {
+			// Set database
+			const res = await checkWasabiFile(key);
 
-					// Activate
-					newFile.active = true;
-
-					// Get index
-					const i = uploads.findIndex((el) => el.id === fileId);
-
-					//Push to active Uploads
-					setUploads((prev) => {
-						prev[i] = newFile;
-						return [...prev];
-					});
+			// Proceed if file exists
+			if (res.data) {
+				// Get download url
+				const urlObject = await firebase
+					.functions()
+					.httpsCallable("sign_wasabi_download_url")({
+					storage_key: key,
 				});
-		},
-		[uploads, env, firebase, user.uid]
-	);
+
+				// Create Firestore object
+				await firebase
+					.firestore()
+					.collection("users")
+					.doc(user.uid)
+					.collection("files")
+					.doc(uuid)
+					.set({
+						storage_key: key,
+						name: name.split(".")[0],
+						owner: user.uid,
+						path: "/",
+						suffix: key.split(".")[1],
+						tags: [],
+						type: file.type.split("/")[0],
+						url: urlObject.data,
+					});
+
+				// Get thumbnails
+				if (file.type.split("/")[0] === "image") {
+					//Image
+					await fetch(
+						`https://api.cardboard.video/img-thumb-${env}?key=${key}`
+					);
+				} else if (file.type.split("/")[0] === "video") {
+					//Video
+					fetch(`https://api.cardboard.video/video-thumb-${env}?key=${key}`);
+				}
+			} else {
+				window.alert("There was a problem with your upload. Please try again.");
+			}
+
+			// Remove from uploads
+			removeUpload(fileId);
+		};
+
+		xhr.open("PUT", url, true);
+		xhr.setRequestHeader("Content-Type", file.type);
+
+		return xhr;
+	}
 
 	// Remove item from upload
 	const removeUpload = (fileId) => {
@@ -190,9 +179,22 @@ export default function Uploader({ firebase, user, files }) {
 		});
 	};
 
+	// Update upload objects
+	const updateUpload = (id, value) => {
+		setUploads((prev) => {
+			const items = [...prev];
+			console.log(items);
+			console.log(id)
+			const i = items.findIndex((el) => el.id === id);
+			console.log(i)
+			items[i].progress = value;
+			return [...items];
+		});
+	};
+
 	return (
 		<>
-			{uploads.length > 0 && (
+			{uploads && uploads.length > 0 && (
 				<div className={styles.uploader}>
 					<div className={styles.header}>
 						<p>Uploads</p>

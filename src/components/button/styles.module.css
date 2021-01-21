@@ -1,154 +1,166 @@
 .container {
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	width: 100%;
+	min-width: 100px;
+	max-width: 140px;
+	height: 42px;
+	background: none;
+	border: none;
+	padding: 0;
+	border-radius: 30px;
+}
+
+.container:focus, .container:active{
+    outline: none;
+    border: 3px solid var(--blue);
+    border-radius: 30px;
+}
+
+.container > div:last-child {
     cursor: pointer;
-    position: relative;
-    box-sizing: border-box;
-    overflow: hidden;
-    width: 100%;
-    min-width: 100px;
-    max-width: 140px;
-    height: 42px;
-    background: none;
-    border: none;
-    padding: 0;
-    border-radius: 7px;
-    transition: .2s;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 7px;
+	background-color: var(--bg);
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	max-width: 350px;
+	transition: 0.1s;
 }
 
-.container:hover {
-    transform:translateY(-2px);
+.container > div:last-child:hover {
+	opacity: 0.9;
+	transition: 0.2s;
 }
 
-.container>div:last-child {
-    position: absolute;
-    top:0;
-    left:0;
-    border-radius: 7px;
-    background-color: var(--bg);
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    max-width: 350px;
-    transition: .1s;
+.container > div:last-child > p {
+    cursor: pointer;
+	color: var(--dark);
+	font-size: 16px;
+	margin: 0;
+	-webkit-touch-callout: none;
+	/* iOS Safari */
+	-webkit-user-select: none;
+	/* Safari */
+	-khtml-user-select: none;
+	/* Konqueror HTML */
+	-moz-user-select: none;
+	/* Old versions of Firefox */
+	-ms-user-select: none;
+	/* Internet Explorer/Edge */
+	user-select: none;
 }
 
-.container>div:last-child:hover {
-    opacity:.9;
-    transition: .2s;
-}
-
-.container>div:last-child>p {
-    color: var(--dark);
-    font-size: 16px;
-    margin: 0;
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Safari */
-    -khtml-user-select: none;
-    /* Konqueror HTML */
-    -moz-user-select: none;
-    /* Old versions of Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
+.sub {
+	padding-left: 5px;
+	font-weight: 100;
 }
 
 .backgroundForOpacity {
-    position: absolute;
-    border-radius: 7px;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100%;
-    background: var(--light);
+	position: absolute;
+	border-radius: 7px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: var(--light);
 }
 
 /*__________ Large __________*/
 
 .container_large {
-    max-width: 350px;
-    min-width: 270px;
-    height: 60px;
+	max-width: 350px;
+	min-width: 270px;
+	height: 60px;
 }
 
-.container_large>div>p {
-    font-size: 22px!important;
+.container_large > div > p {
+	font-size: 1.2em !important;
 }
 
 /*__________ fitText __________*/
 
 .container_fitText {
-    width: unset
+	width: unset;
 }
 
 /*__________ Wide __________*/
 
 .container_wide {
-    max-width: 350px;
-    width: 100%;
+	max-width: 350px;
+	width: 100%;
 }
 
 /*__________ Match input __________*/
 
 .container_input {
-    height: 50px;
-    margin-left: 15px;
+	height: 50px;
+	margin-left: 15px;
 }
 
-.container_input>div {
-    height: 50px;
+.container_input > div {
+	height: 50px;
 }
 
 /*__________ Red __________*/
 
 .container_red {
-    background-color: var(--red)!important;
+	box-shadow: 0 3px 5px #ff000024;
 }
 
-.container_red>p {
-    color: white!important;
+.container_red > div:last-child {
+	background-color: var(--red) !important;
+}
+
+.container_red > div:last-child > p {
+	color: white !important;
 }
 
 /*__________ Blue __________*/
 
-.container_blue {
-    background-color: var(--blue)!important;
+.container_blue > div:last-child {
+	background-color: var(--blue) !important;
 }
 
-.container_blue>p {
-    color: white!important;
+.container_blue > div:last-child > p {
+	color: white !important;
 }
 
 /*__________ Yellow __________*/
 
-.container_yellow {
-    background: var(--main)!important;
+.container_yellow > div:last-child {
+	background: var(--main) !important;
 }
 
-.container_yellow>p {
-    color: var(--dark)!important;
+.container_yellow > div:last-child > p {
+	color: var(--dark) !important;
 }
 
 /*__________ Dark __________*/
 
-.container_dark {
-    background: var(--dark)!important;
+.container_dark > div:last-child {
+	background: var(--dark) !important;
 }
 
-.container_dark>p {
-    color: var(--light)!important;
+.container_dark > div:last-child > p {
+	color: var(--light) !important;
 }
 
 /*__________ Modifiers __________*/
 
 .container:disabled {
-    opacity: .1;
-    cursor: default;
+	opacity: 0.1;
+	cursor: default;
 }
 
 .container_absolute {
-    position: absolute;
+	position: absolute;
 }

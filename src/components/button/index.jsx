@@ -10,9 +10,6 @@ export default function Button(props) {
         props.wide && styles.container_wide,
         props.input && styles.container_input,
         props.absolute && styles.container_absolute,
-    ].join(" ");
-
-    const classes2 = [
         props.red && styles.container_red,
         props.blue && styles.container_blue,
         props.yellow && styles.container_yellow,
@@ -22,8 +19,9 @@ export default function Button(props) {
     return (
         <button onClick={props.onClick} type={props.type} disabled={props.disabled} className={classes} >
             <div className={styles.backgroundForOpacity} />
-            <div className={classes2}>
+            <div>
                 <p className={styles.text}>{props.text}</p>
+                <p className={styles.sub}>{props.sub}</p>
             </div>
         </button>
     );
