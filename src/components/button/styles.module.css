@@ -11,6 +11,11 @@
     border: none;
     padding: 0;
     border-radius: 7px;
+    transition: .2s;
+}
+
+.container:hover {
+    transform:translateY(-2px);
 }
 
 .container>div:last-child {
@@ -30,8 +35,8 @@
 }
 
 .container>div:last-child:hover {
-    opacity:.8;
-    transition: .1s;
+    opacity:.9;
+    transition: .2s;
 }
 
 .container>div:last-child>p {

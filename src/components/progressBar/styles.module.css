@@ -2,7 +2,7 @@
     width: 90%;
     height: 10px;
     background: var(--middleGrey);
-    border-radius: 2px;
+    border-radius: 5px;
     overflow: hidden;
 }
 .bar {

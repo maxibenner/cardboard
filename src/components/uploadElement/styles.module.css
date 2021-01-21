@@ -1,11 +1,20 @@
-.fileName {
+.interactiveContainer {
+	display: flex;
+	align-items: center;
+	padding-bottom: 15px;
+}
+.inactive > div > p {
+	opacity: 0.3;
+}
+.textContainer {
+	display: flex;
+}
+.textContainer > p {
+	display: inline-block;
+    position: relative;
     margin: 5px 0;
 }
-.interactiveContainer {
-    display: flex;
-    align-items: center;
-    padding-bottom: 15px;
-}
-.inactive>p {
-    opacity: .5;
+.textContainer > p:nth-child(2) {
+    margin-left: auto;
+    margin-right: 10%;
 }

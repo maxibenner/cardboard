@@ -1,41 +1,45 @@
 .uploader {
-    position: fixed;
-    z-index: 1;
-    bottom: 0;
-    left: 25px;
-    width: 50%;
-    min-width: 300px;
-    max-width: 400px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.171);
-    background: var(--light);
+	position: fixed;
+	z-index: 1;
+	bottom: 0;
+	left: 25px;
+	width: 50%;
+	min-width: 300px;
+	max-width: 400px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.171);
+	background: var(--light);
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--dark);
-    color: var(--light);
-    padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--dark);
+	color: var(--light);
+	padding: 15px;
 }
 
-.header>p {
-    margin: 0;
+.header > p {
+	margin: 0;
 }
 
 .filesContainer {
-    max-height: 400px;
-    overflow-y: scroll;
-    padding: 10px 10px 0 10px;
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
+	max-height: 400px;
+	overflow-y: scroll;
+	padding: 10px 10px 0 10px;
+	display: flex;
+	flex-direction: column;
+	height: fit-content;
 }
 
-.filesContainer>div {
-    border-bottom: 1px solid var(--ph);
-    margin-bottom: 15px;
+.filesContainer > div {
+	/*border-bottom: 1px solid var(--ph);
+	margin-bottom: 15px;*/
+}
+
+.closed {
+	display: none;
 }
