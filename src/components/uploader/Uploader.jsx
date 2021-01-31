@@ -1,96 +1,102 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import styles from "./styles.module.css";
 import UploadElement from "../uploadElement/UploadElement";
 import ButtonExpand from "../buttonExpand";
 import { v4 as uuidv4 } from "uuid";
-
 import { getSignedUploadUrl, checkWasabiFile } from "../../helpers/tools";
 
 export default function Uploader({ firebase, user, files }) {
 	const [open, setOpen] = useState(true);
 	const [uploads, setUploads] = useState([]);
+	const [xhr, setXhr] = useState({});
 
 	// Get env
 	const env = process.env.NODE_ENV === "production" ? "live" : "dev";
 
-	// Push to queue
+	// Set allowed simultaneous uploads
+	const uploadLimit = 3;
+
+	// Augment and push to uploads
 	useEffect(() => {
-		if (files.length === 0) return;
-
-		setUploads((prev) => {
-			const newArray = [...prev];
-
-			// Add data to each file
-			files.forEach((file) => {
-				const id = uuidv4();
-				const newFile = {
-					active: false,
-					file: file,
-					id: id,
-					name: file.name,
-					progress: 0,
-					push: false,
-				};
-				newArray.push(newFile);
-			});
-
-			return [...newArray];
+		setUploads((prevFiles) => {
+			return [
+				...prevFiles,
+				...files.map((file) => {
+					return {
+						status: "queue",
+						file: file,
+						id: uuidv4(),
+						name: file.name,
+						xhr: null,
+					};
+				}),
+			];
 		});
 	}, [files]);
 
-	// Activate upload
-	useEffect(() => {
+	// Take new files from upload
+	useEffect(async () => {
+		console.log("NEW FILE");
 
-		// Prevent running on empty array
-		if (uploads.length === 0) return;
+		// Get all active xhr ids
+		//const activeXhrIds = xhr.map((xhr) => xhr.id);
 
-		// Limit number of uploads
-		const activeUploads = uploads.filter((el) => el.active === true);
-		if (activeUploads.length > 2) return;
+		// Get all queued uploads
+		const queuedUploads = uploads.filter((el) => el.status === "queue");
 
-		// Get first file from queue while preventing duplicates
-		const file = uploads.find((el) => el.active === false).file;
+		// Number of current uploads
+		const numberOfActive = uploads.length - queuedUploads.length;
 
-		// Get file id
-		const fileId = file.id;
+		// Add to active
+		if (numberOfActive < uploadLimit) {
+			// Number of possible new uploads
+			const numberOfNew = uploadLimit - numberOfActive;
 
-		// Add xhr to file
-		createXhr(file).then((xhr) => {
-			// Append xhr to element
-			file.xhr = xhr;
+			// Get files to upload from queue
+			const toUpload = queuedUploads.splice(0, numberOfNew);
 
-			// Activate
-			file.active = true;
+			// Filter out files thare already uploading
+			const toUploadNoDuplicates = toUpload.filter((file) =>
+				!xhr[file.id]
+			);
 
-			// Get index
-			const i = uploads.findIndex((el) => el.id === fileId);
+			// Get xhr for each file
+			const uploadPromises = toUploadNoDuplicates.map((fileObject) =>
+				createXhr(fileObject)
+			);
 
-			//Push to active Uploads
-			setUploads((prev) => {
-				prev[i] = file;
-				return [...prev];
-			});
+			// Await creation of xhr
+			const xhrArr = await Promise.all(uploadPromises);
 
-			// Start upload
-			xhr.send(file);
-		});
+			// Convert array to object
+			const xhrObj = xhrArr.reduce((prev, curr) => {
+				prev[curr.id] = {
+					xhr: curr.xhr,
+					progress: 0,
+				};
+				return prev;
+			}, {});
 
-		// .then((xhr) => {
-		//
-		// });
-	}, [uploads /*, env, firebase, user.uid*/]);
+			// Update uploads state
+			setXhr((prev) => Object.assign(prev, xhrObj));
+		}
+	}, [uploads]);
 
 	// Create xhr
-	async function createXhr(file) {
-		console.log(file)
+	async function createXhr(fileObject) {
+		// Get file from file object
+		const file = fileObject.file;
+
+		// Get file id
+		const fileId = fileObject.id;
+
 		// Get upload url
 		const { url, uuid, key, name } = await getSignedUploadUrl({
 			name: file.name,
 			type: file.type,
-		});
-
-		// Get file id
-		const fileId = file.id;
+		}).catch((e) =>
+			console.error("Could not get signed upload URL!", e.message)
+		);
 
 		// Create XHR object
 		const xhr = new XMLHttpRequest();
@@ -100,18 +106,25 @@ export default function Uploader({ firebase, user, files }) {
 			// Get progress
 			const percentage = (e.loaded / e.total) * 100;
 
-			//Push to active Uploads
-			updateUpload(fileId, percentage);
+			// Save progress
+			setXhr((prev) => {
+				if (prev[fileObject.id]) {
+					prev[fileObject.id].progress = percentage;
+					return { ...prev };
+				} else {
+					return prev;
+				}
+			});
 		};
 
 		// onError
 		xhr.onerror = () => {
-			xhr.abort();
+			removeUpload(fileId);
 		};
 
 		// onAbort
 		xhr.onabort = () => {
-			removeUpload(fileId);
+			console.log("Aborted");
 		};
 
 		// onSuccess
@@ -146,6 +159,9 @@ export default function Uploader({ firebase, user, files }) {
 						url: urlObject.data,
 					});
 
+				// Remove from uploads
+				removeUpload(fileId);
+
 				// Get thumbnails
 				if (file.type.split("/")[0] === "image") {
 					//Image
@@ -159,36 +175,33 @@ export default function Uploader({ firebase, user, files }) {
 			} else {
 				window.alert("There was a problem with your upload. Please try again.");
 			}
-
-			// Remove from uploads
-			removeUpload(fileId);
 		};
 
 		xhr.open("PUT", url, true);
 		xhr.setRequestHeader("Content-Type", file.type);
 
-		return xhr;
+		// Start upload
+		xhr.send(file);
+
+		return Promise.resolve({ id: fileObject.id, xhr: xhr });
 	}
 
-	// Remove item from upload
-	const removeUpload = (fileId) => {
-		setUploads((prev) => {
-			const index = prev.findIndex((el) => el.id === fileId);
-			prev.splice(index, 1);
-			return prev ? [...prev] : [];
-		});
-	};
+	// Remove upload
+	const removeUpload = (id) => {
+		// Remove xhr
+		if (xhr[id]) {
+			xhr[id].xhr.abort();
+			setXhr((prev) => {
+				delete prev[id];
+				return { ...prev };
+			});
+		}
 
-	// Update upload objects
-	const updateUpload = (id, value) => {
+		// Remove from uploader
 		setUploads((prev) => {
-			const items = [...prev];
-			console.log(items);
-			console.log(id)
-			const i = items.findIndex((el) => el.id === id);
-			console.log(i)
-			items[i].progress = value;
-			return [...items];
+			// Get all files except the one to be removed
+			const filteredUploads = prev.filter((file) => file.id !== id);
+			return [...filteredUploads];
 		});
 	};
 
@@ -207,13 +220,13 @@ export default function Uploader({ firebase, user, files }) {
 					>
 						{uploads.map((el) => (
 							<UploadElement
-								active={el.active ? true : false}
+								active={xhr[el.id]}
 								key={el.id}
 								id={el.id}
-								progress={el.progress}
+								progress={xhr[el.id] ? xhr[el.id].progress : 0}
 								name={el.name}
 								xhr={el.xhr}
-								removeWaiting={() => removeUpload()}
+								removeUpload={(id) => removeUpload(id)}
 							/>
 						))}
 					</div>
