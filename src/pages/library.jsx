@@ -89,15 +89,14 @@ export default function Library() {
 				// Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
 				return setActiveMedia(fileObject);
 			} else {
-				console.log("Jetzt habet ma ein problem")
-				// firebase
-				// 	.functions()
-				// 	.httpsCallable("sign_wasabi_download_url")(fileObject)
-				// 	.then((url) => {
-				// 		fileObject.url = url.data;
-				// 		console.log(fileObject.url);
-				// 		setActiveMedia(fileObject);
-				// 	});
+				console.log("Re-creating download url")
+				firebase
+					.functions()
+					.httpsCallable("sign_wasabi_download_url")(fileObject)
+					.then((url) => {
+						fileObject.url = url.data;
+						setActiveMedia(fileObject);
+					});
 			}
 		} else if (action === "label") {
 			// Label file
