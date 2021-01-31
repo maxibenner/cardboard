@@ -3,15 +3,13 @@ import styles from "./styles.module.css";
 import ButtonCancel from "../buttonCancel";
 import ProgressBar from "../progressBar";
 
-export default function UploadElement({ name, active, progress, xhr, id, removeUpload }) {
-	console.log('progress for', id, progress)
+export default function UploadElement({ name, active, progress, id, removeUpload }) {
 	const classes = `${styles.uploadElement} ${!active && styles.inactive}`;
 
+	console.log(progress)
 	const clickHandler = () => {
 		removeUpload(id)
 	};
-
-	console.log(progress)
 
 	return (
 		<div className={classes}>

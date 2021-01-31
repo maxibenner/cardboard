@@ -36,16 +36,9 @@ export default function Uploader({ firebase, user, files }) {
 
 	// Take new files from upload
 	useEffect(async () => {
-		console.log("NEW FILE");
-
-		// Get all active xhr ids
-		//const activeXhrIds = xhr.map((xhr) => xhr.id);
-
-		// Get all queued uploads
-		const queuedUploads = uploads.filter((el) => el.status === "queue");
 
 		// Number of current uploads
-		const numberOfActive = uploads.length - queuedUploads.length;
+		const numberOfActive = Object.keys(xhr).length;
 
 		// Add to active
 		if (numberOfActive < uploadLimit) {
@@ -53,12 +46,11 @@ export default function Uploader({ firebase, user, files }) {
 			const numberOfNew = uploadLimit - numberOfActive;
 
 			// Get files to upload from queue
-			const toUpload = queuedUploads.splice(0, numberOfNew);
+			//const toUpload = queuedUploads.splice(0, numberOfNew);
+			const toUpload = [...uploads].splice(0, numberOfNew);
 
 			// Filter out files thare already uploading
-			const toUploadNoDuplicates = toUpload.filter((file) =>
-				!xhr[file.id]
-			);
+			const toUploadNoDuplicates = toUpload.filter((file) => !xhr[file.id]);
 
 			// Get xhr for each file
 			const uploadPromises = toUploadNoDuplicates.map((fileObject) =>
@@ -118,7 +110,8 @@ export default function Uploader({ firebase, user, files }) {
 		};
 
 		// onError
-		xhr.onerror = () => {
+		xhr.onerror = (e) => {
+			console.log(`Error: ${e.message}`)
 			removeUpload(fileId);
 		};
 
@@ -225,7 +218,6 @@ export default function Uploader({ firebase, user, files }) {
 								id={el.id}
 								progress={xhr[el.id] ? xhr[el.id].progress : 0}
 								name={el.name}
-								xhr={el.xhr}
 								removeUpload={(id) => removeUpload(id)}
 							/>
 						))}
