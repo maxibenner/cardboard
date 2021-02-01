@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useAuthListener } from "../hooks/use-auth-listener";
 import { firebase } from "../lib/firebase";
+import { fileStatus } from "../helpers/tools";
 import * as ROUTES from "../constants/routes";
 import styles from "./library.module.css";
 
@@ -50,7 +51,6 @@ export default function Library() {
 
 	// Handle file upload selection
 	const onFileChange = (e) => {
-
 		setFilesForUpload(
 			// Set files
 			[...e.target.files],
@@ -85,11 +85,7 @@ export default function Library() {
 
 			if (fileObject === null) {
 				return setActiveMedia(fileObject);
-			} else if (fileObject.url) {
-				// Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
-				return setActiveMedia(fileObject);
 			} else {
-				console.log("Re-creating download url")
 				firebase
 					.functions()
 					.httpsCallable("sign_wasabi_download_url")(fileObject)
