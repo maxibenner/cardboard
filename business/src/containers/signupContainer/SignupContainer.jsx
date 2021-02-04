@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
-import ButtonText from "../../components/linkText/LinkText";
+import LinkText from "../../components/linkText/LinkText";
 import Input from "../../components/input/Input";
 import styles from "./styles.module.css";
 import { firebase } from "../../lib/firebase";
@@ -106,7 +106,7 @@ function SignupContainer(props) {
         textContent="Create Account"
       />
       <Link style={{ display: "flex", justifyContent: "center" }} to={"/"}>
-        <ButtonText textContent="Sign in" />
+        <LinkText textContent="Sign in" />
       </Link>
     </form>
   );
