@@ -1,0 +1,17 @@
+.button {
+    height: 50px;
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--blue);
+    color: var(--light);
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 2px 8px var(--blueGlow);
+    cursor: pointer;
+}
+.button:disabled {
+    background-color: var(--middleGrey);
+    box-shadow: none;
+    cursor: default;
+}

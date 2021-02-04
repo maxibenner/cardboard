@@ -1,0 +1,36 @@
+.container {
+}
+.input {
+  border: none;
+  box-sizing: border-box;
+  background-color: var(--light);
+  height: 50px;
+  width: 100%;
+  padding: 0 15px 0 15px;
+  border-radius: 7px;
+  font-size: 16px;
+  border: 2px solid var(--middleGrey);
+}
+.input::placeholder {
+  color: var(--middleGrey);
+  font-size: 16px;
+}
+.input:focus,
+input:active {
+  border: 2px solid var(--ph);
+}
+.grey {
+  background-color: var(--bg);
+}
+.labelContainer {
+  display: flex;
+}
+.labelContainer > p {
+  margin-top: 2px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.requiredIndicator {
+  color: var(--red);
+}

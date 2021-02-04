@@ -1,0 +1,116 @@
+/*_______ Fonts __________*/
+
+/* Recoleta Regular */
+
+@font-face {
+  font-family: "Recoleta";
+  src: url("./fonts/RecoletaRegular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Recoleta Bold */
+
+@font-face {
+  font-family: "Recoleta";
+  src: url("./fonts/RecoletaBold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Inter Lighter */
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/InterLighter.ttf");
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Inter Regular */
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/InterRegular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Inter Medium */
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/InterMedium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Inter Bold */
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/InterBold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+:root {
+  --base: #fafafa;
+  --dark: black;
+  --light: white;
+  --main: #ffe390;
+  --yellow: #f9c463;
+  --blue: #2d7af2;
+  --blueGlow: #2d79f270;
+  --blueTransparent: #2d79f218;
+  --blueDark: #0f61b9;
+  --red: #ff6760;
+  --redDark: #c04a3f;
+  --ph: #bdbdbd;
+  --middleGrey: #ebebeb;
+  --bg: #fafafa;
+  --transparentBg: rgba(0, 0, 0, 0.8);
+}
+
+html {
+  font-family: Inter;
+  background-color: var(--base);
+}
+
+body {
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  cursor: default;
+}
+
+a:active,
+a:visited {
+  color: inherit;
+}
+
+button:focus,
+button:active,
+input:focus,
+input:active {
+  outline: none;
+  /*outline-color: var(--blue);
+  outline-width: 2px;
+  outline-style: dashed;*/
+}

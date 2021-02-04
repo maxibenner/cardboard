@@ -1,6 +1,5 @@
 {
   "projects": {
-    "default": "cardboard-dev",
-    "live": "cardboard-live"
+    "default": "cardboard-dev"
   }
 }

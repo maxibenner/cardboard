@@ -1,0 +1,11 @@
+.img {
+  height: 16px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  max-width: 1400px;
+  position: relative;
+  z-index: 1;
+}
