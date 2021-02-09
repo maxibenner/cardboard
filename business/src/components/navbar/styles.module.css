@@ -8,4 +8,5 @@
   max-width: 1400px;
   position: relative;
   z-index: 1;
+  align-items: center;
 }

@@ -1,5 +1,18 @@
 {
   "projects": {
-    "default": "cardboard-dev"
+    "prod": "cardboard-live",
+    "dev": "cardboard-dev"
+  },
+  "targets": {
+    "cardboard-dev": {
+      "hosting": {
+        "business": [
+          "business-cardboard-dev"
+        ],
+        "main": [
+          "cardboard-dev"
+        ]
+      }
+    }
   }
 }

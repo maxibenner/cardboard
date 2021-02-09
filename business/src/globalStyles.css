@@ -76,6 +76,7 @@ code {
   --blue: #2d7af2;
   --blueGlow: #2d79f270;
   --blueTransparent: #2d79f218;
+  --blueLight: #e7f0ff;
   --blueDark: #0f61b9;
   --red: #ff6760;
   --redDark: #c04a3f;
@@ -87,7 +88,7 @@ code {
 
 html {
   font-family: Inter;
-  background-color: var(--base);
+  background-color: var(--base)!important;
 }
 
 body {
@@ -97,12 +98,12 @@ body {
 
 a {
   text-decoration: none;
-  cursor: default;
+  cursor: pointer;
 }
 
 a:active,
 a:visited {
-  color: inherit;
+  color: var(--blue);
 }
 
 button:focus,
@@ -110,7 +111,4 @@ button:active,
 input:focus,
 input:active {
   outline: none;
-  /*outline-color: var(--blue);
-  outline-width: 2px;
-  outline-style: dashed;*/
 }

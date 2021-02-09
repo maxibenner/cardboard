@@ -2,8 +2,7 @@
   box-sizing: border-box;
   padding: 35px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  height: fit-content;
+  width: 350px;
   border-radius: 10px;
   background-color: var(--light);
   display: flex;

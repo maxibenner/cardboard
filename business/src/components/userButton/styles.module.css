@@ -1,0 +1,8 @@
+.wrapper {
+    padding: 5px 15px;
+    border-radius: 7px;
+    background-color: var(--light);
+    cursor: pointer;
+    font-family: recoleta;
+    font-weight: bold;
+}
