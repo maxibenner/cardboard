@@ -1,0 +1,49 @@
+.container {
+    position: absolute;
+    z-index: 99;
+    overflow: hidden;
+    right: 0px;
+    bottom: calc(100% + 5px);
+    border-radius: 7px;
+    background: white;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.158);
+    padding: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.containerInner {
+    position: relative;
+}
+
+.background {
+    background-color: red;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 98;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+/*__________ Modifieres __________*/
+
+.closed {
+    height: 0;
+    padding: 0;
+}
+
+.down {
+    top: calc(100% + 5px);
+    bottom: unset;
+}
+
+.small {
+    font-size: .9rem;
+}

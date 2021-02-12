@@ -15,3 +15,6 @@
     box-shadow: none;
     cursor: default;
 }
+.thin {
+    height: 40px;
+}

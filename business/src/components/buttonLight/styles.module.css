@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: var(--dark);
+}
+
+.container>svg {
+    color: var(--dark); 
+}
+
+.title {
+    margin: 0;
+    margin-left: 10px;
+}
+
+.container:hover {
+    background: var(--middleGrey);
+    transition: .2s;
+}
+
+/*__________ MODIFIERS __________*/
+
+.danger {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: .9rem;
+    color: var(--red);
+    border-radius: 5px;
+    cursor: default;
+    padding: 10px 15px;
+    margin: 0;
+    transition: .2s;
+}
+
+.danger:hover {
+    background: #ff68602c;
+}
+
+.stacked {
+    flex-direction: column;
+}
+
+.stacked>svg {
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.stacked>p {
+    margin: 0;
+    font-size: .9em;
+}
+
+.noIcon>p {
+    margin: 0;
+}
+
+.pointer:hover {
+    background: none;
+}
+
+.pointer>p {
+    cursor: pointer;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}

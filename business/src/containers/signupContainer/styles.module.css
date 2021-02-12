@@ -1,15 +1,16 @@
 .container {
-  box-sizing: border-box;
-  padding: 35px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 350px;
-  border-radius: 10px;
-  background-color: var(--light);
-  display: flex;
-  flex-direction: column;
+    box-sizing: border-box;
+    padding: 35px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    border-radius: 10px;
+    background-color: var(--light);
+    display: flex;
+    flex-direction: column;
 }
 .title {
-  margin-top: 10px;
-  margin-bottom: 15px;
-  font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-family: Recoleta;
 }

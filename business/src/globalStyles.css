@@ -1,114 +1,81 @@
-/*_______ Fonts __________*/
-
-/* Recoleta Regular */
-
 @font-face {
-  font-family: "Recoleta";
-  src: url("./fonts/RecoletaRegular.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Recoleta Bold */
-
-@font-face {
-  font-family: "Recoleta";
-  src: url("./fonts/RecoletaBold.ttf");
-  font-weight: bold;
-  font-style: normal;
-}
-
-/* Inter Lighter */
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/InterLighter.ttf");
-  font-weight: 200;
-  font-style: normal;
-}
-
-/* Inter Regular */
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/InterRegular.ttf");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Inter Medium */
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/InterMedium.ttf");
-  font-weight: 500;
-  font-style: normal;
-}
-
-/* Inter Bold */
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/InterBold.ttf");
-  font-weight: bold;
-  font-style: normal;
+    font-family: "Recoleta";
+    src: url("./fonts/RecoletaBold.ttf");
+    font-weight: bold;
+    font-style: normal;
 }
 
 body {
-  margin: 0;
-  font-family: "Inter", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    /*font-family: "Inter", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;*/
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica Neue, Ubuntu, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-code {
+/*code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
+}*/
 
 :root {
-  --base: #fafafa;
-  --dark: black;
-  --light: white;
-  --main: #ffe390;
-  --yellow: #f9c463;
-  --blue: #2d7af2;
-  --blueGlow: #2d79f270;
-  --blueTransparent: #2d79f218;
-  --blueLight: #e7f0ff;
-  --blueDark: #0f61b9;
-  --red: #ff6760;
-  --redDark: #c04a3f;
-  --ph: #bdbdbd;
-  --middleGrey: #ebebeb;
-  --bg: #fafafa;
-  --transparentBg: rgba(0, 0, 0, 0.8);
+    --base: #fafafa;
+    --dark: black;
+    --light: white;
+    --main: #ffe390;
+    --yellow: #f9c463;
+    --blue: #2d7af2;
+    --blueGlow: #2d79f270;
+    --blueTransparent: #2d79f218;
+    --blueLight: #e7f0ff;
+    --blueDark: #0f61b9;
+    --red: #ff6760;
+    --redDark: #c04a3f;
+    --ph: #bdbdbd;
+    --middleGrey: #ebebeb;
+    --bg: #fafafa;
+    --transparentBg: rgba(0, 0, 0, 0.8);
 }
 
 html {
-  font-family: Inter;
-  background-color: var(--base)!important;
+    font-family: Inter;
+    background-color: var(--base) !important;
 }
 
 body {
-  min-height: 100vh;
-  font-size: 16px;
+    min-height: 100vh;
+    font-size: 16px;
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 0;
 }
 
 a {
-  text-decoration: none;
-  cursor: pointer;
+    text-decoration: none;
+    border-radius: 7px;
+    cursor: pointer;
 }
 
 a:active,
 a:visited {
-  color: var(--blue);
+    color: var(--dark);
+}
+
+a:focus,
+a:active {
+    box-shadow: inset 0 0 2px #00000012, 0 0 0 3px var(--blueGlow) !important;
+    transition: 0.3s;
 }
 
 button:focus,
 button:active,
 input:focus,
-input:active {
-  outline: none;
+input:active,
+a:focus,
+a:active {
+    outline: none;
 }

@@ -48,7 +48,7 @@ function LoginContainer(props) {
       </div>
       <ButtonFilled textContent="Login" />
       <Link
-        style={{ display: "flex", justifyContent: "center", marginTop: "15px" }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "15px", color: "var(--blue)"}}
         to={"/signup"}
       >Create Account
       </Link>

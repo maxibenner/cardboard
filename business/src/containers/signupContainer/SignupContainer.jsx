@@ -49,7 +49,7 @@ export default function SignupContainer(props) {
         disabled={email !== "" && password !== "" ? false : true}
         textContent="Create Account"
       />
-      <Link style={{ display: "flex", justifyContent: "center", marginTop: "15px" }} to={"/"}>
+      <Link style={{ display: "flex", justifyContent: "center", marginTop: "15px", color: "var(--blue)" }} to={"/"}>
         Login
       </Link>
     </form>

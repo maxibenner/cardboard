@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../contexts/Auth";
+import MyBusiness from "../pages/myBusiness/MyBusiness";
 
 export function PrivateRoute({ children }) {
     const currentUser = useContext(AuthContext);
@@ -8,8 +9,27 @@ export function PrivateRoute({ children }) {
     return (
         <Route
             render={({ location }) => {
+                if(currentUser === undefined) {
+                    return <div>TEst</div>
+                }
                 if (currentUser) {
-                    return children;
+                    const idToken = currentUser.getIdTokenResult();
+                    if (idToken.claims !== undefined) {
+                        return children;
+                    } else {
+                        if (window.location.pathname !== "/myBusiness") {
+                            return (
+                                <Redirect
+                                    to={{
+                                        pathname: "/myBusiness",
+                                        state: { from: location },
+                                    }}
+                                />
+                            );
+                        } else {
+                            return children;
+                        }
+                    }
                 }
                 if (!currentUser) {
                     return (
@@ -32,6 +52,9 @@ export function IsUserRedirect({ loggedInPath, children }) {
     return (
         <Route
             render={() => {
+                if(currentUser === undefined) {
+                    return <div>TEst</div>
+                }
                 if (!currentUser) {
                     return children;
                 }

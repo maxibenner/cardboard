@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    position: relative;
+    height: fit-content;
+    background-color: var(--blue);
+    color: var(--light);
+    width: 100%;
+    padding: 15px 25px;
+    /*box-shadow: 0 1px 3px rgba(0, 102, 255, 0.24);*/
+    justify-content: center;
+}
+.container > div {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+}
+.container > div > p {
+    margin: 0 0 0 10px;
+    text-align: center;
+}
+.container > div > div {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+.floating {
+    position: fixed;
+    top: 0;
+    z-index: 5;
+}

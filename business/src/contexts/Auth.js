@@ -4,7 +4,7 @@ import firebase from "../lib/firebase";
 export const AuthContext = createContext(null);
 
 export function AuthProvider(props) {
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(undefined);
 
     firebase
         .auth()
