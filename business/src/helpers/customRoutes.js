@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "../contexts/Auth";
 import MyBusiness from "../pages/myBusiness/MyBusiness";
+import Spinner from "../components/spinner/Spinner";
 
 export function PrivateRoute({ children }) {
     const currentUser = useContext(AuthContext);
@@ -9,8 +10,20 @@ export function PrivateRoute({ children }) {
     return (
         <Route
             render={({ location }) => {
-                if(currentUser === undefined) {
-                    return <div>TEst</div>
+                if (currentUser === undefined) {
+                    return (
+                        <div
+                            style={{
+                                display: "flex",
+                                width: "100%",
+                                height: "100vh",
+                                justifyContent: "center",
+                                alignItems: "center"
+                            }}
+                        >
+                            <Spinner />
+                        </div>
+                    );
                 }
                 if (currentUser) {
                     const idToken = currentUser.getIdTokenResult();
@@ -52,9 +65,6 @@ export function IsUserRedirect({ loggedInPath, children }) {
     return (
         <Route
             render={() => {
-                if(currentUser === undefined) {
-                    return <div>TEst</div>
-                }
                 if (!currentUser) {
                     return children;
                 }

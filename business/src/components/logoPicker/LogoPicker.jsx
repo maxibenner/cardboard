@@ -8,10 +8,16 @@ function LogoPicker(props) {
 
     // Handle image
     const handleInput = () => {
+
+        // Set preview image
         const imgObjectUrl = window.URL.createObjectURL(
             inputRef.current.files[0]
         );
         setImg(imgObjectUrl);
+
+        // Pass value
+        props.onChange(inputRef.current.files[0]);
+
     };
     return (
         <div className={styles.wrapper}>

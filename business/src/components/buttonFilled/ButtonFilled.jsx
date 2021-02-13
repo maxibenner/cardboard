@@ -1,9 +1,13 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-function ButtonFilled({ textContent, disabled, thin }) {
+function ButtonFilled({ textContent, disabled, thin, onClick }) {
     return (
-        <button disabled={disabled && true} className={`${styles.button} ${thin && styles.thin}`}>
+        <button
+            onClick={onClick}
+            disabled={disabled && true}
+            className={`${styles.button} ${thin && styles.thin}`}
+        >
             {textContent}
         </button>
     );

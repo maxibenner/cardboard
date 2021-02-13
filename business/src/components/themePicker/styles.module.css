@@ -34,10 +34,24 @@
     width: 30px;
     border-right: 1px solid var(--middleGrey);
 }
+.noColor {
+    color: var(--ph);
+    font-size: 1.2rem;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 30px;
+    background-color: var(--base);
+    border-right: 1px solid var(--middleGrey);
+}
 .containerInner > p {
     position: absolute;
     top: 6px;
     margin: 0 0 0 10px;
+    color: var(--ph);
+}
+.containerInner > input::placeholder {
     color: var(--ph);
 }
 .hexInput {
