@@ -8,11 +8,11 @@ import { BiLogOut } from "react-icons/bi";
 import { AuthContext } from "../../contexts/Auth";
 
 function Navbar(props) {
-    const currentUser = useContext(AuthContext);
+    const {user, token} = useContext(AuthContext);
     return (
         <div className={styles.navbar}>
             <img className={styles.img} src="/logo.svg" alt="logo" />
-            {currentUser &&
+            {user &&
                 <Dropdown down icon={<UserButton />}>
                     <ButtonLight
                         onClick={() => firebase.auth().signOut()}
