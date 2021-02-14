@@ -4,16 +4,16 @@ import styles from "./styles.module.css";
 import { MdArrowDropDown } from "react-icons/md";
 
 function UserButton(props) {
-    const currentUser = useContext(AuthContext);
+    const { user, token } = useContext(AuthContext);
     const [userName, setUserName] = useState();
 
     useEffect(() => {
-        if (currentUser) {
-            const firstLetter = currentUser.email.slice(0, 1).toUpperCase();
-            const lastPart = currentUser.email.slice(1).split("@")[0];
+        if (user) {
+            const firstLetter = user.email.slice(0, 1).toUpperCase();
+            const lastPart = user.email.slice(1).split("@")[0];
             setUserName(firstLetter + lastPart);
         }
-    }, [currentUser]);
+    }, [user]);
 
     return (
         <div className={styles.wrapper}>

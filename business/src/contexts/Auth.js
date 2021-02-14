@@ -5,17 +5,21 @@ export const AuthContext = createContext(null);
 
 export function AuthProvider(props) {
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [idToken, setIdToken] = useState(undefined);
 
-    firebase
-        .auth()
-        .onAuthStateChanged((currentUser) => setCurrentUser(currentUser));
+    // Track auth state
+    firebase.auth().onAuthStateChanged((currentUser) => {
+        setCurrentUser(currentUser);
+    });
 
-    /*useEffect(()=>{
-        console.log(currentUser)
-    },[currentUser])*/
+    // Sync id token
+    useEffect(() => {
+        currentUser &&
+            currentUser.getIdTokenResult().then((token) => setIdToken(token));
+    }, [currentUser]);
 
     return (
-        <AuthContext.Provider value={currentUser}>
+        <AuthContext.Provider value={{ user: currentUser, token: idToken }}>
             {props.children}
         </AuthContext.Provider>
     );

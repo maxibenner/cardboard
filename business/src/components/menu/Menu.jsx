@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import NavLinkIcon from "../navLinkIcon/NavLinkIcon";
 import {
     MdPeople,
@@ -12,36 +12,44 @@ import styles from "./styles.module.css";
 import { AuthContext } from "../../contexts/Auth";
 
 function Menu(props) {
-    const currentUser = useContext(AuthContext);
-    const idToken = currentUser.getIdTokenResult();
+    const { token } = useContext(AuthContext);
+    const [businessClaim, setBusinessClaim] = useState(true);
+
+    useEffect(() => {
+        if (token) {
+            if (token.claims.business) setBusinessClaim(false);
+            else setBusinessClaim(true);
+        }
+    }, [token]);
+
     return (
         <div className={styles.container}>
             <NavLinkIcon
                 to="/dashboard"
                 icon={<MdViewQuilt />}
                 text="Dashboard"
-                disabled={idToken.claims ? false : true}
+                disabled={businessClaim}
             />
             <div className={styles.spacer} />
             <NavLinkIcon
                 to="/customers"
                 icon={<MdPeople />}
                 text="Customers"
-                disabled={idToken.claims ? false : true}
+                disabled={businessClaim}
             />
             <div className={styles.spacer} />
             <NavLinkIcon
                 to="/permissions"
                 icon={<MdSecurity />}
                 text="Permissions"
-                disabled={idToken.claims ? false : true}
+                disabled={businessClaim}
             />
             <div className={styles.spacer} />
             <NavLinkIcon
                 to="/pricing"
                 icon={<MdPayment />}
                 text="Pricing"
-                disabled={idToken.claims ? false : true}
+                disabled={businessClaim}
             />
             <div className={styles.spacer} />
             <NavLinkIcon
@@ -55,7 +63,7 @@ function Menu(props) {
                 to="/settings"
                 icon={<MdSettings />}
                 text="Settings"
-                disabled={idToken.claims ? false : true}
+                disabled={businessClaim}
             />
         </div>
     );
