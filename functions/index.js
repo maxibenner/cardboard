@@ -221,15 +221,15 @@ exports.sign_wasabi_download_url = functions.https.onCall(
 exports.create_business = functions.https.onCall(async (data, context) => {
     // Get data
     const name = data.name.toLowerCase();
-    const color = data.color.toLowerCase();
+    //const color = data.color.toLowerCase();
 
     // Check data
-    if (!/^([0-9A-F]{3}){1,2}$/i.test(color)) {
+    /*if (!/^([0-9A-F]{3}){1,2}$/i.test(color)) {
         return {
             code: "500",
             message: `Data does not contain a valid hex code color.`,
         };
-    }
+    }*/
 
     // Get business document
     const doc = await admin

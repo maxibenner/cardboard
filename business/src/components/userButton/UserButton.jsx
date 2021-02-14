@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 import { MdArrowDropDown } from "react-icons/md";
 
 function UserButton(props) {
-    const { user, token } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [userName, setUserName] = useState();
 
     useEffect(() => {
