@@ -6,12 +6,11 @@ import styles from "./styles.module.css";
 
 import Input from "../../components/input/Input";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
+import Card from "../../components/card/Card";
 
 function MyBusiness(props) {
-    const { user, token } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
     const [name, setName] = useState(null);
-    // const [logo, setLogo] = useState(null);
-    // const [color, setColor] = useState(null);
 
     // Data changes
     const handleNameChange = (value) => {
@@ -20,7 +19,7 @@ function MyBusiness(props) {
 
     // Submit
     const handleSubmit = async () => {
-        if (name/* && logo && color*/) {
+        if (name /* && logo && color*/) {
             if (
                 window.confirm(
                     `The name of your business can not be changed in the future. Please confirm that you want to use "${name}" as your permanent business name.`
@@ -48,7 +47,7 @@ function MyBusiness(props) {
             <Menu />
             <div className={styles.container}>
                 <h1 className={styles.title}>My Business</h1>
-                <div className={styles.card}>
+                <Card>
                     <h3>Info</h3>
                     <div className={styles.spacer} />
                     {!token.claims.business ? (
@@ -61,9 +60,18 @@ function MyBusiness(props) {
                             onChange={(value) => handleNameChange(value)}
                         />
                     ) : (
-                        <div>{token.claims.business}</div>
+                        <div className={styles.businessName}>
+                            {token.claims.business}
+                        </div>
                     )}
-                </div>
+                </Card>
+                <Card>
+                    <h3>Storage Plan</h3>
+                    <p>
+                        Choose a storage plan to deliver files to your
+                        customers.
+                    </p>
+                </Card>
                 {!token.claims.business && (
                     <div className={styles.buttonContainer}>
                         <ButtonFilled

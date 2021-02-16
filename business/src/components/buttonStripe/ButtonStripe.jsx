@@ -2,18 +2,17 @@ import React from "react";
 import styles from "./styles.module.css";
 import SpinnerLight from "../spinnerLight/SpinnerLight";
 
-function ButtonFilled({ textContent, disabled, thin, onClick, pending }) {
-    // spinnerColor options: light
+function ButtonStripe({ disabled, onClick, pending }) {
     return (
         <button
             onClick={onClick}
             disabled={disabled && true}
-            className={`${styles.button} ${thin && styles.thin}`}
+            className={styles.button}
         >
             {pending ? <SpinnerLight /> : null}
-            {pending ? null : textContent}
+            {pending ? null : <h3 className={styles.text}>Connect with<span></span></h3>}
         </button>
     );
 }
 
-export default ButtonFilled;
+export default ButtonStripe;

@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    cursor: pointer;
+    color: var(--blue)!important;
+    align-items: center;
+    font-weight: 500;
+}
+.container > p {
+    margin: 0;
+}

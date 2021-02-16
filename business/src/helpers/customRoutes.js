@@ -54,7 +54,7 @@ export function PrivateRoute({ children }) {
 }
 
 export function IsUserRedirect({ loggedInPath, children }) {
-    const { user, token } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     return (
         <Route
             render={() => {

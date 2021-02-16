@@ -1,10 +1,10 @@
-import Firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import "firebase/functions";
 
-const firebase = Firebase.initializeApp({
+firebase.initializeApp({
   apiKey: process.env.REACT_APP_apiKey,
   authDomain: process.env.REACT_APP_authDomain,
   databaseURL: process.env.REACT_APP_databaseURL,

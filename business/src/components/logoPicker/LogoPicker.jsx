@@ -22,7 +22,7 @@ function LogoPicker(props) {
     return (
         <div className={styles.wrapper}>
             <p className={styles.text}>
-                Logo<span>*</span>
+                Logo
             </p>
             <div className={styles.inputContainer}>
                 {img && (

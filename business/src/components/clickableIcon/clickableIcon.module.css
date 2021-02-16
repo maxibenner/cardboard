@@ -1,0 +1,18 @@
+.container {
+    display: inline-block;
+    padding: 3px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: inherit;
+    cursor: pointer;
+}
+.container:hover {
+    background: var(--middleGrey);
+}
+.inner {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}

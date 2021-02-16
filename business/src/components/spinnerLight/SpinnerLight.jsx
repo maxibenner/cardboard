@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-function Spinner({style}) {
+function SpinnerLight({style}) {
     return (
         <div>
             <div className={styles.spinnerBorder}>
@@ -11,4 +11,4 @@ function Spinner({style}) {
     );
 }
 
-export default Spinner;
+export default SpinnerLight;

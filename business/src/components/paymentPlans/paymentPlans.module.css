@@ -1,0 +1,39 @@
+.planCard {
+    height: 35px;
+}
+.planCardInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.table>tbody>tr:nth-child(even){
+    width:100%;
+    height: 10px;
+}
+.table>tbody>tr>th {
+    text-align: left;
+    font-weight: 500;
+    font-size: .9rem;
+}
+.table>tbody>tr>td {
+    padding: 20px;
+    background-color: var(--base);
+}
+.priceIconContainer {
+    display: flex;
+    align-items: center;
+    height: fit-content;
+}
+.table>tbody>tr>td:first-child {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+.table>tbody>tr>td:last-child {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    font-weight: bold;
+}

@@ -15,6 +15,13 @@ const compute = new Compute();
 //Init
 admin.initializeApp();
 
+// Set your secret key. Remember to switch to your live secret key in production!
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+const Stripe = require("stripe");
+const stripe = Stripe(
+    "sk_test_51HOSKAFpZKBZ5KOREnkNesFnOqriBc3wiNiH0QUtgz0YiWbjSCqVMVMkpVg8r5iuawXP1Mo2dcastNJueJnqDgPp00BChthLeL"
+);
+
 //HTTP credential
 const httpCred = "h27d-x9f3-4j0s-23okv-fd9d";
 
@@ -41,6 +48,86 @@ const freeCapacity = 3000000000; /*3GB*/
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 //|||||||||||||||||||||||||||||||||||||Functions||||||||||||||||||||||||||||||||||||||||
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+/*__________________________ STRIPE _____________________*/
+// Create Connected account
+exports.get_stripe_account_link = functions.https.onCall(
+    async (data, context) => {
+        // Check if business profile exists
+        if (!context.auth.token.business)
+            return { code: "500", message: "No registered business" };
+
+        // Business doc ref
+        const docRef = admin
+            .firestore()
+            .collection("businesses")
+            .doc(context.auth.token.business);
+
+        // Get business doc
+        const businessDoc = await docRef.get();
+
+        // New or updated stripe account link
+        if (businessDoc.data().stripe_acc_id) {
+            // Get one time account link
+            const accountLinks = await stripe.accountLinks.create({
+                account: businessDoc.data().stripe_acc_id,
+                refresh_url: data.url,
+                return_url: data.url,
+                type: "account_onboarding",
+            });
+
+            return {
+                code: 200,
+                message: "Updated stripe account link",
+                url: accountLinks.url,
+            };
+        } else {
+            // Create account
+            const account = await stripe.accounts.create({
+                type: "standard",
+            });
+
+            // Write account id to firestore
+            docRef.update({
+                stripe_acc_id: account.id,
+            });
+
+            // Get one time account link
+            const accountLinks = await stripe.accountLinks.create({
+                account: account.id,
+                refresh_url: data.url,
+                return_url: data.url,
+                type: "account_onboarding",
+            });
+
+            return {
+                code: 200,
+                message: "Created new stripe account link",
+                url: accountLinks.url,
+            };
+        }
+    }
+);
+// Get Stripe account status
+exports.get_stripe_acc_data = functions.https.onCall(async (data, context) => {
+
+    // Check if business/Stripe connection exists
+    const businessDoc = await admin
+        .firestore()
+        .collection("businesses")
+        .doc(context.auth.token.business)
+        .get()
+    if(!businessDoc.data().stripe_acc_id) return { code: "500", message: "Not connected" };
+
+    // Get Stripe account data
+    const account = await stripe.accounts.retrieve(businessDoc.data().stripe_acc_id);
+
+    return {
+        code: 200,
+        message: "Retrieved account data",
+        account: account,
+    };
+});
 
 /*__________________________ SETUP _____________________*/
 // Set user storage data on signup

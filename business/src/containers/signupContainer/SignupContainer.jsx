@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import Input from "../../components/input/Input";

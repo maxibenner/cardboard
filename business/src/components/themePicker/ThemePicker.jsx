@@ -18,7 +18,7 @@ function ThemePicker(props) {
     return (
         <div className={styles.wrapper}>
             <p className={styles.text}>
-                Theme Color<span>*</span>
+                Theme Color
             </p>
             <div className={styles.container}>
                 {color ? (
