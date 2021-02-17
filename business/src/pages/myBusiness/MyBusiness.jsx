@@ -7,6 +7,7 @@ import styles from "./styles.module.css";
 import Input from "../../components/input/Input";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import Card from "../../components/card/Card";
+import StorageContainer from "../../containers/storageContainer/StorageContainer";
 
 function MyBusiness(props) {
     const { token } = useContext(AuthContext);
@@ -65,13 +66,7 @@ function MyBusiness(props) {
                         </div>
                     )}
                 </Card>
-                <Card>
-                    <h3>Storage Plan</h3>
-                    <p>
-                        Choose a storage plan to deliver files to your
-                        customers.
-                    </p>
-                </Card>
+                <StorageContainer />
                 {!token.claims.business && (
                     <div className={styles.buttonContainer}>
                         <ButtonFilled

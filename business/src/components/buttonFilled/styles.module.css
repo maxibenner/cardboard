@@ -2,7 +2,7 @@
     height: 50px;
     width: 100%;
     border: none;
-    border-radius: 25px;
+    border-radius: 7px;
     background-color: var(--blue);
     color: var(--light);
     font-weight: bold;
@@ -10,11 +10,17 @@
     box-shadow: 0 2px 8px var(--blueGlow);
     cursor: pointer;
 }
+.button:hover {
+    background-color: var(--blueHover);
+}
 .button:disabled {
     background-color: var(--middleGrey);
     box-shadow: none;
     cursor: default;
 }
+.button:disabled:hover {
+    background-color: var(--middleGrey);
+}
 .thin {
-    height: 40px;
+    height: 35px;
 }

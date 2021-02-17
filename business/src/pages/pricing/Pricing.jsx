@@ -24,12 +24,10 @@ function Pricing(props) {
             .httpsCallable("get_stripe_account_link")({
             url: window.location.href,
         });
-        console.info(res.data.message);
         window.location.href = res.data.url;
     };
 
     // Sync stripe connection state
-    // Keep files in sync
     useEffect(() => {
         let isCancelled = false;
         firebase

@@ -48,6 +48,11 @@ service cloud.firestore {
     match /system/processing/{allPaths=**} {
       allow write: if request.auth.uid != null;
     }
+
+    //Business
+    match /businesses/{id}/{allPaths=**} {
+    	allow read: if request.auth.token.business == id
+    }
     
   }
 }
