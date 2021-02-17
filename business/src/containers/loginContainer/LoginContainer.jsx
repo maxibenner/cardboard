@@ -46,7 +46,7 @@ function LoginContainer(props) {
           placeholder="Your password"
         />
       </div>
-      <ButtonFilled textContent="Login" />
+      <ButtonFilled bold textContent="Login" />
       <Link
         style={{ display: "flex", justifyContent: "center", marginTop: "15px", color: "var(--blue)"}}
         to={"/signup"}

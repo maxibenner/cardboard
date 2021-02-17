@@ -8,21 +8,6 @@
     display: flex;
     flex-direction: column;
 }
-.card {
-    position: relative;
-    box-sizing: border-box;
-    padding: 30px 25px;
-    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
-    border: 1px solid var(--middleGrey);
-    border-radius: 10px;
-    background-color: var(--light);
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-.card > p {
-    color: var(--darkGrey);
-}
 .title {
     height: 44px;
     margin-top: 0px;

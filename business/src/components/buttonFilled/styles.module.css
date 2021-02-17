@@ -5,7 +5,6 @@
     border-radius: 7px;
     background-color: var(--blue);
     color: var(--light);
-    font-weight: bold;
     font-size: 16px;
     box-shadow: 0 2px 8px var(--blueGlow);
     cursor: pointer;
@@ -23,4 +22,7 @@
 }
 .thin {
     height: 35px;
+}
+.bold {
+    font-weight: bold;
 }

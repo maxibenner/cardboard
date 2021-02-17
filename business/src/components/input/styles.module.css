@@ -1,9 +1,13 @@
+.container {
+  flex-grow: 1;
+}
 .input {
   border: none;
   box-sizing: border-box;
   background-color: var(--light);
   height: 50px;
   width: 100%;
+  flex-grow: 1;
   padding: 0 15px 0 15px;
   border-radius: 7px;
   font-size: 16px;
