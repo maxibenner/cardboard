@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import { NavLink } from "react-router-dom";
 
-function NavLinkIcon({ to, icon, text, disabled }) {
+function NavLinkIcon({ to, icon, text, disabled, notification }) {
     return (
         <>
             {!disabled ? (
@@ -13,7 +13,14 @@ function NavLinkIcon({ to, icon, text, disabled }) {
                     disabled
                 >
                     <div>{icon}</div>
-                    <p>{text}</p>
+                    <p>
+                        {text}
+                        {notification && (
+                            <div className={styles.notification}>
+                                {notification}
+                            </div>
+                        )}
+                    </p>
                 </NavLink>
             ) : (
                 <div className={`${styles.container} ${styles.disabled}`}>

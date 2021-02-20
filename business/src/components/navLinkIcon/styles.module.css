@@ -12,6 +12,8 @@
 }
 .container > p {
     margin: 0;
+    position: relative;
+    width: fit-content;
 }
 .container > div {
     margin-right: 17px;
@@ -38,4 +40,15 @@
 }
 .disabled:hover {
     color: var(--dark) !important;
+}
+.notification {
+    position:absolute;
+    top: -6px;
+    left: 100%;
+    background-color: var(--red);
+    color: var(--light);
+    font-size: .7rem;
+    padding: 2px 4px;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(255, 0, 0, 0.281);
 }

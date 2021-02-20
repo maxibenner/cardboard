@@ -1,6 +1,4 @@
-import React, { useState, useContext } from "react";
-import styles from "./storageContainer.module.css";
-import { DataContext } from "../../contexts/Data";
+import React, { useState } from "react";
 import firebase from "../../lib/firebase";
 import Card from "../../components/card/Card";
 import { useStripe } from "@stripe/react-stripe-js";
@@ -8,7 +6,6 @@ import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 
 function StorageContainer(props) {
     const stripe = useStripe();
-    const businessDoc = useContext(DataContext);
 
     // Track pending state of "activate button"
     const [activateBtnPending,setActivateBtnPending] = useState(false)

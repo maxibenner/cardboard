@@ -142,6 +142,7 @@ export default function Uploader({ firebase, user, files }) {
 					.collection("files")
 					.doc(uuid)
 					.set({
+						created: Date.now(),
 						storage_key: key,
 						name: name.split(".")[0],
 						owner: user.uid,

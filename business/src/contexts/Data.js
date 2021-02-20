@@ -5,7 +5,7 @@ import { AuthContext } from "./Auth";
 export const DataContext = createContext(null);
 
 export function DataProvider(props) {
-    const { user, token } = useContext(AuthContext);
+    const { token } = useContext(AuthContext);
     const [businessDoc, setBusinessDoc] = useState(undefined);
 
     // Track auth state

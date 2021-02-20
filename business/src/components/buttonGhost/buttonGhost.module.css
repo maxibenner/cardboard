@@ -1,0 +1,28 @@
+.button {
+    height: 50px;
+    width: 100%;
+    border: 2px solid var(--blue);
+    border-radius: 7px;
+    background-color: transparent;
+    color: var(--blue);
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: var(--blueTransparent);
+}
+.button:disabled {
+    background-color: var(--middleGrey);
+    box-shadow: none;
+    cursor: default;
+}
+.button:disabled:hover {
+    background-color: var(--middleGrey);
+}
+.thin {
+    height: 35px;
+}
+.bold {
+    font-weight: bold;
+}

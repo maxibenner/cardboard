@@ -27,286 +27,300 @@ import BreadCrumbs from "../../components/breadCrumbs";
 // BrowserContainer works with a flat, keyed Firestore document structure
 
 export default function BrowseContainer({
-	firebase,
-	user,
-	files,
-	activeTags,
-	handleActiveMedia,
-	sendSelectionToParent,
-	sendVisibleFilesToParent,
-	handleModal,
+    firebase,
+    user,
+    files,
+    activeTags,
+    handleActiveMedia,
+    sendSelectionToParent,
+    sendVisibleFilesToParent,
+    handleModal,
 }) {
-	//_________________ STATES _________________//
-	// Holds the id of the dragged element
-	var dragSource = null;
-	// Holds the current path
-	const [currentPath, setCurrentPath] = useState("/");
-	// Holds visible elements
-	const [visibleElements, setVisibleElements] = useState();
-	// Holds sorted visible elements
-	const [visibleElements_sorted, setVisibleElements_sorted] = useState();
+    //_________________ STATES _________________//
+    // Holds the id of the dragged element
+    var dragSource = null;
+    // Holds the current path
+    const [currentPath, setCurrentPath] = useState("/");
+    // Holds visible elements
+    const [visibleElements, setVisibleElements] = useState();
+    // Holds sorted visible elements
+    const [visibleElements_sorted, setVisibleElements_sorted] = useState();
 
-	//_________________ FUNCTIONS _________________//
+    //_________________ FUNCTIONS _________________//
 
-	// Update current path through breadcrumbs
-	const updateCurrentBreadcrumb = (path) => {
-		setCurrentPath(path);
-	};
+    // Update current path through breadcrumbs
+    const updateCurrentBreadcrumb = (path) => {
+        setCurrentPath(path);
+    };
 
-	// Handle current path through folder click
-	const updateCurrentFolder = (folder) => {
-		setCurrentPath(folder);
-	};
+    // Handle current path through folder click
+    const updateCurrentFolder = (folder) => {
+        setCurrentPath(folder);
+    };
 
-	// Keep track of dragged element
-	const trackDragSource = (sourceId) => {
-		dragSource = sourceId;
-	};
+    // Keep track of dragged element
+    const trackDragSource = (sourceId) => {
+        dragSource = sourceId;
+    };
 
-	// Add folder or add to folder
-	const setNewFilePath = (dragTarget) => {
-		if (dragTarget.display_type === "file") {
-			// Prompt for folder name
-			const folderName = prompt("Name your new folder.", "New folder");
+    // Add folder or add to folder
+    const setNewFilePath = (dragTarget) => {
+        if (dragTarget.display_type === "file") {
+            // Prompt for folder name
+            const folderName = prompt("Name your new folder.", "New folder");
 
-			// If success, set new file paths
-			if (folderName) {
-				firebase
-					.firestore()
-					.collection("users")
-					.doc(user.uid)
-					.collection("files")
-					.doc(dragSource)
-					.update({ path: `${currentPath}${folderName}/` });
-				firebase
-					.firestore()
-					.collection("users")
-					.doc(user.uid)
-					.collection("files")
-					.doc(dragTarget.id)
-					.update({ path: `${currentPath}${folderName}/` });
-			}
-		} else {
-			// Set new file path for dragged element
-			firebase
-				.firestore()
-				.collection("users")
-				.doc(user.uid)
-				.collection("files")
-				.doc(dragSource)
-				.update({ path: dragTarget.path });
-		}
-	};
+            // If success, set new file paths
+            if (folderName) {
+                firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(user.uid)
+                    .collection("files")
+                    .doc(dragSource)
+                    .update({ path: `${currentPath}${folderName}/` });
+                firebase
+                    .firestore()
+                    .collection("users")
+                    .doc(user.uid)
+                    .collection("files")
+                    .doc(dragTarget.id)
+                    .update({ path: `${currentPath}${folderName}/` });
+            }
+        } else {
+            // Set new file path for dragged element
+            firebase
+                .firestore()
+                .collection("users")
+                .doc(user.uid)
+                .collection("files")
+                .doc(dragSource)
+                .update({ path: dragTarget.path });
+        }
+    };
 
-	// Ungroup folder
-	const handleUngroup = (id) => {
-		// Get folder to be unfoldered
-		const folder = visibleElements_sorted.filter((element) => {
-			return element.id === id;
-		})[0];
+    // Ungroup folder
+    const handleUngroup = (id) => {
+        // Get folder to be unfoldered
+        const folder = visibleElements_sorted.filter((element) => {
+            return element.id === id;
+        })[0];
 
-		// Create array from current path sections
-		const currentPathLength = currentPath.split("/").filter((path) => {
-			return path.length !== 0;
-		}).length;
+        // Create array from current path sections
+        const currentPathLength = currentPath.split("/").filter((path) => {
+            return path.length !== 0;
+        }).length;
 
-		// Shorten and submit path
-		folder.children.forEach((child) => {
-			// Create array from file path sections
-			const folderArray = child.path.split("/").filter((path) => {
-				return path.length !== 0;
-			});
+        // Shorten and submit path
+        folder.children.forEach((child) => {
+            // Create array from file path sections
+            const folderArray = child.path.split("/").filter((path) => {
+                return path.length !== 0;
+            });
 
-			// Shorten folder array to one level after current path
-			folderArray.splice(currentPathLength, 1);
+            // Shorten folder array to one level after current path
+            folderArray.splice(currentPathLength, 1);
 
-			// Turn to string and set to "/" if in root
-			let newPath = `/${folderArray.join("/")}/`;
-			if (newPath === "//") {
-				newPath = "/";
-			}
+            // Turn to string and set to "/" if in root
+            let newPath = `/${folderArray.join("/")}/`;
+            if (newPath === "//") {
+                newPath = "/";
+            }
 
-			// Update on firebase
-			firebase
-				.firestore()
-				.collection("users")
-				.doc(user.uid)
-				.collection("files")
-				.doc(child.id)
-				.update({ path: newPath });
-		});
-	};
+            // Update on firebase
+            firebase
+                .firestore()
+                .collection("users")
+                .doc(user.uid)
+                .collection("files")
+                .doc(child.id)
+                .update({ path: newPath });
+        });
+    };
 
-	// Folder logic -> visible files
-	// Make all files visible if "activeTags" prop is not null
-	useEffect(() => {
-		// Keep track of already existing folders
-		const folderTracker = [];
+    // Folder logic -> visible files
+    // Make all files visible if "activeTags" prop is not null
+    useEffect(() => {
+        // Keep track of already existing folders
+        const folderTracker = [];
 
-		// Add type to elements
-		const elementsWithType = files.map((file) => {
-			// Check if element exists at current path -> file
-			if (file.path === currentPath || activeTags.length !== 0) {
-				// Add display_type to file
-				file.display_type = "file";
+		// Filter out business submitted files (NOTE: Might impact performance, keep testing)
+		const personalFiles = files.filter(el => !el.business)
 
-				return file;
-			} else {
-				// Folder setup
-				if (
-					file.path.startsWith(currentPath) &&
-					file.path.split("/").length > currentPath.split("/").length
-				) {
-					// Create array from current path sections
-					const currentPathLength = currentPath.split("/").filter((path) => {
-						return path.length !== 0;
-					}).length;
+        // Add type to elements
+        const elementsWithType = personalFiles.map((file) => {
+            // Check if element exists at current path -> file
+            if (file.path === currentPath || activeTags.length !== 0) {
+                // Don't add if submitted by business
+                //if (file.business) return;
 
-					// Create array from file path sections
-					const folderArray = file.path.split("/").filter((path) => {
-						return path.length !== 0;
-					});
+                // Add display_type to file
+                file.display_type = "file";
 
-					// Shorten folder array to one level after current path
-					folderArray.length = currentPathLength + 1;
+                return file;
+            } else {
+                // Folder setup
+                if (
+                    file.path.startsWith(currentPath) &&
+                    file.path.split("/").length > currentPath.split("/").length
+                ) {
+                    // Create array from current path sections
+                    const currentPathLength = currentPath
+                        .split("/")
+                        .filter((path) => {
+                            return path.length !== 0;
+                        }).length;
 
-					const newFolderPath = `/${folderArray.join("/")}/`;
+                    // Create array from file path sections
+                    const folderArray = file.path.split("/").filter((path) => {
+                        return path.length !== 0;
+                    });
 
-					// Create folder object
-					const folderObject = {
-						id: file.id,
-						owner: file.owner,
-						path: newFolderPath,
-						display_type: "folder",
-						name: newFolderPath.split("/")[1],
-						children: [
-							{
-								id: file.id,
-								path: file.path,
-							},
-						],
-					};
+                    // Shorten folder array to one level after current path
+                    folderArray.length = currentPathLength + 1;
 
-					// Only add folder items once
-					const indexOfMatchingElement = folderTracker.findIndex(
-						(folder) => folder.path === newFolderPath
-					);
-					if (indexOfMatchingElement === -1) {
-						// Add to folder tracker
-						folderTracker.push(folderObject);
+                    const newFolderPath = `/${folderArray.join("/")}/`;
 
-						return folderObject;
-					} else {
-						// Add as child
-						folderTracker[indexOfMatchingElement].children.push({
-							id: file.id,
-							path: file.path,
-						});
-					}
+                    // Create folder object
+                    const folderObject = {
+                        id: file.id,
+                        owner: file.owner,
+                        path: newFolderPath,
+                        display_type: "folder",
+                        name: newFolderPath.split("/")[1],
+                        children: [
+                            {
+                                id: file.id,
+                                path: file.path,
+                            },
+                        ],
+                    };
 
-					return null;
-				}
+                    // Only add folder items once
+                    const indexOfMatchingElement = folderTracker.findIndex(
+                        (folder) => folder.path === newFolderPath
+                    );
+                    if (indexOfMatchingElement === -1) {
+                        // Add to folder tracker
+                        folderTracker.push(folderObject);
 
-				return null;
-			}
-		});
+                        return folderObject;
+                    } else {
+                        // Add as child
+                        folderTracker[indexOfMatchingElement].children.push({
+                            id: file.id,
+                            path: file.path,
+                        });
+                    }
 
-		// Remove objects with value null from array
-		const filteredElements = elementsWithType.filter((el) => {
-			if (el) {
-				return el;
-			} else {
-				return null;
-			}
-		});
+                    return null;
+                }
 
-		// Only show elements that match tags
-		// Make sure files exist
-		if (files && activeTags.length !== 0) {
-			var results = null;
+                return null;
+            }
+        });
 
-			// Filter for tags if there are tags to filter
-			if (activeTags.length !== 0) {
-				results = elementsWithType.filter((file) =>
-					activeTags.every(
-						(tag) => file.tags && file.tags.some((obj) => obj === tag)
-					)
-				);
-			}
+        // Remove objects with value null from array
+        const filteredElements = elementsWithType.filter((el) => {
+            if (el) {
+                return el;
+            } else {
+                return null;
+            }
+        });
 
-			// Update elements
-			setVisibleElements(results);
-		} else {
-			setVisibleElements(filteredElements);
-		}
-	}, [files, currentPath, activeTags]);
+        // Only show elements that match tags
+        // Make sure files exist
+        if (files && activeTags.length !== 0) {
+            var results = null;
 
-	// Sort visible elements
-	useEffect(() => {
-		if (visibleElements) {
-			// Initialize new array
-			const newArr = [...visibleElements];
+            // Filter for tags if there are tags to filter
+            if (activeTags.length !== 0) {
+                results = elementsWithType.filter((file) =>
+                    activeTags.every(
+                        (tag) =>
+                            file.tags && file.tags.some((obj) => obj === tag)
+                    )
+                );
+            }
 
-			// Sort new array in descending order
-			newArr.sort((a, b) => (a.name > b.name ? 1 : -1));
+            // Update elements
+            setVisibleElements(results);
+        } else {
+            setVisibleElements(filteredElements);
+        }
+    }, [files, currentPath, activeTags]);
 
-			// Update sorted elements
-			setVisibleElements_sorted(newArr);
+    // Sort visible elements
+    useEffect(() => {
+        if (visibleElements) {
+            // Initialize new array
+            const newArr = [...visibleElements];
 
-			// Update visible files on parent
-			sendVisibleFilesToParent(newArr);
-		} else {
-			// No sorted elements
-			setVisibleElements_sorted([]);
+            // Sort new array in descending order
+            newArr.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-			// Update visible files on parent
-			sendVisibleFilesToParent([]);
-		}
-	}, [sendVisibleFilesToParent, visibleElements]);
+            // Update sorted elements
+            setVisibleElements_sorted(newArr);
 
-	//_________________ RENDER _________________//
-	return (
-		<>
-			<div
-				className={`${styles.breadcrumbContainer} ${
-					activeTags.length > 0 && styles.invisible
-				}`}
-			>
-				<BreadCrumbs handlePath={updateCurrentBreadcrumb} path={currentPath} />
-			</div>
+            // Update visible files on parent
+            sendVisibleFilesToParent(newArr);
+        } else {
+            // No sorted elements
+            setVisibleElements_sorted([]);
 
-			<div className={styles.container}>
-				{visibleElements_sorted &&
-					visibleElements_sorted.map((file) => {
-						// Only render files in the current path
-						if (file.display_type !== "folder") {
-							return (
-								<CardFile
-									onDragStart={trackDragSource}
-									onDrop={setNewFilePath}
-									key={file.id}
-									file={file}
-									sendSelectionToParent={sendSelectionToParent}
-									handleActiveMedia={handleActiveMedia}
-									handleModal={handleModal}
-								/>
-							);
-						} else {
-							// Render folder once
-							return (
-								<CardFolder
-									key={file.id}
-									id={file.id}
-									path={file.path}
-									current_path={currentPath}
-									handleUngroup={handleUngroup}
-									handleActiveFolder={updateCurrentFolder}
-									onDrop={setNewFilePath}
-								/>
-							);
-						}
-					})}
-			</div>
-		</>
-	);
+            // Update visible files on parent
+            sendVisibleFilesToParent([]);
+        }
+    }, [sendVisibleFilesToParent, visibleElements]);
+
+    //_________________ RENDER _________________//
+    return (
+        <>
+            <div
+                className={`${styles.breadcrumbContainer} ${
+                    activeTags.length > 0 && styles.invisible
+                }`}
+            >
+                <BreadCrumbs
+                    handlePath={updateCurrentBreadcrumb}
+                    path={currentPath}
+                />
+            </div>
+
+            <div className={styles.container}>
+                {visibleElements_sorted &&
+                    visibleElements_sorted.map((file) => {
+                        // Only render files in the current path
+                        if (file.display_type !== "folder") {
+                            return (
+                                <CardFile
+                                    onDragStart={trackDragSource}
+                                    onDrop={setNewFilePath}
+                                    key={file.id}
+                                    file={file}
+                                    sendSelectionToParent={
+                                        sendSelectionToParent
+                                    }
+                                    handleActiveMedia={handleActiveMedia}
+                                    handleModal={handleModal}
+                                />
+                            );
+                        } else {
+                            // Render folder once
+                            return (
+                                <CardFolder
+                                    key={file.id}
+                                    id={file.id}
+                                    path={file.path}
+                                    current_path={currentPath}
+                                    handleUngroup={handleUngroup}
+                                    handleActiveFolder={updateCurrentFolder}
+                                    onDrop={setNewFilePath}
+                                />
+                            );
+                        }
+                    })}
+            </div>
+        </>
+    );
 }

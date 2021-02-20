@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/Auth";
 import { DataProvider } from "./contexts/Data";
 import { PrivateRoute, IsUserRedirect } from "./helpers/customRoutes";
 import Customers from "./pages/customers/Customers";
+import Uploads from "./pages/uploads/Uploads";
 import Permissions from "./pages/permissions/Permissions";
 import Pricing from "./pages/pricing/Pricing";
 import MyBusiness from "./pages/myBusiness/MyBusiness";
@@ -68,6 +69,10 @@ function App() {
                             <PrivateRoute exact path="/settings">
                                 <Navbar />
                                 <Settings />
+                            </PrivateRoute>
+                            <PrivateRoute exact path="/uploads">
+                                <Navbar />
+                                <Uploads />
                             </PrivateRoute>
                         </Switch>
                     </Router>

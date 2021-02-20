@@ -1,0 +1,26 @@
+.card {
+    display: flex;
+    border-bottom: 1px solid var(--middleGrey);
+    height: 50px;
+}
+.thumbnail_container {
+    display: flex;
+    align-items: center;
+    width: 75px;
+    overflow: hidden;
+}
+.thumbnail_container > img {
+    height: 80%;
+    margin-left: 15px;
+    border-radius: 5px;
+}
+.name {
+    width: 45%;
+}
+.size {
+    width: 22%;
+}
+.date {
+    width: 22%;
+}
+

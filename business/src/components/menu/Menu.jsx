@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import NavLinkIcon from "../navLinkIcon/NavLinkIcon";
 import {
+    MdFileUpload,
     MdPeople,
     MdSecurity,
     MdViewQuilt,
@@ -35,6 +36,14 @@ function Menu(props) {
                 to="/customers"
                 icon={<MdPeople />}
                 text="Customers"
+                disabled={businessClaim}
+            />
+            <div className={styles.spacer} />
+            <NavLinkIcon
+                notification="92"
+                to="/uploads"
+                icon={<MdFileUpload />}
+                text="Uploads"
                 disabled={businessClaim}
             />
             <div className={styles.spacer} />

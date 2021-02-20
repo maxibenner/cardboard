@@ -27,7 +27,7 @@ export default function DropdownFull(props) {
     }
 
     return (
-        <div className={styles.containerInner}>
+        <div className={styles.containerInner} style={props.style}>
             <div className={styles.icon} onClick={() => setActive(true)}>
                 {props.icon}
             </div>

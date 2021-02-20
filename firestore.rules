@@ -20,6 +20,11 @@ service cloud.firestore {
       }
     }
 
+    // Users from business side
+    match/users/{uid}/files/{doc} {
+    	allow read: if request.auth.token.business == resource.data.business;
+    }
+
     //Shared
     match /public/shared/{allPaths=**} {
       allow read: if true

@@ -1,4 +1,5 @@
 .container {
+    position:relative;
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -7,18 +8,28 @@
     color: var(--dark);
 }
 
-.container>svg {
-    color: var(--dark); 
+.container > svg {
+    color: var(--dark);
 }
 
 .title {
-    margin: 0;
-    margin-left: 10px;
+    margin-left: 10px!important;
 }
 
 .container:hover {
     background: var(--middleGrey);
-    transition: .2s;
+    transition: 0.2s;
+}
+
+.notification {
+    position:absolute;
+    top: 5px;
+    left: calc(100% - 20px);
+    background-color: var(--red);
+    color: var(--light);
+    font-size: .7rem;
+    padding: 2px 4px;
+    border-radius: 10px;
 }
 
 /*__________ MODIFIERS __________*/
@@ -27,13 +38,13 @@
     display: flex;
     align-items: center;
     font-weight: normal;
-    font-size: .9rem;
+    font-size: 0.9rem;
     color: var(--red);
     border-radius: 5px;
     cursor: default;
     padding: 10px 15px;
     margin: 0;
-    transition: .2s;
+    transition: 0.2s;
 }
 
 .danger:hover {
@@ -44,17 +55,17 @@
     flex-direction: column;
 }
 
-.stacked>svg {
+.stacked > svg {
     margin-bottom: 5px;
     font-size: 1.1em;
 }
 
-.stacked>p {
+.stacked > p {
     margin: 0;
-    font-size: .9em;
+    font-size: 0.9em;
 }
 
-.noIcon>p {
+.noIcon > p {
     margin: 0;
 }
 
@@ -62,7 +73,7 @@
     background: none;
 }
 
-.pointer>p {
+.pointer > p {
     cursor: pointer;
 }
 

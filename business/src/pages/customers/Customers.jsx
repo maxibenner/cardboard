@@ -6,14 +6,18 @@ import styles from "./customers.module.css";
 import Input from "../../components/input/Input";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import Divider from "../../components/divider/Divider";
+import CustomerContainer from "../../containers/customerContainer/CustomerContainer";
 import { validate_email } from "../../helpers/tools";
 import { MdArrowForward } from "react-icons/md";
+import { AnimatePresence } from "framer-motion";
 
-function Customers(props) {
+function Customers() {
     const [input, setInput] = useState(null);
     const [searchPending, setSearchPending] = useState(false);
     const [userRecord, setUserRecord] = useState(undefined);
     const [activeEmail, setActiveEmail] = useState("");
+
+    const [modal, setModal] = useState(false);
 
     // Search database for user with matching email
     const handleSearch = (e) => {
@@ -46,9 +50,7 @@ function Customers(props) {
                 <h1 className={styles.title}>Customers</h1>
                 <Card>
                     <h3>Find or create customers</h3>
-                    <p>
-                        Find customers by searching for their email address.
-                    </p>
+                    <p>Find customers by searching for their email address.</p>
                     <form
                         onSubmit={(e) => handleSearch(e)}
                         style={{ width: "100%", display: "flex" }}
@@ -67,17 +69,25 @@ function Customers(props) {
                     {userRecord !== undefined && <Divider />}
                     {userRecord && (
                         <>
-                        <div className={styles.headerContainer}>
-                            <h3>Email</h3>
-                            <h3>Created</h3>
-                        </div>
-                        <div className={styles.userSearchCard}>
-                            <h3>{userRecord.email}</h3>
-                            <p>
-                                {userRecord.metadata.creationTime.slice(4, 16)}
-                                <MdArrowForward style={{marginLeft:"5px"}}/>
-                            </p>
-                        </div>
+                            <div className={styles.headerContainer}>
+                                <h3>Email</h3>
+                                <h3>Created</h3>
+                            </div>
+                            <div
+                                className={styles.userSearchCard}
+                                onClick={() => setModal(true)}
+                            >
+                                <h3>{userRecord.email}</h3>
+                                <p>
+                                    {userRecord.metadata.creationTime.slice(
+                                        4,
+                                        16
+                                    )}
+                                    <MdArrowForward
+                                        style={{ marginLeft: "5px" }}
+                                    />
+                                </p>
+                            </div>
                         </>
                     )}
                     {userRecord === false && (
@@ -102,6 +112,14 @@ function Customers(props) {
                     )}
                 </Card>
             </div>
+            <AnimatePresence>
+                {modal && (
+                    <CustomerContainer
+                        userRecord={userRecord}
+                        handleClose={() => setModal(false)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }

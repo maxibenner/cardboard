@@ -6,7 +6,6 @@ import ProgressBar from "../progressBar";
 export default function UploadElement({ name, active, progress, id, removeUpload }) {
 	const classes = `${styles.uploadElement} ${!active && styles.inactive}`;
 
-	console.log(progress)
 	const clickHandler = () => {
 		removeUpload(id)
 	};
