@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const tk = require("timekeeper");
-const { s3, functions } = require("../lib/init");
-
+const { admin, s3, functions } = require("../lib/init");
 
 // Sign upload url for Wasabi and create fileDoc
 exports.signUploadUrl = functions.https.onCall((data, context) => {
@@ -28,6 +27,44 @@ exports.signUploadUrl = functions.https.onCall((data, context) => {
         console.log(err);
     }
 });
+
+// Sign upload url with custom uid sign_upload_url_business
+exports.sign_upload_url_business = functions.https.onCall(
+    async (data, context) => {
+        // Early return
+        // Lookup the user associated with the specified uid.
+        const userRecord = await admin.auth().getUser(context.auth.uid);
+
+        // The claims can be accessed on the user record.
+        if (userRecord.customClaims.business) {
+            const uuid = uuidv4();
+            const owner_uid = data.owner_uid;
+            const nameArr = data.name.split(".");
+            const extension = nameArr.pop();
+            const key = `users/${owner_uid}/${uuid}.${extension}`;
+
+            let url = s3.getSignedUrl("putObject", {
+                Bucket: functions.config().data.wasabi.bucket,
+                ContentType: data.contentType,
+                ACL: "private",
+                Key: key,
+            });
+
+            return {
+                code: 200,
+                message: "Successfully created upload link.",
+                url: url,
+                uuid: uuid,
+                key: key,
+            };
+        } else {
+            return {
+                code: 403,
+                message: "You are not authorized to upload customer files.",
+            };
+        }
+    }
+);
 // Check if Wasabi file exists
 exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
     try {
@@ -43,6 +80,7 @@ exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
         return false;
     }
 });
+
 // Get signed download url
 exports.sign_wasabi_download_url = functions.https.onCall(
     async (data, context) => {

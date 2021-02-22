@@ -35,7 +35,7 @@ function CustomerContainer({ userRecord, handleClose }) {
                     var storage = 0;
                     collection.forEach((doc) => {
                         filesArr.push(doc.data());
-                        storage += doc.data().size;
+                        storage += doc.data().size ? doc.data().size : 0;
                     });
 
                     // Add files to array
@@ -70,14 +70,17 @@ function CustomerContainer({ userRecord, handleClose }) {
                     <MdClose />
                 </div>
                 <h1 className={styles.title}>{userRecord.email}</h1>
-                <div style={{ display: "flex", alignItems:"center" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
                     <p
-                        style={{ color: "var(--darkGrey)", margin:"10px 0" }}
+                        style={{ color: "var(--darkGrey)", margin: "10px 0" }}
                     >{`Created on ${userRecord.metadata.creationTime.slice(
                         4,
                         16
                     )}`}</p>
-                    <Tag textContent="active account" style={{marginLeft: "15px"}} />
+                    <Tag
+                        textContent="active account"
+                        style={{ marginLeft: "15px" }}
+                    />
                 </div>
 
                 <Divider />
@@ -94,12 +97,15 @@ function CustomerContainer({ userRecord, handleClose }) {
                                 <p style={{ color: "var(--darkGrey)" }}>
                                     Days till deletion
                                 </p>
-                                <p style={{color: "var(--blue)"}}>{daysTillDel}<MdArrowDropDown/></p>
+                                <p style={{ color: "var(--blue)" }}>
+                                    {daysTillDel}
+                                    <MdArrowDropDown />
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div style={{ width: "60%" }}>
-                        <CustomerFiles files={files} />
+                        <CustomerFiles uid={userRecord.uid} files={files} />
                         <div></div>
                     </div>
                 </div>

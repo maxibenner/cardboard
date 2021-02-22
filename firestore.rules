@@ -24,6 +24,9 @@ service cloud.firestore {
     match/users/{uid}/files/{doc} {
     	allow read: if request.auth.token.business == resource.data.business;
     }
+    match/users/{uid}/files/{doc} {
+    	allow write: if request.auth.token.business == request.resource.data.business;
+    }
 
     //Shared
     match /public/shared/{allPaths=**} {

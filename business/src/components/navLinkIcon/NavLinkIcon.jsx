@@ -12,15 +12,15 @@ function NavLinkIcon({ to, icon, text, disabled, notification }) {
                     activeClassName={styles.active}
                     disabled
                 >
-                    <div>{icon}</div>
-                    <p>
-                        {text}
+                    <div className={styles.icon}>{icon}</div>
+                    <div>
+                        <p className={styles.text}>{text}</p>
                         {notification && (
                             <div className={styles.notification}>
                                 {notification}
                             </div>
                         )}
-                    </p>
+                    </div>
                 </NavLink>
             ) : (
                 <div className={`${styles.container} ${styles.disabled}`}>

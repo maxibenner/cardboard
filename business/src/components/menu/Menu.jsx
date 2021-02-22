@@ -11,10 +11,12 @@ import {
 } from "react-icons/md";
 import styles from "./styles.module.css";
 import { AuthContext } from "../../contexts/Auth";
+import { UploaderContext } from "../../contexts/UploaderContext";
 
 function Menu(props) {
     const { token } = useContext(AuthContext);
     const [businessClaim, setBusinessClaim] = useState(true);
+    const [uploads, dispatchUpload] = useContext(UploaderContext);
 
     useEffect(() => {
         if (token) {
@@ -40,7 +42,7 @@ function Menu(props) {
             />
             <div className={styles.spacer} />
             <NavLinkIcon
-                notification="92"
+                notification={uploads.length > 0 ? uploads.length : false}
                 to="/uploads"
                 icon={<MdFileUpload />}
                 text="Uploads"
