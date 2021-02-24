@@ -3,6 +3,7 @@ import ReactDom from "react-dom";
 import styles from "./customerContainer.module.css";
 import { MdClose, MdArrowDropDown } from "react-icons/md";
 import Divider from "../../components/divider/Divider";
+import CopyText from "../../components/copyText/CopyText";
 import CustomerFiles from "../../components/customerFiles/CustomerFiles";
 import firebase from "../../lib/firebase";
 import { prettier_size } from "../../helpers/tools";
@@ -10,6 +11,7 @@ import { motion } from "framer-motion";
 import Tag from "../../components/tag/Tag";
 
 function CustomerContainer({ userRecord, handleClose }) {
+
     // files
     const [files, setFiles] = useState(undefined);
     const [storage, setStorage] = useState(0);
@@ -86,6 +88,8 @@ function CustomerContainer({ userRecord, handleClose }) {
                 <Divider />
                 <div style={{ display: "flex", height: "100%" }}>
                     <div style={{ width: "40%" }}>
+                        <p style={{ color: "var(--darkGrey)" }}>Copy this link to share files</p>
+                        <CopyText text={`http://localhost:3000/delivery?u=${userRecord.uid}`} />
                         <div style={{ display: "flex" }}>
                             <div>
                                 <p style={{ color: "var(--darkGrey)" }}>
@@ -105,7 +109,7 @@ function CustomerContainer({ userRecord, handleClose }) {
                         </div>
                     </div>
                     <div style={{ width: "60%" }}>
-                        <CustomerFiles uid={userRecord.uid} files={files} />
+                        <CustomerFiles userRecord={userRecord} files={files} />
                         <div></div>
                     </div>
                 </div>

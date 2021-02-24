@@ -15,7 +15,7 @@ export async function sign_upload_url_business(file) {
         .httpsCallable("sign_upload_url_business")({
         contentType: file.type,
         name: file.name,
-        owner_uid: file.owner_uid
+        owner_uid: file.owner_uid,
     });
 
     if (res.data.code !== 200)
@@ -56,5 +56,4 @@ export function prettier_size(size) {
         ? `${(size / 1000).toFixed(1)} GB`
         : `${size.toFixed(0)} MB`;
 }
-
 

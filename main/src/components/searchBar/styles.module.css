@@ -14,7 +14,7 @@
 }
 
 .containerActive {
-	box-shadow: 0 0 0 3px var(--blue);
+	box-shadow: inset 0 0.5px 3px #0000001a, 0 0 0 3px var(--blue);
 	transition: 0.1s;
 }
 

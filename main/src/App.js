@@ -5,6 +5,7 @@ import Library from "./pages/library";
 import Settings from "./pages/settings.jsx";
 import Signin from "./pages/signin.jsx";
 import Signup from "./pages/signup";
+import Delivery from "./pages/delivery";
 import * as ROUTES from "./constants/routes";
 import { IsUserRedirect, ProtectedRoute } from "./helpers/routes";
 import { useAuthListener } from "./hooks/use-auth-listener.js";
@@ -23,6 +24,10 @@ export default function App() {
 
                 <Route path={ROUTES.SHARE} exact>
                     <Share />
+                </Route>
+
+                <Route path={ROUTES.DELIVERY} exact>
+                    <Delivery />
                 </Route>
 
                 <IsUserRedirect

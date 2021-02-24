@@ -8,7 +8,7 @@ import { UploaderContext } from "../../contexts/UploaderContext";
 import { AuthContext } from "../../contexts/Auth";
 import firebase from "../../lib/firebase";
 
-function CustomerFiles({ files, uid }) {
+function CustomerFiles({ files, userRecord }) {
     const [uploads, dispatchUpload] = useContext(UploaderContext);
     const { token } = useContext(AuthContext);
 
@@ -22,7 +22,7 @@ function CustomerFiles({ files, uid }) {
 
     // Handle file upload selection
     const onFileChange = (e) => {
-        dispatchUpload(uid, token.claims.business, [...e.target.files]);
+        dispatchUpload(userRecord, token.claims.business, [...e.target.files]);
         formRef.current.reset();
     };
 

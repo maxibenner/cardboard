@@ -149,6 +149,7 @@ export default function Uploader({ firebase, user, files }) {
                     .doc(uuid)
                     .set({
                         created: Date.now(),
+                        owner_email: user.email,
                         storage_key: key,
                         name: name.split(".")[0],
                         owner: user.uid,
@@ -158,7 +159,7 @@ export default function Uploader({ firebase, user, files }) {
                         tags: [],
                         type: file.type.split("/")[0],
                         url: urlObject.data,
-                    });
+                    }); 
 
                 // Remove from uploads
                 removeUpload(fileId);

@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    align-items: center;
+    background-color: var(--base);
+    /*color: var(--blue);*/
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+.text {
+    max-width: calc(100% - 30px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+}
+.iconContainer {
+    width: 25px;
+    height: 25px;
+    background: transparent;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 0 auto;
+    cursor: pointer;
+    transition: .1s;
+    font-size: 1.1rem;
+}
+.iconContainer:hover {
+    color: var(--blue);
+    background: var(--blueTransparent);
+}
+.copybutton {
+
+}

@@ -6,7 +6,7 @@ import firebase from "../lib/firebase";
 export const UploaderContext = createContext(null);
 
 export function UploaderProvider({ children }) {
-    const [uid, setUid] = useState(null);
+    const [userRecord, setUserRecord] = useState(null);
     const [business, setBusiness] = useState(null);
     const [uploadFiles, setUploadFiles] = useState([]);
     const [uploads, setUploads] = useState([]);
@@ -19,9 +19,9 @@ export function UploaderProvider({ children }) {
     const uploadLimit = 3;
 
     // Dispatch upload request
-    const dispatchUpload = (userId, business, files) => {
+    const dispatchUpload = (userRecord, business, files) => {
         setBusiness(business)
-        setUid(userId)
+        setUserRecord(userRecord)
         setUploadFiles(files);
     };
 
@@ -39,7 +39,7 @@ export function UploaderProvider({ children }) {
                         file: file,
                         id: v4(),
                         name: file.name,
-                        owner_uid: uid,
+                        owner_uid: userRecord.uid,
                         xhr: null,
                     };
                 }),
@@ -163,7 +163,7 @@ export function UploaderProvider({ children }) {
                 await firebase
                     .firestore()
                     .collection("users")
-                    .doc(uid)
+                    .doc(userRecord.uid)
                     .collection("files")
                     .doc(uuid)
                     .set({
@@ -172,7 +172,8 @@ export function UploaderProvider({ children }) {
                         created: Date.now(),
                         storage_key: key,
                         name: name.split(".")[0],
-                        owner: uid,
+                        owner: userRecord.uid,
+                        owner_email: userRecord.email,
                         path: "/",
                         status: "new",
                         suffix: key.split(".")[1],

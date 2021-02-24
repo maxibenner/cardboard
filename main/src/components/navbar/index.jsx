@@ -39,13 +39,13 @@ export default function Navbar(props) {
             }`}
         >
             <div className={styles.container}>
-                <Link to={props.to}>
+                <div /*LINK to={props.to}*/>
                     <img
                         className={styles.logo}
                         src={Logo}
                         alt="CardboardLogo"
                     />
-                </Link>
+                </div>
 
                 <div className={styles.menuContainer}>
                     {!props.noauth && (
@@ -75,7 +75,7 @@ export default function Navbar(props) {
                                 <Link as={Link} to={ROUTES.LIBRARY}>
                                     <ButtonLight title={"Library"} />
                                 </Link>
-                                <Link as={Link} to={"#"}>
+                                <Link as={Link} /*to={"#"}*/>
                                     <ButtonLight
                                         title={"Shared"}
                                         onClick={() =>
@@ -106,7 +106,7 @@ export default function Navbar(props) {
                                             icon={<BiBookHeart />}
                                         />
                                     </Link>
-                                    <Link as={Link} to={"#"}>
+                                    <Link as={Link} /*to={"#"}*/>
                                         <ButtonLight
                                             title={"Shared"}
                                             onClick={() =>

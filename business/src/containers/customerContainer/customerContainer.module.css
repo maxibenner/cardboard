@@ -21,12 +21,13 @@
     height: 100vh;
     top: 0;
     width: calc(100% - 30px);
-    padding:50px;
+    padding: 50px;
     margin: 100vh 15px -100px 15px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.1);
 }
+
 .title {
     font-size: 3rem;
     margin: 0;
