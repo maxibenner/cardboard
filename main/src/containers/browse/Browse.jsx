@@ -144,7 +144,7 @@ export default function BrowseContainer({
         const folderTracker = [];
 
 		// Filter out business submitted files (NOTE: Might impact performance, keep testing)
-		const personalFiles = files.filter(el => !el.business)
+		const personalFiles = files.filter(el => el.business === undefined || el.accepted === true)
 
         // Add type to elements
         const elementsWithType = personalFiles.map((file) => {

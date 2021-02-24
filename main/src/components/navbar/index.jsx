@@ -1,21 +1,32 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import Logo from "../../media/logo-dark.svg";
-import * as ROUTES from "../../constants/routes";
-import styles from "./styles.module.css";
-import { FirebaseContext } from "../../context/firebase";
+import React, { useContext, useEffect, useState } from "react";
 import { BiBookHeart } from "react-icons/bi";
-import { HiOutlineLogout } from "react-icons/hi";
-import { MdSettings, MdGroup } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
-
-import UserContext from "../userContext";
+import { HiOutlineLogout } from "react-icons/hi";
+import { MdGroup, MdSettings } from "react-icons/md";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+import { FirebaseContext } from "../../context/firebase";
+import { FileContext } from "../../context/FileContext";
+import Logo from "../../media/logo-dark.svg";
+import ArrowText from "../arrow-text";
 import ButtonLight from "../buttonLight";
 import DropdownFull from "../dropdownFull";
-import ArrowText from "../arrow-text";
+import DeliveryContainer from "../../containers/deliveryContainer/DeliveryContainer";
+import UserContext from "../userContext";
+import styles from "./styles.module.css";
 
 export default function Navbar(props) {
     const { firebase } = useContext(FirebaseContext);
+    const files = useContext(FileContext);
+    const [delivery, setDelivery] = useState([]);
+
+    // Get files pending delivery
+    useEffect(() => {
+        if (files) {
+            const pendingDelivery = files.filter((el) => el.business !== undefined && el.accepted === false);
+            setDelivery(pendingDelivery);
+        }
+    }, [files]);
 
     const logout = () => {
         firebase.auth().signOut();
@@ -40,8 +51,27 @@ export default function Navbar(props) {
                     {!props.noauth && (
                         <>
                             <div className={styles.navMenuWide}>
-								
-								<ButtonLight notification="1" icon={<FiPackage style={{fontSize:"1.2rem"}}/>} largeIcon />
+                                {delivery.length !== 0 && (
+                                    <DropdownFull
+                                        down
+                                        icon={
+                                            <ButtonLight
+                                                notification={delivery.length}
+                                                icon={
+                                                    <FiPackage
+                                                        style={{
+                                                            fontSize: "1.2rem",
+                                                        }}
+                                                    />
+                                                }
+                                                largeIcon
+                                            />
+                                        }
+                                    >
+                                        <DeliveryContainer delivery={delivery} />
+                                    </DropdownFull>
+                                )}
+
                                 <Link as={Link} to={ROUTES.LIBRARY}>
                                     <ButtonLight title={"Library"} />
                                 </Link>

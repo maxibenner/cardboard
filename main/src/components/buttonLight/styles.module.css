@@ -1,5 +1,5 @@
 .container {
-    position:relative;
+    position: relative;
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -13,7 +13,7 @@
 }
 
 .title {
-    margin-left: 10px!important;
+    margin-left: 10px !important;
 }
 
 .container:hover {
@@ -22,12 +22,12 @@
 }
 
 .notification {
-    position:absolute;
+    position: absolute;
     top: 5px;
     left: calc(100% - 20px);
     background-color: var(--red);
     color: var(--light);
-    font-size: .7rem;
+    font-size: 0.7rem;
     padding: 2px 4px;
     border-radius: 10px;
 }
@@ -41,7 +41,6 @@
     font-size: 0.9rem;
     color: var(--red);
     border-radius: 5px;
-    cursor: default;
     padding: 10px 15px;
     margin: 0;
     transition: 0.2s;
@@ -49,6 +48,21 @@
 
 .danger:hover {
     background: #ff68602c;
+}
+
+.red {
+    cursor: default;
+    display: flex;
+    font-size: 0.9rem;
+    color: var(--red);
+    padding: 10px 15px;
+    margin: 0;
+}
+.red > p {
+    cursor: pointer;
+}
+.red:hover {
+    background-color: transparent;
 }
 
 .stacked {
@@ -61,10 +75,13 @@
 }
 
 .stacked > p {
-    margin: 0;
+    margin: 0 !important;
     font-size: 0.9em;
 }
 
+.noIcon {
+    justify-content: center;
+}
 .noIcon > p {
     margin: 0;
 }

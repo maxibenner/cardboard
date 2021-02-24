@@ -12,6 +12,7 @@ import StorageContainer from "../../containers/storageContainer/StorageContainer
 function MyBusiness(props) {
     const { token } = useContext(AuthContext);
     const [name, setName] = useState(null);
+    const [businessPending, setBusinessPending] = useState(false);
 
     // Data changes
     const handleNameChange = (value) => {
@@ -26,18 +27,26 @@ function MyBusiness(props) {
                     `The name of your business can not be changed in the future. Please confirm that you want to use "${name}" as your permanent business name.`
                 )
             ) {
+                // Spinner
+                setBusinessPending(true);
+
+                // Database
                 const data = await firebase
                     .functions()
                     .httpsCallable("create_business")({
                     name: name,
                     //color: color,
                 });
-                console.log(data);
+
                 if (data.code === 200) {
+                    console.log(data);
+                    setBusinessPending(false);
                     // Refresh auth token
                     await firebase.auth().currentUser.getIdToken(true);
+                    window.location.reload()
                 } else {
                     console.log(data);
+                    setBusinessPending(false);
                 }
             }
         }
@@ -50,7 +59,7 @@ function MyBusiness(props) {
                 <h1 className={styles.title}>My Business</h1>
                 <Card>
                     <h3>Info</h3>
-                    <div className={styles.spacer} />
+                    <p>Set the business name that will appear to your customers.</p>
                     {!token.claims.business ? (
                         <Input
                             grey
@@ -66,12 +75,12 @@ function MyBusiness(props) {
                         </div>
                     )}
                 </Card>
-                <StorageContainer />
+                {token.claims.business && <StorageContainer />}
                 {!token.claims.business && (
                     <div className={styles.buttonContainer}>
                         <ButtonFilled
+                            pending={businessPending}
                             onClick={handleSubmit}
-                            thin
                             textContent="Save"
                             disabled={name === null ? true : false}
                         />

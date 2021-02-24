@@ -10,7 +10,8 @@ export function DataProvider(props) {
 
     // Track auth state
     useEffect(() => {
-        if (token) {
+        if(!token) return
+        if (token.claims.business) {
             firebase
                 .firestore()
                 .collection("businesses")

@@ -28,7 +28,6 @@ function CustomerFiles({ files, uid }) {
 
     // Get thumbnail urls
     useEffect(() => {
-    
         // Add thumbnail url
         if (files) {
             files.forEach(async (file) => {
@@ -50,11 +49,12 @@ function CustomerFiles({ files, uid }) {
                         .doc(file.storage_key.split("/")[2].split(".")[0])
                         .update({
                             thumbnail_url: url,
-                            business: token.claims.business
+                            business: token.claims.business,
                         });
                 }
             });
         }
+        console.log(files);
     }, [files]);
 
     return (
@@ -66,21 +66,17 @@ function CustomerFiles({ files, uid }) {
                 <h3 className={styles.date}>Uploaded</h3>
             </div>
             <div className={styles.filesContainer}>
-                {!files ? (
-                    <>
-                        {files === undefined ? (
-                            <SpinnerSmallGrey
-                                style={{
-                                    position: "absolute",
-                                    top: "50%",
-                                    left: "50%",
-                                    transform: "translate(-50%, -50%)",
-                                }}
-                            />
-                        ) : (
-                            <div className={styles.noFiles}>No files</div>
-                        )}
-                    </>
+                {files === undefined ? (
+                    <SpinnerSmallGrey
+                        style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                        }}
+                    />
+                ) : files.length === 0 ? (
+                    <div className={styles.noFiles}>No files</div>
                 ) : (
                     files.map((file) => {
                         return (

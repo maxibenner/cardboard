@@ -167,12 +167,14 @@ export function UploaderProvider({ children }) {
                     .collection("files")
                     .doc(uuid)
                     .set({
+                        accepted: false,
                         business: business,
                         created: Date.now(),
                         storage_key: key,
                         name: name.split(".")[0],
                         owner: uid,
                         path: "/",
+                        status: "new",
                         suffix: key.split(".")[1],
                         tags: [],
                         type: file.type.split("/")[0],

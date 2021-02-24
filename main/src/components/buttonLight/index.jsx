@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./styles.module.css";
 
-export default function ButtonLight({ title, icons, notification, ...props }) {
+export default function ButtonLight({ title, notification, ...props }) {
     const classes = [
         styles.container,
         styles.noselect,
         props.danger && styles.danger,
+        props.red && styles.red,
         props.attention && styles.attention,
         props.stacked && styles.stacked,
         !props.icon && styles.noIcon,
@@ -15,9 +16,9 @@ export default function ButtonLight({ title, icons, notification, ...props }) {
     const icon = props.icon && props.icon;
 
     return (
-        <div onClick={props.onClick} className={classes}>
+        <div onClick={!props.red ? props.onClick : null} className={classes} style={props.style}>
             {icon}
-            <p style={{ margin: 0 }} className={title && styles.title}>
+            <p onClick={props.red ? props.onClick : null} style={{ margin: 0 }} className={title && props.icon && styles.title}>
                 {title}
             </p>
             {notification && (

@@ -1,0 +1,18 @@
+.container {
+    padding: 5px;
+    width: 200px;
+}
+.container > p {
+    color: var(--ph);
+    margin: 5px 0;
+    font-size: .9rem;
+}
+.container > h1 {
+    font-size: 1.3rem;
+    margin: 0;
+}
+.container > h3 {
+    font-size: 1rem;
+    margin: 5px 0 15px 0;
+    font-weight: normal;
+}

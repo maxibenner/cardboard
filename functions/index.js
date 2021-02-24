@@ -26,3 +26,7 @@ exports.signUploadUrl = wasabi.signUploadUrl;
 exports.checkWasabiFile = wasabi.checkWasabiFile;
 exports.sign_wasabi_download_url = wasabi.sign_wasabi_download_url;
 exports.sign_upload_url_business = wasabi.sign_upload_url_business;
+
+const delivery = require("./exports/delivery.js");
+exports.delivery_accept = delivery.delivery_accept;
+exports.delivery_decline = delivery.delivery_decline;

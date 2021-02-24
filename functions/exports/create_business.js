@@ -3,16 +3,7 @@ const { admin, functions } = require("../lib/init");
 // Create Business Profile
 exports.create_business = functions.https.onCall(async (data, context) => {
     // Get data
-    const name = data.name.toLowerCase();
-    //const color = data.color.toLowerCase();
-
-    // Check data
-    /*if (!/^([0-9A-F]{3}){1,2}$/i.test(color)) {
-        return {
-            code: "500",
-            message: `Data does not contain a valid hex code color.`,
-        };
-    }*/
+    const name = data.name.toLowerCase().replace(" ", "-")
 
     // Get business document
     const doc = await admin
@@ -21,38 +12,39 @@ exports.create_business = functions.https.onCall(async (data, context) => {
         .doc(name)
         .get();
 
-    // Check if document exists
+    // Return if doc already exists
     if (doc.data()) {
-        // Exists
         return {
             code: "500",
             message: `Business already exists.`,
         };
-    } else {
-        // Does not exist
-        try {
-            // Add customs claims to user
-            await admin.auth().setCustomUserClaims(context.auth.uid, {
-                role: "admin",
-                business: name,
-            });
+    }
 
-            // Create new business profile
-            await admin.firestore().collection("businesses").doc(name).set({
-                name: name,
-                color: color,
-            });
-        } catch (err) {
-            return {
-                code: "500",
-                message: `Business creation failed.`,
-            };
-        }
+    try {
+        // Add customs claims to user
+        await admin.auth().setCustomUserClaims(context.auth.uid, {
+            business: name,
+            capacity_used: 0,
+            role: "admin",
+        });
 
-        // Success
+        // Create new business profile
+        await admin.firestore().collection("businesses").doc(name).set({
+            name: name,
+            owner: context.auth.uid
+        });
+
+    } catch (err) {
         return {
-            code: "200",
-            message: `Successfully created business profile for ${data.name}.`,
+            code: "500",
+            message: `Business creation failed.`,
+            body: err,
         };
     }
+
+    // Success
+    return {
+        code: "200",
+        message: `Successfully created business profile for ${name}.`,
+    };
 });
