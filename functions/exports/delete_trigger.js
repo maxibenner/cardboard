@@ -9,59 +9,42 @@ exports.delete_trigger = functions.firestore
         //__________ Customer/Business __________//
         if (file.business === undefined) {
             //CUSTOMER
-            //Get stored data
-            let storageDoc = await admin
-                .firestore()
-                .collection("users")
-                .doc(context.params.userId)
-                .get();
-            let capacity_used = storageDoc.data().capacity_used;
-
             // Update storage doc
             admin
                 .firestore()
                 .collection("users")
                 .doc(context.params.userId)
                 .update({
-                    capacity_used: capacity_used - file.size,
-                });
-        }
-        if (file.accepted === true) {
-            //CUSTOMER
-            //Get stored data
-            let storageDoc = await admin
-                .firestore()
-                .collection("users")
-                .doc(context.params.userId)
-                .get();
-            let capacity_used = storageDoc.data().capacity_used;
-
-            // Update storage doc
-            admin
-                .firestore()
-                .collection("users")
-                .doc(context.params.userId)
-                .update({
-                    capacity_used: capacity_used - file.size,
+                    capacity_used: admin.firestore.FieldValue.increment(
+                        -file.size
+                    ),
                 });
         } else {
-            //BUSINESS
-            //Get stored data
-            let storageDoc = await admin
-                .firestore()
-                .collection("businesses")
-                .doc(file.business)
-                .get();
-            let capacity_used = storageDoc.data().capacity_used;
-
-            // Update storage doc
-            admin
-                .firestore()
-                .collection("businesses")
-                .doc(file.business)
-                .update({
-                    capacity_used: capacity_used - file.size,
-                });
+            if (file.accepted === true) {
+                //CUSTOMER
+                // Update storage doc
+                admin
+                    .firestore()
+                    .collection("users")
+                    .doc(context.params.userId)
+                    .update({
+                        capacity_used: admin.firestore.FieldValue.increment(
+                            -file.size
+                        ),
+                    });
+            } else {
+                //BUSINESS
+                // Update storage doc
+                admin
+                    .firestore()
+                    .collection("businesses")
+                    .doc(file.business)
+                    .update({
+                        capacity_used: admin.firestore.FieldValue.increment(
+                            -file.size
+                        ),
+                    });
+            }
         }
 
         // Remove file from Wasabi

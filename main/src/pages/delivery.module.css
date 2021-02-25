@@ -18,7 +18,11 @@
     box-sizing: border-box;
 }
 
-.ownerContainer>p:nth-child(2) {
+.ownerContainer > p {
+    margin-left: 5px;
+}
+
+.ownerContainer > p:nth-child(2), .ownerContainer > p:nth-child(4) {
     font-weight: bold;
     margin-left: 5px;
 }
@@ -47,19 +51,18 @@
     margin: 0 25px;
 }
 
-
-.unavailableContainer>img {
+.unavailableContainer > img {
     max-width: 200px;
 }
 
-.unavailableContainer>h1 {
+.unavailableContainer > h1 {
     text-align: center;
     font-family: recoleta;
     margin-bottom: 0;
     margin-top: 25px;
 }
 
-.unavailableContainer>p {
+.unavailableContainer > p {
     text-align: center;
     margin-top: 10px;
     max-width: 350px;

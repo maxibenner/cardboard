@@ -75,14 +75,14 @@ export default function Navbar(props) {
                                 <Link as={Link} to={ROUTES.LIBRARY}>
                                     <ButtonLight title={"Library"} />
                                 </Link>
-                                <Link as={Link} /*to={"#"}*/>
+                                {/*<Link as={Link} to={"#"}>
                                     <ButtonLight
                                         title={"Shared"}
                                         onClick={() =>
                                             window.alert("Coming soon.")
                                         }
                                     />
-                                </Link>
+                                </Link>*/}
                                 <DropdownFull down icon={<UserContext />}>
                                     <Link as={Link} to={ROUTES.SETTINGS}>
                                         <ButtonLight
@@ -106,7 +106,7 @@ export default function Navbar(props) {
                                             icon={<BiBookHeart />}
                                         />
                                     </Link>
-                                    <Link as={Link} /*to={"#"}*/>
+                                    {/*<Link as={Link} to={"#"}>
                                         <ButtonLight
                                             title={"Shared"}
                                             onClick={() =>
@@ -114,7 +114,7 @@ export default function Navbar(props) {
                                             }
                                             icon={<MdGroup />}
                                         />
-                                    </Link>
+                                        </Link>*/}
                                     <Link as={Link} to={ROUTES.SETTINGS}>
                                         <ButtonLight
                                             title={"Settings"}

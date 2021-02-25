@@ -259,7 +259,7 @@ export default function Library() {
     //__________ RENDER __________//
     return (
         <div className={styles.wrapper}>
-            <Navbar loggedIn to={ROUTES.LIBRARY} />
+            <Navbar loggedIn /*to={ROUTES.LIBRARY}*/ />
             {files && files.length > numberOfDeliveries && (
                 <div className={styles.spacer70}></div>
             )}

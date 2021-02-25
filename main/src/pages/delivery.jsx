@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firebase } from "../lib/firebase";
-import styles from "./sh.module.css";
+import styles from "./delivery.module.css";
 
 import WatchContainer from "../containers/watch/WatchContainer";
 import Navbar from "../components/navbar";
@@ -12,6 +12,7 @@ export default function Share() {
     const [files, setFiles] = useState(null);
     const [cards, setCards] = useState(null);
     const [owner, setOwner] = useState(null);
+    const [business, setBusiness] = useState(null);
 
     const [activeMedia, setActiveMedia] = useState(null);
 
@@ -39,10 +40,10 @@ export default function Share() {
 
             if (fileObject === null) {
                 return setActiveMedia(fileObject);
-            } else if (fileObject.url) {
+            } /*else if (fileObject.url) {
                 // Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
                 return setActiveMedia(fileObject);
-            } else {
+            }*/ else {
                 const url = await firebase
                     .functions()
                     .httpsCallable("sign_wasabi_download_url")(fileObject);
@@ -136,7 +137,11 @@ export default function Share() {
         // Format owner email
         const nameString = files[0].owner_email.split("@")[0];
         const name = nameString.charAt(0).toUpperCase() + nameString.slice(1);
-        setOwner(name);
+        setOwner(name); 
+
+        // Get business
+        const business = files[0].business.charAt(0).toUpperCase() + files[0].business.slice(1);
+        setBusiness(business)
 
         // Create cards
         const cards = files.map((file) => {
@@ -161,6 +166,8 @@ export default function Share() {
                 <div className={styles.ownerContainer}>
                     <p>Delivery for</p>
                     <p>{owner}</p>
+                    <p>from</p>
+                    <p>{business}</p>
                 </div>
             )}
             {files && files.length > 0 && (
@@ -180,9 +187,9 @@ export default function Share() {
                         alt={"character floating in a void"}
                         src={emptyIllustration}
                     />
-                    <h1>Hmm...</h1>
+                    <h1>No deliveries</h1>
                     <p>
-                        Looks like the owner of this memory stopped sharing it.
+                        Contact your digitization partner to ask about pending orders.
                     </p>
                 </div>
             )}

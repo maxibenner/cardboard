@@ -42,10 +42,10 @@ export default function Share() {
             if (fileObject === null) {
                 return setActiveMedia(fileObject)
 
-            } else if (fileObject.url) {
+            } /*else if (fileObject.url) {
                 // Only get url if it doesn't exist, yet. -> Maybe dangerous as url expires after 6 hours
                 return setActiveMedia(fileObject)
-            } else {
+            }*/ else {
                 const url = await firebase.functions().httpsCallable('sign_wasabi_download_url')(fileObject)
                 fileObject.url = url.data
                 setActiveMedia(fileObject)
@@ -104,7 +104,7 @@ export default function Share() {
         }
 
     }
-
+ 
     // Get shared files
     useEffect(() => {
 
