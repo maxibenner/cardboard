@@ -136,15 +136,16 @@ export default function Share() {
 
         // Format owner email
         const name = files[0].owner_email.split("@")[0];
-        setOwner(name); 
+        setOwner(name);
 
         // Get business
-        const business = files[0].business.charAt(0).toUpperCase() + files[0].business.slice(1);
-        setBusiness(business)
+        const business =
+            files[0].business.charAt(0).toUpperCase() +
+            files[0].business.slice(1);
+        setBusiness(business);
 
         // Create cards
         const cards = files.map((file) => {
-            
             return (
                 <CardFileStatic
                     file={file}
@@ -188,7 +189,8 @@ export default function Share() {
                     />
                     <h1>No deliveries</h1>
                     <p>
-                        Contact your digitization partner to ask about pending orders.
+                        Contact your digitization partner to ask about pending
+                        orders.
                     </p>
                 </div>
             )}

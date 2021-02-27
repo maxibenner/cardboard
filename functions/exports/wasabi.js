@@ -107,14 +107,30 @@ exports.sign_wasabi_download_url = functions.https.onCall(
 
         // Cache-friendly signing
         try {
-            const url = tk.withFreeze(getTruncatedTime(), () => {
-                return s3.getSignedUrl("getObject", {
-                    Bucket: functions.config().data.wasabi.bucket,
-                    Key: data.storage_key,
-                    Expires: 21600,
-                });
-            });
+            // Init url
+            var url = null;
 
+            // Get url with custom name or without
+            if (data.name && data.suffix) {
+                url = tk.withFreeze(getTruncatedTime(), () => {
+                    return s3.getSignedUrl("getObject", {
+                        Bucket: functions.config().data.wasabi.bucket,
+                        Key: data.storage_key,
+                        Expires: 21600,
+                        ResponseContentDisposition: `attachment;filename="${data.name}.${data.suffix}"`,
+                    });
+                });
+            } else {
+                url = tk.withFreeze(getTruncatedTime(), () => {
+                    return s3.getSignedUrl("getObject", {
+                        Bucket: functions.config().data.wasabi.bucket,
+                        Key: data.storage_key,
+                        Expires: 21600,
+                    });
+                });
+            }
+
+            // Return signed download url
             return url;
         } catch (err) {
             functions.logger.error(err);

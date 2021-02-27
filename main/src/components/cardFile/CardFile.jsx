@@ -160,7 +160,7 @@ export default function CardFile(props) {
         }, [isDragged, props],
     )
 
-
+ 
     return (
         <div
             className={`${styles.card} ${dragCounter !== 0 && styles.is_hovered} ${isDragged && styles.is_dragged}`}
