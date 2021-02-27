@@ -33,5 +33,5 @@
     border-radius: 5px;
     height: 1rem;
     width:100px;
-    background-color: var(--bg);
+    background-color: var(--base);
 }

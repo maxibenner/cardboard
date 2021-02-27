@@ -7,6 +7,7 @@ import SpinnerSmallGrey from "../../components/spinnerSmallGrey/SpinnerSmallGrey
 import { UploaderContext } from "../../contexts/UploaderContext";
 import { AuthContext } from "../../contexts/Auth";
 import firebase from "../../lib/firebase";
+import { MdArrowForward } from "react-icons/md";
 
 function CustomerFiles({ files, userRecord }) {
     const [uploads, dispatchUpload] = useContext(UploaderContext);
@@ -23,6 +24,7 @@ function CustomerFiles({ files, userRecord }) {
     // Handle file upload selection
     const onFileChange = (e) => {
         dispatchUpload(userRecord, token.claims.business, [...e.target.files]);
+        e.target.files.value = "";
         formRef.current.reset();
     };
 
@@ -54,7 +56,6 @@ function CustomerFiles({ files, userRecord }) {
                 }
             });
         }
-        console.log(files);
     }, [files]);
 
     return (
@@ -66,6 +67,17 @@ function CustomerFiles({ files, userRecord }) {
                 <h3 className={styles.date}>Uploaded</h3>
             </div>
             <div className={styles.filesContainer}>
+                {uploads.length > 0 && (
+                    <div className={styles.uploadBanner}>
+                        <p
+                            className={styles.activeUploads}
+                        >{`Active uploads: ${uploads.length}`}</p>
+                        <a className={styles.uploadManagerLink}>
+                            Go to upload manager{" "}
+                            <MdArrowForward style={{ marginLeft: "5px" }} />
+                        </a>
+                    </div>
+                )}
                 {files === undefined ? (
                     <SpinnerSmallGrey
                         style={{
@@ -80,7 +92,10 @@ function CustomerFiles({ files, userRecord }) {
                 ) : (
                     files.map((file) => {
                         return (
-                            <CustomerFilesCard file={file} key={file.created} />
+                            <CustomerFilesCard
+                                file={file}
+                                key={file.creation_time}
+                            />
                         );
                     })
                 )}

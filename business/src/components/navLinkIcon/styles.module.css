@@ -27,7 +27,7 @@
     color: var(--blue) !important;
 }
 .active {
-    background: var(--blueLight);
+    background: var(--blueTransparent);
     font-weight: 500;
 }
 .active > p {

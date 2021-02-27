@@ -7,13 +7,14 @@ import Input from "../../components/input/Input";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import Divider from "../../components/divider/Divider";
 import CustomerContainer from "../../containers/customerContainer/CustomerContainer";
-import { validate_email } from "../../helpers/tools";
+import { validate_email, timestamp_to_date } from "../../helpers/tools";
 import { MdArrowForward } from "react-icons/md";
 import { AnimatePresence } from "framer-motion";
 
 function Customers() {
     const [input, setInput] = useState(null);
     const [searchPending, setSearchPending] = useState(false);
+    const [createPending, setCreatePending] = useState(false);
     const [userRecord, setUserRecord] = useState(undefined);
     const [activeEmail, setActiveEmail] = useState("");
 
@@ -40,6 +41,34 @@ function Customers() {
                 setUserRecord(exists ? res.data.userRecord : false);
                 setActiveEmail(input);
                 setSearchPending(false);
+            });
+    };
+
+    // Create new temporary customer
+    const handleCreate = (e) => {
+        e.preventDefault();
+
+        // Check if email is formatted correctly
+        if (!validate_email(input))
+            return window.alert("Please enter a valid email address.");
+
+        // Show spinner
+        setCreatePending(true);
+
+        // User setup
+        firebase
+            .functions()
+            .httpsCallable("create_customer")({ email: input })
+            .then((res) => {
+                console.log(res.data);
+                const exists = res.data.exists;
+
+                setUserRecord(res.data.userRecord);
+                setActiveEmail(input);
+                setCreatePending(false);
+            })
+            .catch((err) => {
+                console.log(err);
             });
     };
 
@@ -79,9 +108,8 @@ function Customers() {
                             >
                                 <h3>{userRecord.email}</h3>
                                 <p>
-                                    {userRecord.metadata.creationTime.slice(
-                                        4,
-                                        16
+                                    {timestamp_to_date(
+                                        userRecord.creation_time
                                     )}
                                     <MdArrowForward
                                         style={{ marginLeft: "5px" }}
@@ -91,7 +119,8 @@ function Customers() {
                         </>
                     )}
                     {userRecord === false && (
-                        <div
+                        <form
+                            onSubmit={(e) => handleCreate(e)}
                             style={{
                                 margin: "30px 50px",
                                 textAlign: "center",
@@ -102,13 +131,14 @@ function Customers() {
                                 {activeEmail}
                             </span>
                             <ButtonFilled
+                                pending={createPending}
                                 style={{
                                     width: "200px",
                                     margin: "15px 50px 0 50px",
                                 }}
                                 textContent="Create new customer"
                             />
-                        </div>
+                        </form>
                     )}
                 </Card>
             </div>

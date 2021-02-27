@@ -27,7 +27,7 @@
 .headerContainer {
     display: flex;
     justify-content: space-between;
-    padding: 0 71px 5px 15px;
+    padding: 0 40px 5px 15px;
 }
 .headerContainer > h3 {
     font-size: .9rem;

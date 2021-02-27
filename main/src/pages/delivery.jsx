@@ -135,8 +135,7 @@ export default function Share() {
         if (!files || files.length === 0) return;
 
         // Format owner email
-        const nameString = files[0].owner_email.split("@")[0];
-        const name = nameString.charAt(0).toUpperCase() + nameString.slice(1);
+        const name = files[0].owner_email.split("@")[0];
         setOwner(name); 
 
         // Get business
@@ -149,7 +148,7 @@ export default function Share() {
             return (
                 <CardFileStatic
                     file={file}
-                    key={file.created}
+                    key={file.creation_time}
                     handleActiveMedia={handleActiveMedia}
                 />
             );

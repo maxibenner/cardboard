@@ -6,12 +6,11 @@ import Divider from "../../components/divider/Divider";
 import CopyText from "../../components/copyText/CopyText";
 import CustomerFiles from "../../components/customerFiles/CustomerFiles";
 import firebase from "../../lib/firebase";
-import { prettier_size } from "../../helpers/tools";
+import { prettier_size, timestamp_to_date } from "../../helpers/tools";
 import { motion } from "framer-motion";
 import Tag from "../../components/tag/Tag";
 
 function CustomerContainer({ userRecord, handleClose }) {
-
     // files
     const [files, setFiles] = useState(undefined);
     const [storage, setStorage] = useState(0);
@@ -22,36 +21,30 @@ function CustomerContainer({ userRecord, handleClose }) {
         // Get user id
         const uid = userRecord.uid;
 
-        setTimeout(() => {
-            // Get firestore doc
-            firebase
-                .firestore()
-                .collection("users")
-                .doc(uid)
-                .collection("files")
-                .where("business", "==", "lalaland")
-                .get()
-                .then((collection) => {
-                    // Set files
-                    const filesArr = [];
-                    var storage = 0;
-                    collection.forEach((doc) => {
-                        filesArr.push(doc.data());
-                        storage += doc.data().size ? doc.data().size : 0;
-                    });
-
-                    // Add files to array
-                    setFiles(filesArr);
-
-                    // Calculate and add storage
-                    setStorage(storage);
-                })
-                .catch((err) => {
-                    setFiles(null);
-                    setStorage(0);
-                    window.alert(err);
+        // Get firestore doc
+        const listener = firebase
+            .firestore()
+            .collection("users")
+            .doc(uid)
+            .collection("files")
+            .where("business", "==", "lalaland")
+            .onSnapshot((collection) => {
+                // Set files
+                const filesArr = [];
+                var storage = 0;
+                collection.forEach((doc) => {
+                    filesArr.push(doc.data());
+                    storage += doc.data().size ? doc.data().size : 0;
                 });
-        }, 500);
+
+                // Add files to array
+                setFiles(filesArr);
+
+                // Calculate and add storage
+                setStorage(storage);
+            });
+
+        return () => listener();
     }, [userRecord.uid]);
 
     return ReactDom.createPortal(
@@ -75,12 +68,12 @@ function CustomerContainer({ userRecord, handleClose }) {
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <p
                         style={{ color: "var(--darkGrey)", margin: "10px 0" }}
-                    >{`Created on ${userRecord.metadata.creationTime.slice(
-                        4,
-                        16
+                    >{`Created on ${timestamp_to_date(
+                        userRecord.creation_time
                     )}`}</p>
                     <Tag
-                        textContent="active account"
+                        textContent={userRecord.temporary ? "temporary account" : "active account"}
+                        variant={userRecord.temporary && "pending"}
                         style={{ marginLeft: "15px" }}
                     />
                 </div>
@@ -88,8 +81,12 @@ function CustomerContainer({ userRecord, handleClose }) {
                 <Divider />
                 <div style={{ display: "flex", height: "100%" }}>
                     <div style={{ width: "40%" }}>
-                        <p style={{ color: "var(--darkGrey)" }}>Copy this link to share files</p>
-                        <CopyText text={`http://localhost:3000/delivery?u=${userRecord.uid}`} />
+                        <p style={{ color: "var(--darkGrey)" }}>
+                            Copy this link to share files
+                        </p>
+                        <CopyText
+                            text={`http://localhost:3000/delivery?u=${userRecord.uid}`}
+                        />
                         <div style={{ display: "flex" }}>
                             <div>
                                 <p style={{ color: "var(--darkGrey)" }}>

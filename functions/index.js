@@ -1,5 +1,5 @@
-const set_user_data = require("./exports/set_user_data.js");
-exports.setUserData = set_user_data.set_user_data;
+const setUserData = require("./exports/setUserData.js");
+exports.setUserData = setUserData.set_user_data;
 
 const set_storage = require("./exports/set_storage.js");
 exports.set_storage = set_storage.set_storage;
@@ -15,6 +15,9 @@ exports.delete_trigger = delete_trigger.delete_trigger;
 
 const stop_compute_engine = require("./exports/compute_engine.js");
 exports.stop_compute_engine = stop_compute_engine.stop_compute_engine;
+
+const create_customer = require("./exports/create_customer.js");
+exports.create_customer = create_customer.create_customer;
 
 const stripe = require("./exports/stripe.js");
 exports.get_stripe_account_link = stripe.get_stripe_account_link;

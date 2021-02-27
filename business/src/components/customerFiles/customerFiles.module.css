@@ -7,7 +7,7 @@
     display: flex;
     margin-bottom: 5px;
 }
-.header>h3 {
+.header > h3 {
     font-weight: 500;
 }
 .thumbnail {
@@ -42,5 +42,38 @@
 .hiddenInput {
     display: none;
 }
-
-
+.uploadBanner {
+    cursor: pointer;
+    display: flex;
+    color: var(--light);
+    padding: 5px 15px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--blue);
+    transition: 0.1s;
+}
+.uploadBanner:hover {
+    background-color: var(--blueHover);
+}
+.activeUploads {
+    margin: 7px 0;
+}
+.uploadManagerLink {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+.uploadBanner:hover > a > svg {
+    animation: nudge 0.4s ease;
+}
+@keyframes nudge {
+    0% {
+        transform: translateX(0);
+    }
+    30% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

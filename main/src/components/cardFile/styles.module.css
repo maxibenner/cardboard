@@ -22,7 +22,7 @@
     position: relative;
     height: 150px;
     overflow: hidden;
-    background: var(--bg);
+    background: var(--base);
 }
 
 .image {
@@ -80,7 +80,7 @@
     font-weight: bold;
     border-radius: 3px;
     max-width: 83%;
-    background-color: var(--bg);
+    background-color: var(--base);
     height: 100%;
     margin-top: -2px;
 }

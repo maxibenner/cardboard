@@ -46,7 +46,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 16px;
-    border: 2px solid var(--bg);
+    border: 2px solid var(ase);
 }
 
 .body_image {
@@ -84,7 +84,7 @@
     font-weight: bold;
     border-radius: 3px;
     max-width: 85%;
-    background-color: var(--bg);
+    background-color: var(--base);
 }
 
 .titleInput:focus {

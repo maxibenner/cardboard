@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./customerFilesCard.module.css";
 import { timestamp_to_date, prettier_size } from "../../helpers/tools";
 import SpinnerSmallGrey from "../spinnerSmallGrey/SpinnerSmallGrey";
@@ -25,7 +25,7 @@ const CustomerFilesCard = ({ file }) => {
             </div>
             <p className={styles.name}>{file.name}</p>
             <p className={styles.size}>{prettier_size(file.size / 1000000)}</p>
-            <p className={styles.date}>{timestamp_to_date(file.created)}</p>
+            <p className={styles.date}>{timestamp_to_date(file.creation_time)}</p>
         </div>
     );
 };

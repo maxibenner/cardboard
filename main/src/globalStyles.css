@@ -1,131 +1,94 @@
 /*_______ Fonts __________*/
 
 /* Recoleta Regular */
-
 @font-face {
-	font-family: "Recoleta";
-	src: url("./fonts/RecoletaRegular.ttf");
-	font-weight: normal;
-	font-style: normal;
+    font-family: "Recoleta";
+    src: url("./fonts/RecoletaRegular.ttf");
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* Recoleta Bold */
-
 @font-face {
-	font-family: "Recoleta";
-	src: url("./fonts/RecoletaBold.ttf");
-	font-weight: bold;
-	font-style: normal;
+    font-family: "Recoleta";
+    src: url("./fonts/RecoletaBold.ttf");
+    font-weight: bold;
+    font-style: normal;
 }
-
-/* Inter Lighter */
-
-@font-face {
-	font-family: "Inter";
-	src: url("./fonts/InterLighter.ttf");
-	font-weight: 200;
-	font-style: normal;
-}
-
-/* Inter Regular */
-
-@font-face {
-	font-family: "Inter";
-	src: url("./fonts/InterRegular.ttf");
-	font-weight: normal;
-	font-style: normal;
-}
-
-/* Inter Medium */
-
-@font-face {
-	font-family: "Inter";
-	src: url("./fonts/InterMedium.ttf");
-	font-weight: 500;
-	font-style: normal;
-}
-
-/* Inter Bold */
-
-@font-face {
-	font-family: "Inter";
-	src: url("./fonts/InterBold.ttf");
-	font-weight: bold;
-	font-style: normal;
-}
-
-/*input:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--blue);
-}*/
 
 :root {
-	--base: #fafafa;
-	--dark: black;
-	--light: white;
-	--main: #ffe390;
-	--yellow: #f9c463;
-	--blue: #2d7af2;
-	--blueTransparent: #2d79f218;
-	--blueHover: #4a89ee;
+    --blue: #2d7af2;
+    --blueHover: #4a89ee;
     --blueGlow: #2d79f270;
-	--blueDark: #0f61b9;
-	--red: #ff6760;
-	--redDark: #c04a3f;
-	--ph: #bdbdbd;
-	--middleGrey: #ebebeb;
-	--bg: #fafafa;
-	--transparentBg: rgba(0, 0, 0, 0.8);
+    --blueTransparent: #2d79f218;
+    --blueDark: #0f61b9;
+
+    --main: #ffe390;
+    --yellow: #f9c463;
+
+    --red: #ff6760;
+    --redDark: #c04a3f;
+
+    --light: white;
+    --base: #fafafa;
+    --middleGrey: #ebebeb;
+    --ph: #bdbdbd;
+    --darkGrey: #4e4e4e;
+    --dark: black;
+
+    --transparentBg: rgba(0, 0, 0, 0.8);
 }
 
 html {
-	font-family: Inter;
-	background-color: var(--base);
+    background-color: var(--base);
 }
 
 body {
-	font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica Neue, Ubuntu, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
 }
 
 h1 {
-	font-size: 2rem;
+    font-size: 2rem;
 }
 
 a {
-	text-decoration: none;
-	cursor: default;
+    text-decoration: none;
+    cursor: default;
 }
 
 a:active,
 a:visited {
-	color: inherit;
+    color: inherit;
 }
 
 /*__________ Modifiers __________*/
 
 .noselect {
-	-webkit-touch-callout: none;
-	/* iOS Safari */
-	-webkit-user-select: none;
-	/* Safari */
-	-khtml-user-select: none;
-	/* Konqueror HTML */
-	-moz-user-select: none;
-	/* Old versions of Firefox */
-	-ms-user-select: none;
-	/* Internet Explorer/Edge */
-	user-select: none;
-	/* Non-prefixed version, currently
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
 }
 
 .global--textflag {
-	position: absolute;
-	background: black;
-	padding: 3px 9px;
-	border-radius: 20px;
-	font-size: 0.5em;
-	color: white;
-	font-family: inter;
-	transform: translate(5px, -5px);
+    position: absolute;
+    background: black;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 0.5em;
+    color: white;
+    transform: translate(5px, -5px);
 }

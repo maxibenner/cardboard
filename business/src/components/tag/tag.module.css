@@ -6,3 +6,8 @@
     background: var(--blueTransparent);
     color: var(--blue);
 }
+.pending {
+    background: var(--yellowLight);
+    color: var(--yellow);
+}
+ 

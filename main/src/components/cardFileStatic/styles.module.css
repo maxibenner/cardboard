@@ -23,7 +23,7 @@
     position: relative;
     height: 150px;
     overflow: hidden;
-    background: var(--bg);
+    background: var(--base);
 }
 
 .image {
@@ -81,7 +81,7 @@
     font-weight: bold;
     border-radius: 3px;
     max-width: 83%;
-    background-color: var(--bg);
+    background-color: var(--base);
     height: 100%;
     margin-top: -2px;
 }
@@ -145,8 +145,8 @@
 /*__________ Modifiers __________*/
 
 .is_hovered {
-    box-shadow: 0 0 0 3px var(--bg);
-    background: var(--bg);
+    box-shadow: 0 0 0 3px var(--base);
+    background: var(--base);
     transition-delay: 0s;
 }
 

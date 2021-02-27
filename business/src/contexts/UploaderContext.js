@@ -148,7 +148,6 @@ export function UploaderProvider({ children }) {
             // Set database
             console.log(key);
             const res = await checkWasabiFile(key);
-            console.log(res);
 
             // Proceed if file exists
             if (res.data) {
@@ -169,7 +168,7 @@ export function UploaderProvider({ children }) {
                     .set({
                         accepted: false,
                         business: business,
-                        created: Date.now(),
+                        creation_time: Date.now(),
                         storage_key: key,
                         name: name.split(".")[0],
                         owner: userRecord.uid,

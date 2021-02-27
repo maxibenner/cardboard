@@ -248,7 +248,7 @@
     justify-content: center;
 }
 .home--container-upgrade-plan-container > div {
-    background: var(--bg);
+    background: var(--base);
     border-radius: 15px;
     box-sizing: border-box;
     padding: 25px;
@@ -306,7 +306,7 @@
 }
 .home--container-features-elements {
     max-width: 760px;
-    background: var(--bg);
+    background: var(--base);
     border-radius: 16px;
     display: flex;
     flex-wrap: wrap;
