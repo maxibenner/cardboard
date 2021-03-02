@@ -5,6 +5,8 @@ import styles from "./delivery.module.css";
 import WatchContainer from "../containers/watch/WatchContainer";
 import Navbar from "../components/navbar";
 import CardFileStatic from "../components/cardFileStatic/CardFileStatic";
+import DeliveryInfo from "../components/deliveryInfo/DeliveryInfo";
+import CreateAccountContainer from "../containers/createAccountContainer/CreateAccountContainer";
 
 import emptyIllustration from "../media/illustration-empty.svg";
 
@@ -15,6 +17,7 @@ export default function Share() {
     const [business, setBusiness] = useState(null);
 
     const [activeMedia, setActiveMedia] = useState(null);
+    const [createAccActive, setCreateAccActive] = useState(false);
 
     // Set active file
     const handleActiveMedia = async (fileObject, action) => {
@@ -117,7 +120,7 @@ export default function Share() {
             .collection("users")
             .doc(userId)
             .collection("files")
-            .where("accepted", "==", false)
+            .where("delivery_status", "==", "pending")
             .onSnapshot((snap) => {
                 const newArray = [];
                 snap.docs.forEach((doc) => {
@@ -160,15 +163,22 @@ export default function Share() {
     //__________ RENDER __________//
     return (
         <div className={styles.wrapper}>
-            <Navbar noauth />
-            <div className={styles.spacer}></div>
+            <Navbar noauth relative />
+            {/*<div className={styles.spacer}></div>*/}
+            {createAccActive && (
+                <CreateAccountContainer
+                    onClose={() => setCreateAccActive(false)}
+                />
+            )}
             {files && files.length > 0 && (
-                <div className={styles.ownerContainer}>
-                    <p>Delivery for</p>
-                    <p>{owner}</p>
-                    <p>from</p>
-                    <p>{business}</p>
-                </div>
+                <>
+                    <DeliveryInfo onClick={() => setCreateAccActive(true)} />
+                    <p className={styles.ownerContainer}>
+                        Delivery for{" "}
+                        <span style={{ fontWeight: "bold" }}>{owner}</span> from{" "}
+                        <span style={{ fontWeight: "bold" }}>{business}</span>
+                    </p>
+                </>
             )}
             {files && files.length > 0 && (
                 <div className={styles.fileContainer}>{cards}</div>

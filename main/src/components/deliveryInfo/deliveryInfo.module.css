@@ -1,0 +1,36 @@
+.wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.container {
+    border-radius: 15px;
+    margin: 15px 25px 0 25px;
+    padding: 15px 15px 15px 35px;
+    display: flex;
+    border: 2px solid var(--blue);
+    background-color: var(--blueTransparent);
+    color: var(--blue);
+}
+.head > span {
+    text-decoration: underline;
+}
+.list {
+    margin-left: 15px;
+}
+.list > p:before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    border-radius: 3px;
+    background-color: var(--blue);
+    flex-shrink: 0;
+}
+
+@media(max-width:800px){
+    .container {
+        flex-direction: column;
+        padding: 15px;
+    }
+}

@@ -8,6 +8,7 @@ import * as ROUTES from "../../constants/routes";
 import { FirebaseContext } from "../../context/firebase";
 import { FileContext } from "../../context/FileContext";
 import Logo from "../../media/logo-dark.svg";
+import LogoLight from "../../media/logo-light.svg";
 import ArrowText from "../arrow-text";
 import ButtonLight from "../buttonLight";
 import DropdownFull from "../dropdownFull";
@@ -23,7 +24,9 @@ export default function Navbar(props) {
     // Get files pending delivery
     useEffect(() => {
         if (files) {
-            const pendingDelivery = files.filter((el) => el.business !== undefined && el.accepted === false);
+            const pendingDelivery = files.filter(
+                (el) => el.business !== undefined && el.delivery_status === "pending"
+            );
             setDelivery(pendingDelivery);
         }
     }, [files]);
@@ -34,15 +37,16 @@ export default function Navbar(props) {
 
     return (
         <div
-            className={`${styles.nav} ${props.relative && styles.relative} ${
-                props.yellow && styles.yellow
-            }`}
+            className={`${styles.nav} ${props.relative && styles.relative} 
+                ${props.yellow && styles.yellow} 
+                ${props.transparent && styles.transparent}
+                `}
         >
             <div className={styles.container}>
                 <div /*LINK to={props.to}*/>
                     <img
                         className={styles.logo}
-                        src={Logo}
+                        src={props.light ? LogoLight : Logo}
                         alt="CardboardLogo"
                     />
                 </div>
@@ -68,21 +72,15 @@ export default function Navbar(props) {
                                             />
                                         }
                                     >
-                                        <DeliveryContainer delivery={delivery} />
+                                        <DeliveryContainer
+                                            delivery={delivery}
+                                        />
                                     </DropdownFull>
                                 )}
 
                                 <Link as={Link} to={ROUTES.LIBRARY}>
                                     <ButtonLight title={"Library"} />
                                 </Link>
-                                {/*<Link as={Link} to={"#"}>
-                                    <ButtonLight
-                                        title={"Shared"}
-                                        onClick={() =>
-                                            window.alert("Coming soon.")
-                                        }
-                                    />
-                                </Link>*/}
                                 <DropdownFull down icon={<UserContext />}>
                                     <Link as={Link} to={ROUTES.SETTINGS}>
                                         <ButtonLight
@@ -106,15 +104,6 @@ export default function Navbar(props) {
                                             icon={<BiBookHeart />}
                                         />
                                     </Link>
-                                    {/*<Link as={Link} to={"#"}>
-                                        <ButtonLight
-                                            title={"Shared"}
-                                            onClick={() =>
-                                                window.alert("Coming soon.")
-                                            }
-                                            icon={<MdGroup />}
-                                        />
-                                        </Link>*/}
                                     <Link as={Link} to={ROUTES.SETTINGS}>
                                         <ButtonLight
                                             title={"Settings"}

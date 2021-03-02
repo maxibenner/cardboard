@@ -65,6 +65,15 @@ a:visited {
     color: inherit;
 }
 
+button:focus,
+button:active,
+input:focus,
+input:active,
+a:focus,
+a:active {
+    outline: none;
+}
+
 /*__________ Modifiers __________*/
 
 .noselect {

@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { FirebaseContext } from "../context/firebase";
-import * as ROUTES from "../constants/routes";
-import Navbar from "../components/navbar";
-import Button from "../components/button";
+import { FirebaseContext } from "../src/context/firebase";
+import * as ROUTES from "../src/constants/routes";
+import Navbar from "../src/components/navbar";
+import Button from "../src/components/button";
 import Input from "../components/input";
 import styles from "./signup.module.css";
 

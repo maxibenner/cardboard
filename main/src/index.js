@@ -1,4 +1,5 @@
 import React from 'react';
+import "./globalStyles.css";
 import 'normalize.css';
 import { render } from 'react-dom';
 import App from './App';

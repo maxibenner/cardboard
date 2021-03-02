@@ -19,13 +19,18 @@ service cloud.firestore {
         allow read: if request.auth.uid == uid;
       }
     }
-
+    
     // Users from business side
     match/users/{uid}/files/{doc} {
     	allow read: if request.auth.token.business == resource.data.business;
     }
     match/users/{uid}/files/{doc} {
     	allow write: if request.auth.token.business == request.resource.data.business;
+    }
+    
+    // Delivery
+    match/users/{uid}/files/{doc} {
+    	allow read: if resource.data.delivery_status != "accepted";
     }
 
     //Shared
@@ -56,7 +61,7 @@ service cloud.firestore {
     match /system/processing/{allPaths=**} {
       allow write: if request.auth.uid != null;
     }
-
+    
     //Business
     match /businesses/{id}/{allPaths=**} {
     	allow read: if request.auth.token.business == id

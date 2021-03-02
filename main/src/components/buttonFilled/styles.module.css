@@ -2,12 +2,16 @@
     height: 50px;
     width: 100%;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 7px;
     background-color: var(--blue);
     color: var(--light);
     font-size: 16px;
     box-shadow: 0 2px 8px var(--blueGlow);
     cursor: pointer;
+    transition: .1s;
 }
 .button:hover {
     background-color: var(--blueHover);

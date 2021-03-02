@@ -37,3 +37,8 @@
     font-size: 16px;
     color: var(--dark);
 }
+
+/*__________ MODIFIERS __________*/
+.light > a > p {
+    color: var(--light);
+}

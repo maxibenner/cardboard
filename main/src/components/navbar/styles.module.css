@@ -96,10 +96,19 @@
 
 .relative {
     position: relative;
+    z-index: 0;
 }
 
 .yellow {
     background-color: var(--main);
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.light {
+    color: var(--light);
 }
 
 /*__________ CONTAINERS __________*/

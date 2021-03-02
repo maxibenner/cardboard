@@ -44,3 +44,17 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.171);
     font-size: 1.5rem;
 }
+
+/*__________MODIFIERS__________*/
+.blue {
+    color: var(--blue);
+}
+.yellow {
+    color: var(--yellow);
+}
+.red {
+    color: var(--red);
+}
+.grey {
+    color: var(--ph)
+}

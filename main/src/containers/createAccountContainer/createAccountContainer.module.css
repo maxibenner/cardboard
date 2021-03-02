@@ -1,0 +1,114 @@
+.wrapper {
+    top: 0;
+    padding: 25px 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    position: fixed;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bg {
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.26);
+    position: absolute;
+}
+.close {
+    cursor: pointer;
+    position: absolute;
+    display: flex;
+    top: -15px;
+    right: -15px;
+    padding: 5px;
+    background-color: var(--light);
+    border-radius: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.171);
+    font-size: 1.5rem;
+    z-index: 1;
+}
+.container {
+    max-height: 90vh;
+    position: relative;
+    box-sizing: border-box;
+    max-width: 390px;
+    width: 90%;
+}
+.containerInner {
+    max-height: 90vh;
+    overflow: scroll;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: var(--light);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.15);
+}
+.title {
+    font-family: recoleta;
+    font-size: 2rem;
+    margin: 15px 0 0 0;
+}
+.sub {
+    margin: 15px 0 28px 0;
+    color: var(--darkGrey);
+}
+.email {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    border-radius: 7px;
+    background: var(--base);
+    border: 1px solid var(--middleGrey);
+    color: var(--ph);
+    padding: 0 15px;
+}
+.label {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.label > span {
+    color: var(--red);
+}
+.divider {
+    border: none;
+    height: 1px;
+    background-color: var(--middleGrey);
+    margin-bottom: 28px;
+}
+.paymentContainer {
+    margin-bottom: 28px;
+}
+.planInner {
+    padding: 0 15px;
+    height: 50px;
+    color: var(--blue);
+    border-radius: 7px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--blue);
+    background-color: var(--blueTransparent);
+    display: flex;
+    font-weight: 700;
+    font-family: recoleta;
+    align-items: center;
+    justify-content: space-between;
+}
+.cardElementContainer {
+    padding: 15px;
+    border-radius: 7px;
+    background-color: var(--light);
+    box-shadow: inset 0 0px 2px #00000012;
+}
+.actionInfo {
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 250px;
+    margin: 15px auto;
+    color: var(--darkGrey);
+}

@@ -26,3 +26,11 @@
 .bold {
     font-weight: bold;
 }
+.red {
+    color: "var(--light)";
+    background-color: var(--red);
+    box-shadow: 0 1px 3px var(--redGlow);
+}
+.red:hover {
+    background-color: var(--redHover);
+}

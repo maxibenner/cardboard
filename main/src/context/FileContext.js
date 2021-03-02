@@ -10,7 +10,7 @@ export function FileProvider({ children }) {
 
     // Keep files in sync
     useEffect(() => {
-        if(!user) return
+        if (!user) return;
         const listener = firebase
             .firestore()
             .collection("users")

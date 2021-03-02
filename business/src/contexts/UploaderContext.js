@@ -166,7 +166,7 @@ export function UploaderProvider({ children }) {
                     .collection("files")
                     .doc(uuid)
                     .set({
-                        accepted: false,
+                        delivery_status: "pending",
                         business: business,
                         creation_time: Date.now(),
                         storage_key: key,

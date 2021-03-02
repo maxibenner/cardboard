@@ -13,6 +13,13 @@
           "cardboard-dev"
         ]
       }
+    },
+    "cardboard-live": {
+      "hosting": {
+        "main": [
+          "cardboard-live"
+        ]
+      }
     }
   }
 }

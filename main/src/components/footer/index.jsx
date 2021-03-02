@@ -5,10 +5,10 @@ import styles from './styles.module.css';
 
 
 
-export default function Footer() {
+export default function Footer(props) {
     return (
         <div className={styles.container}>
-            <div className={styles.row}>
+            <div className={`${styles.row} ${props.light && styles.light}`}>
                 <Link className={styles.link} to={ROUTES.LANDING}>
                     <p className={styles.text}>Privacy Policy</p>
                 </Link>

@@ -1,7 +1,6 @@
 import React, { useRef, useContext, useEffect } from "react";
 import styles from "./customerFiles.module.css";
 import ButtonGhost from "../buttonGhost/ButtonGhost";
-import ButtonFilled from "../buttonFilled/ButtonFilled";
 import CustomerFilesCard from "../../components/customerFilesCard/CustomerFilesCard";
 import SpinnerSmallGrey from "../../components/spinnerSmallGrey/SpinnerSmallGrey";
 import { UploaderContext } from "../../contexts/UploaderContext";
@@ -105,10 +104,6 @@ function CustomerFiles({ files, userRecord }) {
                     style={{ width: "200px" }}
                     textContent="Add files"
                     onClick={handleUploadClick}
-                />
-                <ButtonFilled
-                    textContent="Start timer"
-                    style={{ width: "200px", marginLeft: "10px" }}
                 />
                 <form ref={formRef}>
                     <input
