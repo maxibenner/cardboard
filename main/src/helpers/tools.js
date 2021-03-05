@@ -37,3 +37,11 @@ export async function fileStatus(image_url) {
 		return 404;
 	}
 }
+
+// Turn bites into nice sizes
+export function prettier_size(size) {
+	const mb = size/1000000
+    return mb > 1000
+        ? `${(size / 1000).toFixed(1)} GB`
+        : `${(size/ 1000000).toFixed(0)} MB`;
+}

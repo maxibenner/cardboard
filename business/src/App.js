@@ -58,10 +58,10 @@ function App() {
                                     <Navbar />
                                     <Permissions />
                                 </PrivateRoute>
-                                <PrivateRoute exact path="/pricing">
+                                {/*<PrivateRoute exact path="/pricing">
                                     <Navbar />
                                     <Pricing />
-                                </PrivateRoute>
+                                </PrivateRoute>*/}
                                 <PrivateRoute exact path="/myBusiness">
                                     <BusinessBanner
                                         textContent="Before we get you started, please set up your

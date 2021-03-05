@@ -55,13 +55,13 @@ function Menu(props) {
                 text="Permissions"
                 disabled={businessClaim}
             />
-            <div className={styles.spacer} />
+            {/*<div className={styles.spacer} />
             <NavLinkIcon
                 to="/pricing"
                 icon={<MdPayment />}
                 text="Pricing"
                 disabled={businessClaim}
-            />
+            />*/}
             <div className={styles.spacer} />
             <NavLinkIcon
                 to="/myBusiness"

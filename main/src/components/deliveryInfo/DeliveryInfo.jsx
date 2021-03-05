@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import styles from "./deliveryInfo.module.css";
 import { MdWarning } from "react-icons/md";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
+import { prettier_size } from "../../helpers/tools";
 
-function DeliveryInfo(props) {
+function DeliveryInfo({ fileSize, onClick }) {
     const [daysLeft, setDaysLeft] = useState(90);
-    const [requiredStorage, setRequiredStorage] = useState("7MB");
 
     return (
         <div className={styles.wrapper}>
@@ -24,8 +24,10 @@ function DeliveryInfo(props) {
                     </p>
                     <div className={styles.list}>
                         <p>
-                            {`Download all files to a harddrive with at least ${requiredStorage}
-                            of free storage space.`}
+                            {`Download all files to a harddrive with at least ${prettier_size(
+                                fileSize
+                            )}
+                            of free disk space.`}
                         </p>
                         <p>
                             <ButtonFilled
@@ -37,9 +39,9 @@ function DeliveryInfo(props) {
                                     flexShrink: 0,
                                     display: "inline-block",
                                 }}
-                                onClick={props.onClick}
+                                onClick={onClick}
                             />
-                            for Cardboard to keep your files in the cloud
+                            for Cardboard to keep your files savely in the cloud.
                         </p>
                     </div>
                 </div>

@@ -9,12 +9,14 @@ import DeliveryInfo from "../components/deliveryInfo/DeliveryInfo";
 import CreateAccountContainer from "../containers/createAccountContainer/CreateAccountContainer";
 
 import emptyIllustration from "../media/illustration-empty.svg";
+import { AnimatePresence } from "framer-motion";
 
 export default function Share() {
     const [files, setFiles] = useState(null);
     const [cards, setCards] = useState(null);
-    const [owner, setOwner] = useState(null);
+    const [user, setUser] = useState({});
     const [business, setBusiness] = useState(null);
+    const [fileSize, setFileSize] = useState(0);
 
     const [activeMedia, setActiveMedia] = useState(null);
     const [createAccActive, setCreateAccActive] = useState(false);
@@ -107,7 +109,7 @@ export default function Share() {
         }
     };
 
-    // Get shared files
+    // Get delivery files
     useEffect(() => {
         // Get doc id
         const queryString = window.location.search;
@@ -123,12 +125,14 @@ export default function Share() {
             .where("delivery_status", "==", "pending")
             .onSnapshot((snap) => {
                 const newArray = [];
+                var fileSize = 0;
                 snap.docs.forEach((doc) => {
                     newArray.push(doc.data());
+                    fileSize += doc.data().size;
                 });
                 setFiles(newArray);
+                setFileSize(fileSize);
             });
-        //setFiles(null)
 
         return () => listener();
     }, []);
@@ -139,7 +143,7 @@ export default function Share() {
 
         // Format owner email
         const name = files[0].owner_email.split("@")[0];
-        setOwner(name);
+        setUser({ name: name, email: files[0].owner_email });
 
         // Get business
         const business =
@@ -164,18 +168,23 @@ export default function Share() {
     return (
         <div className={styles.wrapper}>
             <Navbar noauth relative />
-            {/*<div className={styles.spacer}></div>*/}
-            {createAccActive && (
-                <CreateAccountContainer
-                    onClose={() => setCreateAccActive(false)}
-                />
-            )}
+            <AnimatePresence>
+                {createAccActive && (
+                    <CreateAccountContainer
+                        user={user}
+                        onClose={() => setCreateAccActive(false)}
+                    />
+                )}
+            </AnimatePresence>
             {files && files.length > 0 && (
                 <>
-                    <DeliveryInfo onClick={() => setCreateAccActive(true)} />
+                    <DeliveryInfo
+                        fileSize={fileSize}
+                        onClick={() => setCreateAccActive(true)}
+                    />
                     <p className={styles.ownerContainer}>
                         Delivery for{" "}
-                        <span style={{ fontWeight: "bold" }}>{owner}</span> from{" "}
+                        <span style={{ fontWeight: "bold" }}>{user.name}</span> from{" "}
                         <span style={{ fontWeight: "bold" }}>{business}</span>
                     </p>
                 </>

@@ -1,0 +1,24 @@
+.container {
+    position: relative;
+    display: flex;
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+.text {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    padding: 10px;
+    background: var(--dark);
+    color: var(--light);
+    border-radius: 7px;
+    font-size: 0.9rem;
+    width: 200px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+}
+.container:hover > .text {
+    display: block;
+}

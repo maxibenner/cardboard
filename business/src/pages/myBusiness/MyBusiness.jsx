@@ -8,6 +8,7 @@ import Input from "../../components/input/Input";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import Card from "../../components/card/Card";
 import StorageContainer from "../../containers/storageContainer/StorageContainer";
+import Hint from "../../components/hint/Hint";
 
 function MyBusiness(props) {
     const { token } = useContext(AuthContext);
@@ -43,7 +44,7 @@ function MyBusiness(props) {
                     setBusinessPending(false);
                     // Refresh auth token
                     await firebase.auth().currentUser.getIdToken(true);
-                    window.location.reload()
+                    window.location.reload();
                 } else {
                     console.log(data);
                     setBusinessPending(false);
@@ -59,7 +60,10 @@ function MyBusiness(props) {
                 <h1 className={styles.title}>My Business</h1>
                 <Card>
                     <h3>Info</h3>
-                    <p>Set the business name that will appear to your customers.</p>
+                    {!token.claims.business ? <p>
+                        Set the business name that will appear to your
+                        customers.
+                    </p>: <p>The name of your business.</p>}
                     {!token.claims.business ? (
                         <Input
                             grey
@@ -70,8 +74,11 @@ function MyBusiness(props) {
                             onChange={(value) => handleNameChange(value)}
                         />
                     ) : (
-                        <div className={styles.businessName}>
-                            {token.claims.business}
+                        <div className={styles.emailContainer}>
+                            <div className={styles.email}>
+                                <p>{token.claims.business}</p>
+                                <Hint textContent="This business identifier is permanent." />
+                            </div>
                         </div>
                     )}
                 </Card>

@@ -81,7 +81,7 @@ function Pricing(props) {
                         />
                     )}
                 </Card>
-                <Card
+                {/*<Card
                     inactive={
                         stripeConnectionStatus === undefined ||
                         stripeConnectionStatus.status !== "active"
@@ -94,7 +94,7 @@ function Pricing(props) {
                         price.
                     </p>
                     <PaymentPlans />
-                </Card>
+                </Card>*/}
             </div>
         </div>
     );

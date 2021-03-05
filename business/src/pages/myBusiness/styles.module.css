@@ -25,6 +25,14 @@
 .spacer {
     height: 15px;
 }
-.businessName {
-    color: var(--darkGrey);
+.email {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    border-radius: 7px;
+    background: var(--base);
+    border: 1px solid var(--middleGrey);
+    color: var(--ph);
+    padding: 0 15px;
 }

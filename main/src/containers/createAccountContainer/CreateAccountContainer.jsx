@@ -5,23 +5,39 @@ import Hint from "../../components/hint/Hint";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import { CardElement } from "@stripe/react-stripe-js";
 import { MdLock, MdClose } from "react-icons/md";
+import { motion } from "framer-motion";
 
-function CreateAccountContainer(props) {
+function CreateAccountContainer({ onClose, user }) {
     const handlePassword = () => {};
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.bg} onClick={props.onClose} />
-            <div className={styles.container}>
-                <div className={styles.close} onClick={props.onClose}>
+            <motion.div
+                className={styles.bg}
+                onClick={onClose}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                exit={{ opacity: 0 }}
+            />
+            <motion.div
+                className={styles.container}
+                initial={{ transform: "translateY(70px)", opacity: 0 }}
+                animate={{ transform: "translateY(0px)", opacity: 1 }}
+                exit={{ transform: "translateY(70px)", opacity: 0 }}
+                transition={{ type: "spring", stiffness: 200, damping: 23 }}
+            >
+                <div className={styles.close} onClick={onClose}>
                     <MdClose />
                 </div>
                 <div className={styles.containerInner}>
                     <h2 className={styles.title}>Sign up</h2>
-                    <p className={styles.sub}>Create an acount and sign up for the appropriate storage plan.</p>
+                    <p className={styles.sub}>
+                        Create an acount and sign up for the appropriate storage
+                        plan.
+                    </p>
                     <div className={styles.emailContainer}>
                         <div className={styles.email}>
-                            <p>maxibenner@gmail.com</p>
+                            <p>{user.email}</p>
                             <Hint textContent="The email is preset to prevent strangers from claiming your files." />
                         </div>
                         <p className={styles.label}>Email</p>
@@ -78,7 +94,7 @@ function CreateAccountContainer(props) {
                         immediately and $2.99 every month after that.
                     </p>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 }
