@@ -188,12 +188,12 @@ export function UploaderProvider({ children }) {
                 if (file.type.split("/")[0] === "image") {
                     //Image
                     await fetch(
-                        `https://api.cardboard.video/img-thumb-${env}?key=${key}`
+                        `http://165.227.86.228.video/img-thumb-${env}?key=${key}`
                     );
                 } else if (file.type.split("/")[0] === "video") {
                     //Video
                     fetch(
-                        `https://api.cardboard.video/video-thumb-${env}?key=${key}`
+                        `http://165.227.86.228.video/video-thumb-${env}?key=${key}`
                     );
                 }
             } else {
