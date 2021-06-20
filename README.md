@@ -35,7 +35,7 @@ A cloud storage platform for digitized home movies with the main focus on ease o
 
 **Can I sign up?**
 <br />
-Because of the lack of a subscription mechanic this project is in friends & family mode. If you really want to sign up, reach out to benner@fotura.co and maybe we can work something out.
+No, because of the lack of a payment mechanic this project is in friends & family mode. If you really want to sign up, reach out to benner@fotura.co and maybe we can work something out.
 <br />
 <br />
 **Can I host my own version of Cardboard?**
