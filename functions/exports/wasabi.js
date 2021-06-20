@@ -12,7 +12,7 @@ exports.signUploadUrl = functions.https.onCall((data, context) => {
 
     try {
         let url = s3.getSignedUrl("putObject", {
-            Bucket: functions.config().data.wasabi.bucket,
+            Bucket: functions.config().wasabi.bucket,
             ContentType: data.contentType,
             ACL: "private",
             Key: key,
@@ -44,7 +44,7 @@ exports.sign_upload_url_business = functions.https.onCall(
             const key = `users/${owner_uid}/${uuid}.${extension}`;
 
             let url = s3.getSignedUrl("putObject", {
-                Bucket: functions.config().data.wasabi.bucket,
+                Bucket: functions.config().wasabi.bucket,
                 ContentType: data.contentType,
                 ACL: "private",
                 Key: key,
@@ -70,7 +70,7 @@ exports.checkWasabiFile = functions.https.onCall(async (data, context) => {
     try {
         const meta = await s3
             .headObject({
-                Bucket: functions.config().data.wasabi.bucket,
+                Bucket: functions.config().wasabi.bucket,
                 Key: data,
             })
             .promise();
@@ -114,7 +114,7 @@ exports.sign_wasabi_download_url = functions.https.onCall(
             if (data.name && data.suffix) {
                 url = tk.withFreeze(getTruncatedTime(), () => {
                     return s3.getSignedUrl("getObject", {
-                        Bucket: functions.config().data.wasabi.bucket,
+                        Bucket: functions.config().wasabi.bucket,
                         Key: data.storage_key,
                         Expires: 21600,
                         ResponseContentDisposition: `attachment;filename="${data.name}.${data.suffix}"`,
@@ -123,7 +123,7 @@ exports.sign_wasabi_download_url = functions.https.onCall(
             } else {
                 url = tk.withFreeze(getTruncatedTime(), () => {
                     return s3.getSignedUrl("getObject", {
-                        Bucket: functions.config().data.wasabi.bucket,
+                        Bucket: functions.config().wasabi.bucket,
                         Key: data.storage_key,
                         Expires: 21600,
                     });

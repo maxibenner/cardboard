@@ -7,7 +7,7 @@ exports.set_storage = functions.firestore
         // Get file metadata from Wasabi
         const metaData = await s3
             .headObject({
-                Bucket: functions.config().data.wasabi.bucket,
+                Bucket: functions.config().wasabi.bucket,
                 Key: snap.data().storage_key,
             })
             .promise();

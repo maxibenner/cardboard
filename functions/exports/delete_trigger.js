@@ -50,7 +50,7 @@ exports.delete_trigger = functions.firestore
         // Remove file from Wasabi
         await s3
             .deleteObject({
-                Bucket: functions.config().data.wasabi.bucket,
+                Bucket: functions.config().wasabi.bucket,
                 Key: file.storage_key,
             })
             .promise();
@@ -58,7 +58,7 @@ exports.delete_trigger = functions.firestore
         // Remove thumbnail from GCS
         if (file.thumbnail_key) {
             const bucket = gcs.bucket(
-                functions.config().data.wasabi.bucket + ".appspot.com"
+                functions.config().wasabi.bucket + ".appspot.com"
             );
             await bucket.file(file.thumbnail_key).delete();
         } else {
