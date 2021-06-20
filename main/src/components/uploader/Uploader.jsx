@@ -168,12 +168,12 @@ export default function Uploader({ firebase, user, files }) {
                 if (file.type.split("/")[0] === "image") {
                     //Image
                     await fetch(
-                        `http://165.227.86.228/img-thumb-${env}?key=${key}`
+                        `https://api.cardboard.fotura.co/img-thumb-${env}?key=${key}`
                     );
                 } else if (file.type.split("/")[0] === "video") {
                     //Video
                     fetch(
-                        `http://165.227.86.228/video-thumb-${env}?key=${key}`
+                        `https://api.cardboard.fotura.co/video-thumb-${env}?key=${key}`
                     );
                 }
             } else {
