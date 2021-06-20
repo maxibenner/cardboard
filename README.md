@@ -26,7 +26,7 @@ A cloud storage platform for digitized home movies with the main focus on ease o
 [Live Demo](https://cardboard.fotura.co)
 
 ## Business
-This repo includes the business module. It enables digitization providers to manage deliveries and send files directly to users. The business module is not production ready.
+This repo also includes the business module. It enables digitization providers to manage deliveries and send files directly to users. The business module is not production ready.
 <br />
 <br />
 <br />
