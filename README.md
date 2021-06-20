@@ -22,7 +22,7 @@ password: -
 
 A cloud storage platform for digitized home movies with the main focus on ease of use and pleasant interactions. The original version included automated clip splitting which has since been deactivated on client request. The code for it can still be found in the cardboard-api.
 
-** Business
+## Business
 This repo includes the business module. It enables digitization providers to manage deliveries and send files directly to users. The business module is not production ready.
 <br />
 <br />
