@@ -21,7 +21,7 @@ password: -
 [![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fmerch)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fcardboard)
 
 ## Main
-A cloud storage platform for digitized home movies with the main focus on ease of use and pleasant interactions. The original version included automated clip splitting which has since been deactivated on client request. The code for it can still be found in the cardboard-api.
+A cloud storage platform for digitized home movies with the main focus on ease of use and pleasant interactions. The original version included automated clip splitting which has since been deactivated on client request.
 
 ## Business
 This repo includes the business module. It enables digitization providers to manage deliveries and send files directly to users. The business module is not production ready.
