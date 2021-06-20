@@ -5,7 +5,7 @@ import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import { prettier_size } from "../../helpers/tools";
 
 function DeliveryInfo({ fileSize, onClick }) {
-    const [daysLeft, setDaysLeft] = useState(90);
+    const [daysLeft/*, setDaysLeft*/] = useState(90);
 
     return (
         <div className={styles.wrapper}>

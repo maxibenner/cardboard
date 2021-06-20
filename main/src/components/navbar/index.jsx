@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BiBookHeart } from "react-icons/bi";
 import { FiPackage } from "react-icons/fi";
 import { HiOutlineLogout } from "react-icons/hi";
-import { MdGroup, MdSettings } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { FirebaseContext } from "../../context/firebase";

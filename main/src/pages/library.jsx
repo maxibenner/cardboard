@@ -7,7 +7,6 @@ import CardSimple from "../components/cardSimple/CardSimple";
 import DropdownFull from "../components/dropdownFull";
 import Navbar from "../components/navbar";
 import Uploader from "../components/uploader/Uploader";
-import * as ROUTES from "../constants/routes";
 import BrowseContainer from "../containers/browse/Browse";
 import LabelFile from "../containers/labelFile/LabelFile";
 import ShareContainer from "../containers/shareContainer/ShareContainer";

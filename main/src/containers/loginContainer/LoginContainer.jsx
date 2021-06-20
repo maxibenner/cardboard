@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ButtonFilled from "../../components/buttonFilled/ButtonFilled";
 import Input from "../../components/input/Input";
 import { FirebaseContext } from "../../context/firebase";

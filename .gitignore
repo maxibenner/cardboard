@@ -6,6 +6,8 @@
 /functions/node_modules
 .gitignore
 .eslintcache
+*.env.local
+*.env.production
 
 # testing
 /coverage

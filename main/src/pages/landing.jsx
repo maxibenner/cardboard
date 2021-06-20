@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import * as ROUTES from "../constants/routes";
 import styles from "./landing.module.css";
 import Image from "../media/landing_img.jpg";
@@ -20,7 +19,6 @@ export default function Landing() {
                 </div>
             </div>
             <div style={{height: "100px"}}/>
-            {/*<Footer light />*/}
         </div>
     );
 }
