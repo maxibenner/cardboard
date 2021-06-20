@@ -22,6 +22,7 @@ password: -
 
 ## Main
 A cloud storage platform for digitized home movies with the main focus on ease of use and pleasant interactions. The original version included automated clip splitting which has since been deactivated on client request.
+<br />
 [Live Demo](https://cardboard.fotura.co)
 
 ## Business
