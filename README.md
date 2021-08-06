@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Cardboard
 
 
@@ -10,3 +11,6 @@ password: 123456
 email: -<br>
 password: -
 >>>>>>> c262cfa (Update README.md)
+=======
+# cardboard
+>>>>>>> d214ea2 (first commit)
