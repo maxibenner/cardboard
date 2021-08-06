@@ -20,7 +20,7 @@ password: -
 
 [![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fmerch)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fcardboard)
 
-A minimalist cloud storage platform for digitized home movies. The original version included automated clip splitting which has since been deactivated on client request. The code for it can still be found in the cardboard-api.
+A cloud storage platform for digitized home movies with the main focus on ease of use and pleasant interactions. The original version included automated clip splitting which has since been deactivated on client request. The code for it can still be found in the cardboard-api.
 <br />
 <br />
 <br />
@@ -33,12 +33,16 @@ A minimalist cloud storage platform for digitized home movies. The original vers
 
 ## FAQ
 
-**Can I order images?**
+**Can I sign up?**
 <br />
-No, this project has been discontinued. The github page exists to showcase what it once was. If you are really excited about it, feel free to contact me on github or through benner@fotura.co.
+Because of the lack of a subscription mechanic this project is in friends & family mode. If you really want to sign up, reach out to benner@fotura.co and maybe we can work something out.
 <br />
 <br />
-**Did the images fool people into thinking they were real photos?**
+**Can I host my own version of Cardboard?**
 <br />
+<<<<<<< HEAD
 Yes, everyone. I still cherish the time when a photographer suggested I retouch the brown spots on the leaves in the scincare image.
 >>>>>>> 4cb506f (Update README.md)
+=======
+Yes. The current build is optimized for use with Wasabi cloud storage and firebase.
+>>>>>>> b67cf29 (Update README.md)
