@@ -1,22 +1,11 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Cardboard
 
 
 
 TEST CREDENTIALS<br>
-<<<<<<< HEAD
+
 email: maxibenner@gmail.com<br>
 password: 123456
-=======
-email: -<br>
-password: -
->>>>>>> c262cfa (Update README.md)
-=======
-# cardboard
->>>>>>> d214ea2 (first commit)
-=======
-# Cardboard
 
 [![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fmerch)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fcardboard)
 
@@ -46,9 +35,4 @@ Unfortunately, no. Because of the lack of a payment mechanic this project is in 
 <br />
 **Can I host my own version of Cardboard?**
 <br />
-<<<<<<< HEAD
-Yes, everyone. I still cherish the time when a photographer suggested I retouch the brown spots on the leaves in the scincare image.
->>>>>>> 4cb506f (Update README.md)
-=======
 Yes. The current build is optimized for use with Wasabi cloud storage and firebase.
->>>>>>> b67cf29 (Update README.md)
