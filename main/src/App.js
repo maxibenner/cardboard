@@ -11,39 +11,42 @@ import Landing from "./pages/landing";
 import Library from "./pages/library";
 import Settings from "./pages/settings.jsx";
 import Share from "./pages/sh";
+import { HelmetProvider } from "react-helmet-async";
 
 const stripePromise = loadStripe(
-    "pk_test_51HOSKAFpZKBZ5KORlFNJVqaRexGZQSliQ3rfiqAB69n7BaBE0OUp8KsLkFjGpz8PLsFlXv92pftjK8KP1vbLvNhy003eP7dhsl"
+  "pk_test_51HOSKAFpZKBZ5KORlFNJVqaRexGZQSliQ3rfiqAB69n7BaBE0OUp8KsLkFjGpz8PLsFlXv92pftjK8KP1vbLvNhy003eP7dhsl"
 );
 
 export default function App() {
-    const { user } = useAuthListener();
+  const { user } = useAuthListener();
 
-    return (
-        <FileProvider>
-            <Elements stripe={stripePromise}>
-                <Router>
-                    <Route path={ROUTES.LANDING} exact>
-                        <Landing />
-                    </Route>
+  return (
+    <HelmetProvider>
+      <FileProvider>
+        <Elements stripe={stripePromise}>
+          <Router>
+            <Route path={ROUTES.LANDING} exact>
+              <Landing />
+            </Route>
 
-                    <Route path={ROUTES.SHARE} exact>
-                        <Share />
-                    </Route>
+            <Route path={ROUTES.SHARE} exact>
+              <Share />
+            </Route>
 
-                    <Route path={ROUTES.DELIVERY} exact>
-                        <Delivery />
-                    </Route>
+            <Route path={ROUTES.DELIVERY} exact>
+              <Delivery />
+            </Route>
 
-                    <ProtectedRoute user={user} path={ROUTES.LIBRARY} exact>
-                        <Library />
-                    </ProtectedRoute>
+            <ProtectedRoute user={user} path={ROUTES.LIBRARY} exact>
+              <Library />
+            </ProtectedRoute>
 
-                    <ProtectedRoute user={user} path={ROUTES.SETTINGS} exact>
-                        <Settings />
-                    </ProtectedRoute>
-                </Router>
-            </Elements>
-        </FileProvider>
-    );
+            <ProtectedRoute user={user} path={ROUTES.SETTINGS} exact>
+              <Settings />
+            </ProtectedRoute>
+          </Router>
+        </Elements>
+      </FileProvider>
+    </HelmetProvider>
+  );
 }
