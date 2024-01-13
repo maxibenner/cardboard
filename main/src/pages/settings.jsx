@@ -22,6 +22,7 @@ export default function Settings(props) {
         const listener = firebase.firestore().collection('users').doc(user.uid)
             .onSnapshot(
                 (snap) => {
+                    console.log(snap.data())
 
                     const capacity_used = snap.data().capacity_used
 

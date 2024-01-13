@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { FirebaseContext } from "../../context/firebase";
 import { FileContext } from "../../context/FileContext";
-import Logo from "../../media/logo-dark.svg";
-import LogoLight from "../../media/logo-light.svg";
+import Logo from "../../media/Logo";
 import ArrowText from "../arrow-text";
 import ButtonLight from "../buttonLight";
 import DropdownFull from "../dropdownFull";
@@ -43,12 +42,8 @@ export default function Navbar(props) {
                 `}
         >
             <div className={styles.container}>
-                <div /*LINK to={props.to}*/>
-                    <img
-                        className={styles.logo}
-                        src={props.light ? LogoLight : Logo}
-                        alt="CardboardLogo"
-                    />
+                <div /*LINK to={props.to}*/ className={styles.logo}>
+                    <Logo light={props.light ? true : false} />
                 </div>
 
                 <div className={styles.menuContainer}>
