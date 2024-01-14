@@ -15,7 +15,7 @@ import WatchContainer from "../containers/watch/WatchContainer";
 import { FileContext } from "../context/FileContext";
 import { useAuthListener } from "../hooks/use-auth-listener";
 import { firebase } from "../lib/firebase";
-import placeholder from "../media/illustration-empty.svg";
+import placeholder from "../media/illustration-empty.png";
 import styles from "./library.module.css";
 
 

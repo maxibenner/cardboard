@@ -6,7 +6,7 @@ import WatchContainer from "../containers/watch/WatchContainer";
 import Navbar from "../components/navbar";
 import CardFileStatic from "../components/cardFileStatic/CardFileStatic";
 
-import emptyIllustration from "../media/illustration-empty.svg";
+import emptyIllustration from "../media/illustration-empty.png";
 
 import { Helmet } from "react-helmet-async";
 

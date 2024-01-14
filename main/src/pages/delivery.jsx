@@ -8,7 +8,7 @@ import CardFileStatic from "../components/cardFileStatic/CardFileStatic";
 import DeliveryInfo from "../components/deliveryInfo/DeliveryInfo";
 import CreateAccountContainer from "../containers/createAccountContainer/CreateAccountContainer";
 
-import emptyIllustration from "../media/illustration-empty.svg";
+import emptyIllustration from "../media/illustration-empty.png";
 import { AnimatePresence } from "framer-motion";
 
 export default function Share() {

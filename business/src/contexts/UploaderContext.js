@@ -194,7 +194,7 @@ export function UploaderProvider({ children }) {
                     //Video
                     fetch(
                         `https://api.cardboard.fotura.co/video-thumb-${env}?key=${key}`
-                    );
+                    )
                 }
             } else {
                 window.alert(

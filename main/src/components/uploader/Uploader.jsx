@@ -75,9 +75,9 @@ export default function Uploader({ firebase, user, files }) {
                 setXhr((prev) => Object.assign(prev, xhrObj));
             }
         }
-		takeNewFiles()
+        takeNewFiles()
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uploads]);
 
     // Create xhr
@@ -137,8 +137,8 @@ export default function Uploader({ firebase, user, files }) {
                 const urlObject = await firebase
                     .functions()
                     .httpsCallable("sign_wasabi_download_url")({
-                    storage_key: key,
-                });
+                        storage_key: key,
+                    });
 
                 // Create Firestore object
                 await firebase
@@ -159,7 +159,7 @@ export default function Uploader({ firebase, user, files }) {
                         tags: [],
                         type: file.type.split("/")[0],
                         url: urlObject.data,
-                    }); 
+                    });
 
                 // Remove from uploads
                 removeUpload(fileId);
@@ -169,11 +169,15 @@ export default function Uploader({ firebase, user, files }) {
                     //Image
                     await fetch(
                         `https://api.cardboard.fotura.co/img-thumb-${env}?key=${key}`
+                    ).catch((e) =>
+                        console.error(e)
                     );
                 } else if (file.type.split("/")[0] === "video") {
                     //Video
                     fetch(
                         `https://api.cardboard.fotura.co/video-thumb-${env}?key=${key}`
+                    ).catch((e) =>
+                        console.error(e)
                     );
                 }
             } else {
@@ -223,9 +227,8 @@ export default function Uploader({ firebase, user, files }) {
                         />
                     </div>
                     <div
-                        className={`${styles.filesContainer} ${
-                            open === false && styles.closed
-                        }`}
+                        className={`${styles.filesContainer} ${open === false && styles.closed
+                            }`}
                     >
                         {uploads.map((el) => (
                             <UploadElement
