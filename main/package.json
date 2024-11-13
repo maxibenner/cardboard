@@ -5,6 +5,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^1.3.0",
     "@stripe/stripe-js": "^1.13.1",
+    "ci": "^2.3.0",
     "firebase": "^8.0.1",
     "framer-motion": "^3.9.2",
     "fuse.js": "^6.4.3",
