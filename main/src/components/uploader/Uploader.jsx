@@ -11,7 +11,7 @@ export default function Uploader({ firebase, user, files }) {
     const [xhr, setXhr] = useState({});
 
     // Get env
-    const env = process.env.NODE_ENV === "production" ? "live" : "dev";
+    // const env = process.env.NODE_ENV === "production" ? "live" : "dev";
 
     // Set allowed simultaneous uploads
     const uploadLimit = 3;
@@ -168,14 +168,14 @@ export default function Uploader({ firebase, user, files }) {
                 if (file.type.split("/")[0] === "image") {
                     //Image
                     await fetch(
-                        `https://api.cardboard.fotura.co/img-thumb-${env}?key=${key}`
+                        `https://api.cardboard.fotura.co/img-thumb?key=${key}`
                     ).catch((e) =>
                         console.error(e)
                     );
                 } else if (file.type.split("/")[0] === "video") {
                     //Video
                     fetch(
-                        `https://api.cardboard.fotura.co/video-thumb-${env}?key=${key}`
+                        `https://api.cardboard.fotura.co/video-thumb?key=${key}`
                     ).catch((e) =>
                         console.error(e)
                     );
