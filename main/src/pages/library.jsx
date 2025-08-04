@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { MdCloudUpload } from "react-icons/md";
+import /*React, */{ useContext, useEffect, useRef, useState } from "react";
+// import { IoMdArrowDropdown } from "react-icons/io";
+// import { MdCloudUpload } from "react-icons/md";
 import Button from "../components/button";
-import ButtonLight from "../components/buttonLight";
+// import ButtonLight from "../components/buttonLight";
 import CardSimple from "../components/cardSimple/CardSimple";
-import DropdownFull from "../components/dropdownFull";
+// import DropdownFull from "../components/dropdownFull";
 import Navbar from "../components/navbar";
 import Uploader from "../components/uploader/Uploader";
 import BrowseContainer from "../containers/browse/Browse";
