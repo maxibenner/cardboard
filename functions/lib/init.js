@@ -20,10 +20,10 @@ const stripe = Stripe(functions.config().stripe.secret_key);
 var AWS = require("aws-sdk");
 const s3 = new AWS.S3({
   correctClockSkew: true,
-  endpoint: "s3.us-east-1.wasabisys.com",
+  endpoint: "hel1.your-objectstorage.com",
   accessKeyId: functions.config().wasabi.access_key_id,
   secretAccessKey: functions.config().wasabi.secret_access_key,
-  region: "us-east-1",
+  region: "eu-central",
   logger: console,
 });
 

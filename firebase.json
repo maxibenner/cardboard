@@ -7,7 +7,11 @@
     {
       "target": "main",
       "public": "main/build",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "rewrites": [
         {
           "source": "**",
@@ -18,7 +22,11 @@
     {
       "target": "business",
       "public": "business/build",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "rewrites": [
         {
           "source": "**",
@@ -29,5 +37,8 @@
   ],
   "storage": {
     "rules": "storage.rules"
+  },
+  "functions": {
+    "source": "functions"
   }
 }

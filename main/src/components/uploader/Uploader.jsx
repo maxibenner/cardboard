@@ -117,7 +117,7 @@ export default function Uploader({ firebase, user, files }) {
 
         // onError
         xhr.onerror = (e) => {
-            console.log(`Error: ${e.message}`);
+            console.log(`Error: ${e}`);
             removeUpload(fileId);
         };
 
