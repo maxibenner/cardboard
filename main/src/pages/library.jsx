@@ -267,7 +267,7 @@ export default function Library() {
                     <TagSearch tags={tags} setActiveTags={setActiveTags} />
                 </div>
             )}
-            {files &&
+            {/* {files &&
                 files.length > numberOfDeliveries && ( // Action container
                     <div className={styles.actionContainer}>
                         <DropdownFull
@@ -286,7 +286,7 @@ export default function Library() {
                             />
                         </DropdownFull>
                     </div>
-                )}
+                )} */}
             {files && files.length > numberOfDeliveries && (
                 <BrowseContainer
                     files={files}
