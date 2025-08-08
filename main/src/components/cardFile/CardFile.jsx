@@ -212,7 +212,7 @@ export default function CardFile(props) {
                         <ButtonLight title={'Label'} icon={<MdLabel />} onClick={() => handleActiveMedia('label')} />
                         <ButtonLight title={'Share'} icon={<MdShare />} onClick={() => props.sendSelectionToParent([props.file])} />
                         {/*props.file.type === 'video' && <ButtonLight title={'Split'} icon={<RiScissorsFill />} />*/}
-                        <ButtonLightConfirm
+                        {/*<ButtonLightConfirm
                             danger
                             title={'Delete'}
                             icon={<MdDelete />}
@@ -220,7 +220,7 @@ export default function CardFile(props) {
                             confirmAction={handleDelete}
                             preventDrag={() => setDraggable(false)}
                             enableDrag={() => setDraggable(true)}
-                        />
+                        />*/}
                     </DropdownFull>
                 </div>
             </div>
