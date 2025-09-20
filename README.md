@@ -22,7 +22,7 @@ This repo also includes the business module. It enables digitization providers t
 
 **Can I sign up?**
 <br />
-Unfortunately, no. Because of the lack of a payment mechanic this project is in friends & family mode. If you really want to sign up, reach out to benner@fotura.co and maybe we can work something out.
+Unfortunately, no. Because of the lack of a payment mechanic this project is in friends & family mode. If you really want to sign up, send me a message and maybe we can work something out.
 <br />
 <br />
 **Can I host my own version of Cardboard?**
