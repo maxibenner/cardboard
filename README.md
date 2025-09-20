@@ -1,14 +1,6 @@
 # Cardboard
 
 
-
-TEST CREDENTIALS<br>
-
-email: maxibenner@gmail.com<br>
-password: 123456
-
-[![Twitter](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fmerch)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fmaxibenner%2Fcardboard)
-
 ## Main
 A cloud storage platform for digitized home movies with the main focus on ease of use and pleasant interactions. The original version included automated clip splitting which has since been deactivated on client request.
 <br />
